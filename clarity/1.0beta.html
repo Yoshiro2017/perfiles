@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity v1.0 (Beta)</title>
+
+    <!-- Google Fonts: Noto Sans & Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* Base Reset & Defaults */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Font Setup */
+        body {
+            font-family: "Noto Sans", sans-serif;
+            color: #1a1a1a;
+            background-color: #fcfcfc;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: #0f0f0f;
+        }
+
+        /* Header & Navigation */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .beta-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: #2563eb;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        nav a {
+            color: #333333;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: #2563eb;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.2rem;
+            border-bottom: 2px solid #e8e8e8;
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem;
+            color: #1e293b;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        /* Icon Feature Boxes */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.07);
+            transform: translateY(-2px);
+        }
+
+        .material-symbols-outlined {
+            font-size: 2.2rem;
+            color: #2563eb;
+            margin-bottom: 0.8rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: #525252;
+            margin-bottom: 0;
+        }
+
+        /* Button & Interactive Elements */
+        .btn {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+            padding: 1.5rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 2rem;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 640px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            nav a {
+                margin: 0 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Clarity <span class="beta-badge">v1.0 Beta</span></div>
+        <nav>
+            <a href="#overview">Overview</a>
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="overview">
+            <h1>Welcome to Clarity</h1>
+            <p>Clarity is designed for simplicity, readability, and professional presentation. Built with clean structure, consistent typography, and thoughtful spacing, it provides a solid foundation for any web project.</p>
+            <p>This page uses Noto Sans for body text and Noto Serif for headings — a balanced combination that ensures clarity and elegance across all devices and languages.</p>
+            <button class="btn" id="actionButton">Learn More</button>
+        </section>
+
+        <section id="features">
+            <h2>Key Features</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <span class="material-symbols-outlined">text_fields</span>
+                    <h3>Clear Typography</h3>
+                    <p>Carefully chosen font families, sizes, and spacing ensure maximum readability.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-symbols-outlined">devices</span>
+                    <h3>Responsive Layout</h3>
+                    <p>Adapts seamlessly to any screen size, from mobile phones to large desktop displays.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-symbols-outlined">palette</span>
+                    <h3>Professional Style</h3>
+                    <p>Neutral color palette with consistent accents — clean, modern, and purposeful.</p>
+                </div>
+                <div class="feature-card">
+                    <span class="material-symbols-outlined">code</span>
+                    <h3>Standards-Based</h3>
+                    <p>Built with semantic HTML, structured CSS, and unobtrusive JavaScript.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <h2>About This Project</h2>
+            <p>Clarity is a starting template built using three core web technologies: HTML for structure, CSS for presentation, and JavaScript for interaction. It follows best practices for accessibility, performance, and maintainability.</p>
+            <p>Version 1.0 — Beta release. Subject to improvement and refinement as feedback is collected.</p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2026 Clarity — v1.0 (Beta). All rights reserved.
+    </footer>
+
+    <script>
+        // Simple interactive behavior
+        document.getElementById("actionButton").addEventListener("click", function() {
+            alert("Thank you for your interest! More information will be available in future updates.");
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener("click", function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute("href").substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+
+        console.log("Clarity v1.0 (Beta) — page loaded successfully.");
+    </script>
+
+</body>
+</html>
