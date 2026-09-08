@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v2.5 (Stable)</title>
+
+    <!-- Google Fonts: ALL families including Emoji -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Emoji:wght@300..700&family=Noto+Sans+Ethiopic:wght@100..900&family=Noto+Sans+HK:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans+TC:wght@100..900&family=Noto+Sans+Telugu:wght@100..900&family=Noto+Sans+Thai+Looped:wght@100..900&family=Noto+Sans+Thai:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+KR:wght@200..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif+TC:wght@200..900&family=Noto+Serif+Telugu:wght@100..900&family=Noto+Serif+Thai:wght@100..900&family=Noto+Serif+Tibetan:wght@100..900&family=Noto+Serif+Yezidi:wght@400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Noto+Traditional+Nushu:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --bg-editor: #f8fafc;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --bg-editor: #283344;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+        }
+
+        /* === Base Reset — GLOBAL FONT STACK APPLIED EVERYWHERE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { transition: background-color 0.3s ease, color 0.3s ease; }
+
+        /* === GLOBAL FONT STACK — EVERY PART OF THE SITE USES THESE FONTS === */
+        body, html, button, input, textarea, select, option, pre, code, samp, kbd {
+            font-family: "Noto Sans", "Noto Serif", "Noto Sans Ethiopic", "Noto Sans SC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* === Font Classes === */
+        .font-serif         { font-family: "Noto Serif", serif; }
+        .font-sans          { font-family: "Noto Sans", sans-serif; }
+        .font-japan         { font-family: "Noto Sans JP", sans-serif; }
+        .font-japan-serif   { font-family: "Noto Serif JP", serif; }
+        .font-korea         { font-family: "Noto Sans KR", sans-serif; }
+        .font-korea-serif   { font-family: "Noto Serif KR", serif; }
+        .font-china         { font-family: "Noto Sans SC", sans-serif; }
+        .font-china-serif   { font-family: "Noto Serif SC", serif; }
+        .font-taiwan        { font-family: "Noto Sans TC", sans-serif; }
+        .font-taiwan-serif  { font-family: "Noto Serif TC", serif; }
+        .font-hongkong      { font-family: "Noto Sans HK", sans-serif; }
+        .font-nushu         { font-family: "Noto Traditional Nushu", sans-serif !important; }
+        .font-yezidi        { font-family: "Noto Serif Yezidi", serif !important; }
+        .font-tibetan       { font-family: "Noto Serif Tibetan", serif !important; }
+        .font-thai          { font-family: "Noto Sans Thai", sans-serif !important; } /* DEFAULT: Sans Thai */
+        .font-thai-serif    { font-family: "Noto Serif Thai", serif !important; }
+        .font-thai-looped   { font-family: "Noto Sans Thai Looped", sans-serif !important; }
+        .font-telugu        { font-family: "Noto Sans Telugu", sans-serif !important; }
+        .font-telugu-serif  { font-family: "Noto Serif Telugu", serif !important; }
+        .font-emoji-color   { font-family: "Noto Color Emoji", sans-serif !important; } /* Auto-rendered */
+        .font-emoji-mono    { font-family: "Noto Emoji", sans-serif !important; } /* /monochrome */
+        .font-ethiopic      { font-family: "Noto Sans Ethiopic", sans-serif; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Serif Thai", "Noto Serif Telugu", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Material Symbols === */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+            letter-spacing: normal; text-transform: none; display: inline-block;
+            white-space: nowrap; word-wrap: normal; direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        .icon-accent { color: var(--accent-blue); }
+        .icon-green  { color: var(--accent-green); }
+        .icon-lg     { font-size: 28px; vertical-align: middle; margin-right: 0.4rem; }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content); border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem; display: flex;
+            justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .logo { font-family: "Noto Serif", serif; font-size: 1.4rem; font-weight: 700; color: var(--accent-blue); cursor: pointer; }
+        .version-badge { font-size: 0.75rem; font-weight: 500; color: #fff; background: var(--accent-green); padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; }
+        .license-badge { font-size: 0.75rem; font-weight: 500; color: #fff; background: var(--accent-blue); padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.3rem; }
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+        .theme-toggle {
+            background: none; border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text-main);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle:hover { background: var(--bg-accent); border-color: var(--accent-blue); }
+        .theme-toggle .material-symbols-outlined { font-size: 1.25rem; margin: 0; }
+        nav a { color: var(--text-main); text-decoration: none; margin-left: 2rem; font-weight: 500;
+            border-bottom: 2px solid transparent; padding-bottom: 0.2rem;
+            transition: color 0.2s ease, border-color 0.2s ease; }
+        nav a:hover, nav a.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+
+        /* === Page System === */
+        .page { display: none; max-width: 900px; margin: 0 auto; padding: 3rem 2rem; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+        /* === Headings & Spacing === */
+        h1 { font-size: 2.4rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.6rem; }
+        h2 { font-size: 1.6rem; margin: 2.2rem 0 1rem; color: var(--text-strong); }
+        h3 { font-size: 1.2rem; margin: 1.6rem 0 0.7rem; color: var(--text-strong); }
+        p { margin-bottom: 1.1rem; font-size: 1.05rem; }
+        ul, ol { margin: 1rem 0 1.5rem 2.2rem; }
+        li { margin-bottom: 0.6rem; }
+        hr { border: none; border-top: 1px solid var(--border-color); margin: 2.5rem 0; }
+
+        /* === Editor — FULL FONT STACK APPLIED === */
+        .editor-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+        @media (max-width:720px) { .editor-container { grid-template-columns: 1fr; } }
+        textarea {
+            width: 100%; min-height: 320px; padding: 1rem;
+            font-family: "Noto Sans", "Noto Sans SC", "Noto Sans TC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", "Noto Emoji", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            font-size: 1rem; line-height: 1.7; color: var(--text-main); background: var(--bg-editor);
+            border: 1px solid var(--border-color); border-radius: 8px; resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+        textarea:focus { outline: none; border-color: var(--accent-blue); }
+        .preview-box {
+            min-height: 320px; padding: 1rem; background: var(--bg-content);
+            border: 1px solid var(--border-color); border-radius: 8px; overflow-y: auto;
+            font-family: "Noto Sans", "Noto Serif", "Noto Sans SC", "Noto Sans TC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", "Noto Emoji", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+        }
+        .preview-box h1 { font-size:1.8rem; margin:0.6rem 0; border:none; padding:0; }
+        .preview-box h2 { font-size:1.4rem; margin:0.5rem 0; }
+        .preview-box h3 { font-size:1.15rem; margin:0.4rem 0; }
+        .preview-box p { margin:0.4rem 0; }
+        .preview-box ul, .preview-box ol { margin:0.5rem 0 0.5rem 1.8rem; }
+        .preview-box strong { font-weight:700; }
+        .preview-box em { font-style:italic; }
+        .preview-box hr { margin:1rem 0; }
+        .preview-box code { background: var(--bg-accent); padding:0.1rem 0.3rem; border-radius:3px; font-family:monospace; }
+        .preview-box pre { background: var(--bg-accent); padding:1rem; border-radius:6px; overflow-x:auto; }
+        .preview-box pre code { background:none; padding:0; }
+
+        .commands-help { background: var(--bg-accent); border-left:4px solid var(--accent-blue); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+        .commands-help h3 { margin-top:0; color: var(--accent-blue); display:flex; align-items:center; gap:0.5rem; }
+        .command-example { font-family:monospace; background:rgba(37,99,235,0.08); padding:0.2rem 0.4rem; border-radius:3px; display:inline-block; margin:0.2rem 0; }
+        .note-box { background:rgba(22,163,74,0.08); border-left:4px solid var(--accent-green); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1rem 0; }
+        .license-box { background:rgba(37,99,235,0.08); border-left:4px solid var(--accent-blue); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+
+        /* === Feature Cards === */
+        .feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.5rem; margin-top:1.5rem; }
+        .feature-card { background:var(--bg-content); border:1px solid var(--border-color); border-radius:8px; padding:1.6rem; transition: all 0.25s ease; }
+        .feature-card:hover { box-shadow:0 4px 14px var(--shadow-soft); transform: translateY(-3px); }
+        .feature-card .material-symbols-outlined { font-size:2.3rem; color:var(--accent-blue); margin-bottom:0.9rem; }
+        .feature-card h3 { font-family: "Noto Sans", sans-serif; font-size:1.1rem; margin:0 0 0.5rem; }
+        .feature-card p { font-size:0.98rem; color:var(--text-muted); margin:0; }
+
+        /* === Buttons === */
+        .btn { display:inline-block; background:var(--accent-blue); color:#fff; font-family:inherit; font-size:1rem; font-weight:500; padding:0.8rem 1.6rem; border-radius:6px; border:none; cursor:pointer; text-decoration:none; margin:0.3rem 0; transition:background 0.2s ease; }
+        .btn:hover { background:var(--accent-blue-hover); }
+        .btn:active { transform:scale(0.98); }
+        .btn-secondary { background:var(--bg-accent); color:var(--text-strong); }
+        .btn-secondary:hover { background:var(--border-color); }
+        .button-group { margin:1.8rem 0; }
+
+        /* === Highlights === */
+        .highlight-box { background:var(--bg-accent); border-left:4px solid var(--accent-green); padding:1.3rem 1.5rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+        .highlight-box h3 { margin-top:0; color:var(--accent-green-text); display:flex; align-items:center; gap:0.5rem; }
+
+        /* === Footer === */
+        footer { border-top:1px solid var(--border-color); text-align:center; padding:1.8rem; font-size:0.9rem; color:var(--text-soft); margin-top:3rem; }
+
+        /* === Code === */
+        code { background:var(--bg-accent); padding:0.15rem 0.4rem; border-radius:3px; font-family:monospace; color:var(--accent-blue); }
+
+        /* === Responsive === */
+        @media (max-width:720px) {
+            header { flex-direction:column; gap:1rem; text-align:center; }
+            .header-right { width:100%; justify-content:center; flex-wrap:wrap; }
+            nav { display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; }
+            nav a { margin:0 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v2.5 Stable</span><span class="license-badge">MIT License</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#editor" data-page="editor" class="nav-link">Editor</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#license" data-page="license" class="nav-link">License</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — now at <strong>Version 2.5</strong>! Emoji support added + Thai defaults to Sans!</p>
+
+        <h2>Sample Text — All Supported Writing Systems</h2>
+        <ul>
+            <li><strong>Emoji (Color):</strong> <span class="font-emoji-color">🎶🎷🐛</span> — auto-renders ✨ NEW</li>
+            <li><strong>Emoji (Monochrome):</strong> <span class="font-emoji-mono">🎶🎷🐛</span> — <code>/monochrome</code> ✨ NEW</li>
+            <li><strong>Thai (Default):</strong> <span class="font-thai">มนุษย์</span> — now uses Noto Sans Thai ✅</li>
+            <li><strong>Thai Looped:</strong> <span class="font-thai-looped">มนุษย์</span> — <code>/looped</code></li>
+            <li><strong>Thai Serif:</strong> <span class="font-thai-serif">มนุษย์</span> — <code>/thai serif</code></li>
+            <li><strong>Telugu:</strong> <span class="font-telugu">పరతస</span> — auto-renders</li>
+            <li><strong>Telugu Serif:</strong> <span class="font-telugu-serif">పరతస</span> — auto-renders</li>
+            <li><strong>Tibetan:</strong> <span class="font-tibetan">འགབམ</span> — auto-renders</li>
+            <li><strong>Nüshu:</strong> <span class="font-nushu">𛅰𛇤𛈕𛅸</span> — displays correctly ✅</li>
+            <li><strong>Yezidi:</strong> <span class="font-yezidi">𐺍𐺁𐺄𐺀</span> — auto-renders</li>
+            <li><strong>Hong Kong:</strong> <span class="font-hongkong">生而平等</span> — <code>/hongkong</code></li>
+            <li><strong>Simplified Chinese Sans:</strong> <span class="font-china">人生而自</span></li>
+            <li><strong>Simplified Chinese Serif:</strong> <span class="font-china-serif">人生而自</span></li>
+            <li><strong>Traditional Chinese Sans:</strong> <span class="font-taiwan">人生而自</span></li>
+            <li><strong>Traditional Chinese Serif:</strong> <span class="font-taiwan-serif">人生而自</span></li>
+            <li><strong>Japanese Sans:</strong> <span class="font-japan">すべて の</span></li>
+            <li><strong>Japanese Serif:</strong> <span class="font-japan-serif">すべて の</span></li>
+            <li><strong>Korean Sans:</strong> <span class="font-korea">모든인간</span></li>
+            <li><strong>Korean Serif:</strong> <span class="font-korea-serif">모든인간</span></li>
+            <li><strong>Ethiopic:</strong> <span class="font-ethiopic">የሰውል</span> — auto-renders</li>
+            <li><strong>Latin Serif:</strong> <span class="font-serif">AaLl</span></li>
+            <li><strong>Latin Sans:</strong> <span class="font-sans">AaLl</span></li>
+        </ul>
+
+        <div class="license-box">
+            <span class="material-symbols-outlined icon-accent" style="font-size:1.2rem; vertical-align:middle;">copyright</span>
+            <strong>v2.5 Highlights:</strong> Emoji Color (auto) · Emoji Monochrome (<code>/monochrome</code>) · Thai Default → Sans · 22 Font Families · MIT License
+        </div>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">emoji_events</span><strong>Emoji Color:</strong> Noto Color Emoji added — renders automatically in full color! Sample: 🎶🎷🐛 ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>Emoji Monochrome:</strong> Noto Emoji (outline style) added. Command: <code>/monochrome</code> ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">rule</span><strong>Thai Default Changed:</strong> Thai now uses <strong>Noto Sans Thai</strong> globally. Use <code>/thai serif</code> for Serif variant.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Open Editor</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Explore Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+
+        <h2>Typography — 22 Font Families, Global Coverage</h2>
+        <p>Clarity now loads <strong>TWENTY-TWO font families</strong> — with full emoji support!</p>
+        <ul>
+            <li><strong>Emoji:</strong> Noto Color Emoji (auto-renders) · Noto Emoji — <code>/monochrome</code> ✨ NEW</li>
+            <li><strong>Latin:</strong> Noto Sans / Noto Serif — /normal /serif</li>
+            <li><strong>Japanese:</strong> Noto Sans JP / Noto Serif JP — /japan /japan serif</li>
+            <li><strong>Korean:</strong> Noto Sans KR / Noto Serif KR — /korea /korea serif</li>
+            <li><strong>Simplified Chinese:</strong> Noto Sans SC / Noto Serif SC — /china /china serif</li>
+            <li><strong>Traditional Chinese:</strong> Noto Sans TC / Noto Serif TC — /taiwan /macau /taiwan serif /macau serif</li>
+            <li><strong>Hong Kong:</strong> Noto Sans HK — /hongkong</li>
+            <li><strong>Telugu:</strong> Noto Sans Telugu / Noto Serif Telugu — auto-renders</li>
+            <li><strong>Thai (3 variants):</strong> <strong>Noto Sans Thai (default)</strong> · Noto Serif Thai — /thai serif · Noto Sans Thai Looped — /looped</li>
+            <li><strong>Tibetan:</strong> Noto Serif Tibetan — auto-renders</li>
+            <li><strong>Nüshu:</strong> Noto Traditional Nushu — auto-renders</li>
+            <li><strong>Yezidi:</strong> Noto Serif Yezidi — auto-renders</li>
+            <li><strong>Ethiopic:</strong> Noto Sans Ethiopic — auto-renders</li>
+        </ul>
+
+        <h2>All Commands & Auto-Rendering Scripts</h2>
+        <table style="border-collapse:collapse; width:100%; margin:1rem 0;">
+            <tr style="border-bottom:2px solid var(--border-color); background:var(--bg-accent);">
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Command / Script</th>
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Font Selected</th>
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Status</th>
+            </tr>
+            <tr style="background:rgba(22,163,74,0.05);"><td style="padding:0.5rem;"><strong>Emoji Color</strong></td><td style="padding:0.5rem;"><strong>Noto Color Emoji — auto-renders 🎶🎷🐛</strong></td><td style="padding:0.5rem;"><strong>✅ ✨ NEW</strong></td></tr>
+            <tr style="background:rgba(37,99,235,0.05);"><td style="padding:0.5rem;"><strong><code>/monochrome</code></strong></td><td style="padding:0.5rem;"><strong>Noto Emoji (outline style)</strong></td><td style="padding:0.5rem;"><strong>✅ ✨ NEW</strong></td></tr>
+            <tr><td style="padding:0.5rem;"><code>/normal</code></td><td style="padding:0.5rem;">Noto Sans (reset)</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/serif</code></td><td style="padding:0.5rem;">Noto Serif (Latin)</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/japan</code> / <code>/japan serif</code></td><td style="padding:0.5rem;">Noto Sans/Serif JP</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/korea</code> / <code>/korea serif</code></td><td style="padding:0.5rem;">Noto Sans/Serif KR</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/china</code> / <code>/china serif</code></td><td style="padding:0.5rem;">Noto Sans/Serif SC</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/taiwan</code> / <code>/taiwan serif</code></td><td style="padding:0.5rem;">Noto Sans/Serif TC</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/hongkong</code></td><td style="padding:0.5rem;">Noto Sans HK</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/looped</code></td><td style="padding:0.5rem;">Noto Sans Thai Looped</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/thai serif</code></td><td style="padding:0.5rem;">Noto Serif Thai</td><td style="padding:0.5rem;">✅</td></tr>
+            <tr><td style="padding:0.5rem;">Telugu / Tibetan / Nushu / Yezidi / Ethiopic</td><td style="padding:0.5rem;">All auto-render</td><td style="padding:0.5rem;">✅</td></tr>
+        </table>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">emoji_events</span>
+                <h3>Color Emoji</h3>
+                <p>Noto Color Emoji renders automatically! 🎶🎷🐛</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>Monochrome Emoji</h3>
+                <p>Type /monochrome for clean outline-style emoji.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">rule</span>
+                <h3>Thai → Sans Default</h3>
+                <p>Thai now uses Noto Sans Thai globally. Use /thai serif for Serif.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">edit_note</span>
+                <h3>Live Editor</h3>
+                <p>Type emoji — preview instantly in color or monochrome!</p>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== EDITOR PAGE ==================== -->
+    <div id="editor" class="page">
+        <h1>Editor</h1>
+        <p>Emoji just works! Type 🎶🎷🐛 for color — or <code>/monochrome</code> for outline style. Thai now defaults to Sans.</p>
+
+        <div class="commands-help">
+            <h3><span class="material-symbols-outlined">terminal</span> Commands & Auto-Rendering</h3>
+            <p><strong>Commands:</strong> /normal · /serif · /japan [serif] · /korea [serif] · /china [serif] · /taiwan [serif] · /hongkong · /looped · /thai serif · <strong>/monochrome</strong><br>
+            <strong>Auto-Render:</strong> Emoji 🎶🎷🐛 · Thai มนุษย์ · Telugu పరతస · Tibetan འགབམ · Nüshu 𛅰𛇤𛈕𛅸 · Yezidi 𐺍𐺁𐺄𐺀 · Ethiopic የሰውል</p>
+        </div>
+
+        <div class="editor-container">
+            <div>
+                <h3 style="margin-top:0">Input</h3>
+                <textarea id="textInput" placeholder="Type here... Try emoji: 🎶🎷🐛 or /monochrome 🎶">Sample Text — v2.5
+
+🎶🎷🐛 — Color Emoji ✨ NEW
+/monochrome 🎶🎷🐛 — Monochrome Emoji ✨ NEW
+
+มนุษย์ — Thai (Sans, default)
+/looped มนุษย์ — Thai Looped
+/thai serif มนุษย์ — Thai Serif
+
+పరతస — Telugu
+འགབམ — Tibetan
+𛅰𛇤𛈕𛅸 — Nüshu
+𐺍𐺁𐺄𐺀 — Yezidi
+
+/hongkong 生而平等
+/china 人生而自
+/japan すべて の
+/korea 모든인간
+/serif Latin Serif
+/normal Back to default.
+</textarea>
+            </div>
+            <div>
+                <h3 style="margin-top:0">Preview</h3>
+                <div id="previewOutput" class="preview-box"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn" id="clearBtn"><span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;margin-right:0.3rem;">delete_sweep</span>Clear All</button>
+            <a href="#whatsnew" data-page="whatsnew" class="btn btn-secondary">What's New in v2.5</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 2.5 (Stable)</h1>
+
+        <div class="highlight-box">
+            <h3><span class="material-symbols-outlined icon-green">check_circle</span> Emoji Support + Thai Default → Sans!</h3>
+            <p>Clarity v2.5 adds <strong>Noto Color Emoji</strong> (auto-renders in full color) + <strong>Noto Emoji</strong> (outline style via <code>/monochrome</code>). Thai now defaults to <strong>Noto Sans Thai</strong> globally!</p>
+        </div>
+
+        <h2>Changes in v2.5</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">emoji_events</span><strong>Noto Color Emoji Added:</strong> Full-color emoji font. Auto-renders everywhere! Sample: 🎶🎷🐛 ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>Noto Emoji Added:</strong> Monochrome/outline emoji font. New command: <code>/monochrome</code> ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">rule</span><strong>Thai Default Changed:</strong> Thai now uses <strong>Noto Sans Thai</strong> everywhere. Serif variant available via <code>/thai serif</code> ✅</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">link</span><strong>Font Link Updated:</strong> 2 emoji families added → <strong>22 total font families</strong>!</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">font_download</span><strong>Global Font Stack Updated:</strong> Color Emoji renders automatically everywhere — page, editor, preview, headers!</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">terminal</span><strong>New Commands:</strong> <code>/monochrome</code> → Noto Emoji · <code>/thai serif</code> → Noto Serif Thai</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">label</span><strong>Version Bumped:</strong> v2.4 → <strong>v2.5</strong> ✅</li>
+        </ul>
+
+        <h2>About Emoji Fonts</h2>
+        <p><strong>Noto Color Emoji</strong> provides full-color emoji that render automatically — no command needed. <strong>Noto Emoji</strong> is the outline-style monochrome variant, activated with <code>/monochrome</code>.</p>
+
+        <h2>About Thai Default Change</h2>
+        <p>Thai now defaults to <strong>Noto Sans Thai</strong> (clean, modern sans-serif style) instead of Serif. Use <code>/thai serif</code> when you want the traditional look. Looped variant remains available via <code>/looped</code>.</p>
+
+        <div class="button-group">
+            <a href="#license" data-page="license" class="btn">Read License</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== LICENSE PAGE ==================== -->
+    <div id="license" class="page">
+        <h1>MIT License</h1>
+        <p>Copyright © 2026 Clarity</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+        <div class="button-group">
+            <a href="#overview" data-page="overview" class="btn">Return Home</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v2.5 (Stable). Emoji Support · Thai → Sans Default · 22 Font Families · MIT License.
+    </footer>
+
+    <!-- === JavaScript === -->
+    <script>
+        // ========== THEME ==========
+        const THEME_KEY = "clarity-theme";
+        const getSystemTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        function applyTheme(t) {
+            document.documentElement.setAttribute("data-theme", t);
+            document.getElementById("themeIcon").textContent = t === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, t);
+        }
+        applyTheme(localStorage.getItem(THEME_KEY) || getSystemTheme());
+        document.getElementById("themeToggle").addEventListener("click", () =>
+            applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark")
+        );
+
+        // ========== NAVIGATION ==========
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id)?.classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(l =>
+                l.classList.toggle('active', l.getAttribute('data-page') === id)
+            );
+            window.scrollTo({ top:0, behavior:'smooth' });
+        }
+        document.querySelectorAll('[data-page]').forEach(el => {
+            el.addEventListener('click', e => {
+                e.preventDefault();
+                const pid = el.getAttribute('data-page');
+                history.pushState({page:pid}, '', '#'+pid);
+                showPage(pid);
+                if(pid==='editor') renderPreview();
+            });
+        });
+        window.addEventListener('popstate', e => e.state?.page && showPage(e.state.page));
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = location.hash.slice(1) || 'overview';
+            showPage(hash);
+            renderPreview();
+        });
+
+        // ========== EDITOR — Command Parser ==========
+        const input = document.getElementById('textInput');
+        const output = document.getElementById('previewOutput');
+        document.getElementById('clearBtn').onclick = () => { input.value=''; renderPreview(); input.focus(); };
+
+        function renderMarkdown(text) {
+            let html = text.replace(/\r\n/g,'\n').split('\n').map(line => {
+                if(line.startsWith('### ')) return `<h3>${line.slice(4)}</h3>`;
+                if(line.startsWith('## '))  return `<h2>${line.slice(3)}</h2>`;
+                if(line.startsWith('# '))   return `<h1>${line.slice(2)}</h1>`;
+                if(line==='---'||line==='***') return '<hr>';
+                if(line.startsWith('- ')||line.startsWith('* ')) return `<ul><li>${line.slice(2)}</li></ul>`;
+                return line.trim() ? `<p>${line}</p>` : '<br>';
+            }).join('');
+            return html.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+                       .replace(/\*(.*?)\*/g,'<em>$1</em>')
+                       .replace(/`(.*?)`/g,'<code>$1</code>');
+        }
+
+        function processFontCommands(text) {
+            // Match multi-word commands + single-word commands FIRST
+            const pattern = /(\/(?:japan|korea|china|taiwan|macau|hongkong|thai)\s+serif|\/monochrome|\/looped|\/(?:normal|serif|sansserif|japan|korea|china|taiwan|macau|hongkong)\b)/g;
+            const parts = text.split(pattern);
+            let font = 'font-sans', result = '';
+
+            for (let i=0; i<parts.length; i++) {
+                const p = parts[i]?.trim();
+                if(!p && parts[i]) { result += parts[i]; continue; }
+
+                // New commands
+                if(p==='/monochrome')   { font='font-emoji-mono'; continue; }
+                if(p==='/looped')       { font='font-thai-looped'; continue; }
+                if(p==='/thai serif')   { font='font-thai-serif'; continue; }
+
+                // Multi-word commands — Serif variants
+                if(/^\/japan\s+serif$/.test(p))    { font='font-japan-serif'; continue; }
+                if(/^\/korea\s+serif$/.test(p))    { font='font-korea-serif'; continue; }
+                if(/^\/china\s+serif$/.test(p))    { font='font-china-serif'; continue; }
+                if(/^\/taiwan\s+serif$/.test(p) || /^\/macau\s+serif$/.test(p)) { font='font-taiwan-serif'; continue; }
+                if(/^\/hongkong\s+serif$/.test(p)) { continue; /* reserved */ }
+                // Single-word commands — Sans variants
+                if(p==='/normal')      { font='font-sans'; continue; }
+                if(p==='/serif')       { font='font-serif'; continue; }
+                if(p==='/sansserif')   { font='font-sans'; continue; }
+                if(p==='/japan')       { font='font-japan'; continue; }
+                if(p==='/korea')       { font='font-korea'; continue; }
+                if(p==='/china')       { font='font-china'; continue; }
+                if(p==='/taiwan'||p==='/macau') { font='font-taiwan'; continue; }
+                if(p==='/hongkong')    { font='font-hongkong'; continue; }
+
+                result += `<span class="${font}">${parts[i]}</span>`;
+            }
+            return result;
+        }
+
+        function renderPreview() {
+            output.innerHTML = renderMarkdown(processFontCommands(input.value));
+        }
+        input.addEventListener('input', renderPreview);
+
+        console.log("Clarity v2.5 — Emoji Support · Thai → Sans Default · 22 Font Families · MIT License.");
+    </script>
+</body>
+</html>
