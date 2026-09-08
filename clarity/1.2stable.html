@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v1.2 (Stable)</title>
+
+    <!-- Google Fonts: Noto Sans, Noto Serif, Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+        }
+
+        /* === Base Reset === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === Font & Body === */
+        html {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-green);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-accent);
+            border-color: var(--accent-blue);
+        }
+
+        .theme-toggle .material-symbols-outlined {
+            font-size: 1.25rem;
+            color: inherit;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        /* === Page Container System === */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Headings & Spacing === */
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.2rem 0 1rem;
+            color: var(--text-strong);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.6rem 0 0.7rem;
+            color: var(--text-strong);
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 2.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.6rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 14px var(--shadow-soft);
+            transform: translateY(-3px);
+        }
+
+        .material-symbols-outlined {
+            font-size: 2.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.9rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* === Buttons === */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            margin: 0.3rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-accent);
+            color: var(--text-strong);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .button-group {
+            margin: 1.8rem 0;
+        }
+
+        /* === Version Highlights === */
+        .highlight-box {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.3rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent-green-text);
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-top: 3rem;
+            transition: border-color 0.3s ease;
+        }
+
+        /* === Code/Inline Elements === */
+        code {
+            background-color: var(--bg-accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        /* === Responsive === */
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                margin: 0 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Header & Navigation === -->
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v1.2 Stable</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#about" data-page="about" class="nav-link">About</a>
+                <a href="#learnmore" data-page="learnmore" class="nav-link">Learn More</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — a professional web design framework and template built with simplicity, consistency, and readability as its core principles. Clarity has been developed to provide a solid foundation upon which any kind of web project can be built.</p>
+        
+        <p>With the addition of <strong>Noto Sans JP</strong> in v1.2, Clarity now offers comprehensive support for Japanese alongside Latin and serif typography — all from the Noto font family, ensuring consistent visual harmony across every language.</p>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><strong>Global Typography:</strong> Noto Sans (with JP extension) for body text, Noto Serif for headings — unified typography for every language.</li>
+            <li><strong>Dual Theme Support:</strong> Light and dark modes with one-click toggle, system preference matching, and auto-saved preference.</li>
+            <li><strong>Consistency Everywhere:</strong> Spacing, sizing, and styling follow consistent patterns throughout.</li>
+            <li><strong>Responsive by Default:</strong> Layouts adapt fluidly to any screen size.</li>
+            <li><strong>Standards Compliant:</strong> Built with semantic HTML, modular CSS, and unobtrusive JavaScript.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#features" data-page="features" class="btn">Explore Features</a>
+            <a href="#learnmore" data-page="learnmore" class="btn btn-secondary">Learn More</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+        
+        <h2>Typography — Now with Japanese Support</h2>
+        <p>Clarity now loads three font families from the Noto collection:</p>
+        <ul>
+            <li><strong>Noto Sans:</strong> Latin, Greek, Cyrillic, and extended scripts — primary interface font.</li>
+            <li><strong>Noto Sans JP:</strong> Japanese kanji, hiragana, and katakana — full weight range 100–900.</li>
+            <li><strong>Noto Serif:</strong> Headings and titles — provides elegant distinction from body text.</li>
+        </ul>
+        <p>Both sans-serif families share the same design language — Japanese text flows naturally alongside Latin text without visual mismatch.</p>
+
+        <h2>All Features</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">language</span>
+                <h3>Multi-Language Ready</h3>
+                <p>Noto Sans JP added — full Japanese support alongside Latin, all from one font family.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">dark_mode</span>
+                <h3>Dual Theme</h3>
+                <p>Light and dark modes with toggle, auto-save, and smooth transitions.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">devices</span>
+                <h3>Responsive Layout</h3>
+                <p>Adapts seamlessly to any screen size, from phones to desktop.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>Consistent Colors</h3>
+                <p>Full contrast-tested palette defined in CSS variables — identical in both themes.</p>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="#whatsnew" data-page="whatsnew" class="btn">What's New in v1.2</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 1.2 (Stable)</h1>
+        
+        <div class="highlight-box">
+            <h3>🗾 New Feature: Noto Sans JP</h3>
+            <p>Clarity v1.2 adds full Japanese language support. Noto Sans JP with weight range 100–900 now loads alongside Latin fonts — unified typography for all languages.</p>
+        </div>
+
+        <h2>Changes in v1.2</h2>
+        <ul>
+            <li><strong>Font Link Updated:</strong> Added <code>Noto+Sans+JP:wght@100..900</code> to the Google Fonts request.</li>
+            <li><strong>Font Stack Updated:</strong> Body font changed to <code>"Noto Sans", "Noto Sans JP", sans-serif</code> — Japanese text renders with matching style.</li>
+            <li><strong>Performance Preserved:</strong> <code>preconnect</code> hints remain — fonts load fast with zero render-blocking delay.</li>
+            <li><strong>Version Bumped:</strong> v1.1 → v1.2 — new feature = version number increased ✅</li>
+        </ul>
+
+        <h2>Font Loading Details</h2>
+        <p>The updated link requests three families in a single efficient request:</p>
+        <ul>
+            <li>Noto Sans JP — 100 to 900 weight</li>
+            <li>Noto Sans — normal & italic, 100 to 900</li>
+            <li>Noto Serif — normal & italic, 100 to 900</li>
+        </ul>
+        <p>Google automatically serves the correct character subsets — only the glyphs needed for the page's language are downloaded. Efficient, global, and elegant.</p>
+
+        <div class="button-group">
+            <a href="#about" data-page="about" class="btn">About Clarity</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div id="about" class="page">
+        <h1>About Clarity</h1>
+        <p>Clarity is an open web design template created to demonstrate professional web design using standard HTML, CSS, and JavaScript — no frameworks or build tools required.</p>
+
+        <h2>Versioning Rule</h2>
+        <blockquote style="border-left:3px solid var(--accent-blue); padding-left:1rem; font-style:italic; margin:1rem 0;">Every new feature increases the version number.</blockquote>
+        <p>v1.0 → v1.1 (Dark Mode) → v1.2 (Noto Sans JP) — each addition increments the version clearly. Backward compatibility is maintained throughout the v1.x series.</p>
+
+        <h2>Philosophy</h2>
+        <ul>
+            <li>Web design should be understandable from first principles — no frameworks required.</li>
+            <li>Global typography through Noto fonts — designed for every language on Earth.</li>
+            <li>Structure, presentation, and behavior remain strictly separated.</li>
+            <li>Accessibility is not optional — color contrast, semantic structure, keyboard navigation.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#learnmore" data-page="learnmore" class="btn">Continue Learning</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+
+    <!-- ==================== LEARN MORE PAGE ==================== -->
+    <div id="learnmore" class="page">
+        <h1>Learn More</h1>
+        <p>Thank you for exploring Clarity. This template is designed to be understandable, modifiable, and extendable by anyone — regardless of experience level.</p>
+
+        <h2>Font Customization</h2>
+        <p>To add more language support, simply extend the Google Fonts link with additional Noto families (Noto Sans SC, Noto Sans TC, Noto Sans KR, etc.), then update the <code>font-family</code> stack in the CSS to match. The entire design adapts automatically.</p>
+
+        <h2>Getting Started</h2>
+        <ol>
+            <li>Copy the full HTML code.</li>
+            <li>Paste into any plain text editor.</li>
+            <li>Save as <code>index.html</code>.</li>
+            <li>Open in any browser — fonts, icons, dark mode, and navigation all work instantly.</li>
+        </ol>
+
+        <p>Thank you for exploring Clarity. May it serve you well as you build something clear, professional, and enduring.</p>
+
+        <div class="button-group">
+            <a href="#overview" data-page="overview" class="btn">Return to Overview</a>
+            <a href="#about" data-page="about" class="btn btn-secondary">Read About Clarity</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v1.2 (Stable). All rights reserved.
+    </footer>
+
+    <!-- === JavaScript Navigation & Theme System === -->
+    <script>
+        // ========== THEME MANAGEMENT ==========
+        const THEME_KEY = "clarity-theme";
+
+        function getSystemTheme() {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            const icon = document.getElementById("themeIcon");
+            icon.textContent = theme === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+            applyTheme(current === "dark" ? "light" : "dark");
+        }
+
+        // Initialize theme on load
+        const savedTheme = localStorage.getItem(THEME_KEY) || getSystemTheme();
+        applyTheme(savedTheme);
+
+        // Theme toggle button
+        document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+        // ========== PAGE NAVIGATION ==========
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle navigation clicks
+        document.querySelectorAll('[data-page]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    history.pushState({ page: pageId }, '', '#' + pageId);
+                    showPage(pageId);
+                }
+            });
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        // Load initial page from URL hash
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            const initialPage = hash || 'overview';
+            showPage(initialPage);
+        });
+
+        console.log("Clarity v1.2 (Stable) — Noto Sans JP added. Loaded successfully.");
+    </script>
+
+</body>
+</html>
