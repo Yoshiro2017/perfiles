@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v1.0 (Stable)</title>
+
+    <!-- Google Fonts: Noto Sans & Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Base Reset === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === Font & Body === */
+        body {
+            font-family: "Noto Sans", sans-serif;
+            color: #1a1a1a;
+            background-color: #fcfcfc;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: #0f0f0f;
+        }
+
+        /* === Header & Navigation === */
+        header {
+            background: #ffffff;
+            border-bottom: 1px solid #e8e8e8;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #2563eb;
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: #16a34a;
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        nav a {
+            color: #333333;
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+
+        /* === Page Container System === */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Headings & Spacing === */
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #e8e8e8;
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.2rem 0 1rem;
+            color: #1e293b;
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.6rem 0 0.7rem;
+            color: #334155;
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 2.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 2.5rem 0;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 8px;
+            padding: 1.6rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 14px rgba(0,0,0,0.07);
+            transform: translateY(-3px);
+        }
+
+        .material-symbols-outlined {
+            font-size: 2.3rem;
+            color: #2563eb;
+            margin-bottom: 0.9rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.98rem;
+            color: #525252;
+            margin-bottom: 0;
+        }
+
+        /* === Buttons === */
+        .btn {
+            display: inline-block;
+            background-color: #2563eb;
+            color: #ffffff;
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            margin: 0.3rem;
+        }
+
+        .btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: #f1f5f9;
+            color: #1e293b;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        .button-group {
+            margin: 1.8rem 0;
+        }
+
+        /* === Version Highlights === */
+        .highlight-box {
+            background-color: #f0fdf4;
+            border-left: 4px solid #16a34a;
+            padding: 1.3rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: #15803d;
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 1px solid #e8e8e8;
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 3rem;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                margin: 0 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Header & Navigation === -->
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v1.0 Stable</span></div>
+        <nav>
+            <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+            <a href="#features" data-page="features" class="nav-link">Features</a>
+            <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+            <a href="#about" data-page="about" class="nav-link">About</a>
+            <a href="#learnmore" data-page="learnmore" class="nav-link">Learn More</a>
+        </nav>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — a professional web design framework and template built with simplicity, consistency, and readability as its core principles. Clarity has been developed to provide a solid foundation upon which any kind of web project can be built, from documentation sites and dashboards to content-heavy publications and corporate portals.</p>
+        
+        <p>The philosophy behind Clarity is straightforward: content should be presented clearly, navigation should be intuitive, and design choices should serve the information rather than distract from it. Every element — from font sizes and line heights to color selections — has been chosen with purpose. There are no decorative flourishes that serve no function; every detail contributes toward legibility and comprehension.</p>
+
+        <h2>Design Principles</h2>
+        <p>Several core principles guide every aspect of Clarity:</p>
+        <ul>
+            <li><strong>Readability First:</strong> Typography is the foundation of all design. Clarity uses Noto Sans for interface text and Noto Serif for headings — ensuring both structural distinction and visual harmony across every language and writing system.</li>
+            <li><strong>Consistency Everywhere:</strong> Spacing, sizing, and styling follow consistent patterns throughout. Users should never have to relearn how to navigate or interpret different sections of the same experience.</li>
+            <li><strong>Responsive by Default:</strong> Layouts adapt fluidly to any screen size. Whether viewed on a compact smartphone, tablet, laptop, or large desktop monitor, the content remains accessible and well-structured.</li>
+            <li><strong>Standards Compliant:</strong> Built with semantic HTML, modular CSS, and unobtrusive JavaScript. Clarity follows recognized web standards to ensure broad compatibility, accessibility, and long-term maintainability.</li>
+            <li><strong>Performance Minded:</strong> Fonts are loaded efficiently with preconnect hints. Styles are structured to minimize reflow. Code is kept lean. Fast pages serve everyone better.</li>
+        </ul>
+
+        <h2>Intended Use</h2>
+        <p>Clarity serves as both a ready-to-use template and a reference implementation of good web design practices. It may be used as-is for documentation, project homepages, internal tools, or content sites. It may also be extended and customized to suit more specific requirements, serving as a clean starting point from which larger projects can grow.</p>
+
+        <p>With the release of version 1.0 Stable, the core structure, typography system, color palette, and component set are considered finalized and ready for production use. Future updates will focus on additional components, expanded documentation, and refinements based on real-world feedback.</p>
+
+        <div class="button-group">
+            <a href="#features" data-page="features" class="btn">Explore Features</a>
+            <a href="#learnmore" data-page="learnmore" class="btn btn-secondary">Learn More</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+        <p>Clarity includes a carefully selected set of features designed to meet the needs of most web projects without unnecessary complexity. Every component and capability has been evaluated for utility, accessibility, and performance before being included.</p>
+
+        <h2>Typography & Fonts</h2>
+        <p>Clarity makes use of the Noto font family from Google Fonts — a comprehensive, open-source collection designed to support every language and writing system in use across the globe. Two families are employed:</p>
+        <ul>
+            <li><strong>Noto Sans:</strong> Used for body text, navigation, buttons, and interface elements. Its clean, modern sans-serif forms ensure exceptional legibility at all sizes and weights, particularly on screens.</li>
+            <li><strong>Noto Serif:</strong> Used exclusively for headings. Its carefully proportioned serifs provide visual distinction and structure while maintaining excellent readability and graceful scaling.</li>
+        </ul>
+        <p>Both families are loaded with full weight ranges (100 through 900) and italic styles, offering complete flexibility in text hierarchy and emphasis.</p>
+
+        <h2>Interface & Icons</h2>
+        <p>Where visual indicators are required, Clarity uses Material Symbols Outlined — a clean, consistent icon set designed and maintained by Google. These icons share the same design language as the typography system, scale perfectly without pixelation, and integrate seamlessly with text alignment. Because they are served as font symbols alongside the typefaces, there are no additional image files to manage or load.</p>
+
+        <h2>Layout & Responsiveness</h2>
+        <p>The layout system is built on modern CSS Grid and Flexbox techniques, providing responsive behavior without requiring separate versions for different devices. Key characteristics include:</p>
+        <ul>
+            <li><strong>Fluid Grids:</strong> Content automatically adjusts column count based on available width.</li>
+            <li><strong>Readable Line Length:</strong> Maximum content width is constrained to ensure comfortable reading, even on very large displays.</li>
+            <li><strong>Touch-Friendly Navigation:</strong> Navigation reorganizes and expands tap targets on smaller screens for ease of use.</li>
+            <li><strong>Consistent Spacing:</strong> Margin and padding values follow a unified scale throughout the interface.</li>
+        </ul>
+
+        <h2>Interactive Components</h2>
+        <p>Interactive elements are designed to provide clear feedback while remaining lightweight and accessible. All JavaScript behaviors degrade gracefully when scripting is disabled. Components include:</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">smart_button</span>
+                <h3>Standard Buttons</h3>
+                <p>Primary and secondary button styles with clear states, hover feedback, and active press effects — fully keyboard accessible.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">navigation</span>
+                <h3>Page Navigation</h3>
+                <p>Single-page navigation system with URL hash support, history preservation, and active state indicators.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>Thoughtful Colors</h3>
+                <p>Neutral backgrounds with a restrained accent palette, selected for adequate contrast and professional presentation.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">accessibility_new</span>
+                <h3>Accessibility Ready</h3>
+                <p>Semantic HTML structure, proper heading hierarchy, adequate color contrast, and keyboard navigation support.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">speed</span>
+                <h3>Performance Optimized</h3>
+                <p>Font preloading, efficient CSS, minimal JavaScript, and no unnecessary assets — pages load quickly everywhere.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">code</span>
+                <h3>Standard Compliant</h3>
+                <p>Valid HTML5, modular CSS3, and modern JavaScript — tested across browsers and validated against official standards.</p>
+            </div>
+        </div>
+
+        <h2>Technical Foundation</h2>
+        <p>Clarity is written in three core web technologies — HTML for structure, CSS for presentation, and JavaScript for behavior — kept strictly separated. There are no frameworks, libraries, or build tool dependencies. This means Clarity files remain editable with any text editor, work immediately in any browser, and require no special tooling to deploy or modify.</p>
+
+        <div class="button-group">
+            <a href="#whatsnew" data-page="whatsnew" class="btn">What's New in v1.0</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 1.0 (Stable)</h1>
+        
+        <div class="highlight-box">
+            <h3>✅ Stable Release</h3>
+            <p>Clarity v1.0 is the first stable release. The design system, typography, color palette, navigation, and component set are now considered stable and ready for production use. Future versions will maintain backward compatibility with v1.0 structures.</p>
+        </div>
+
+        <p>After initial development, feedback, and refinement, Clarity has reached its first stable milestone. This release represents a carefully considered foundation upon which all future improvements will be built. Every element has been reviewed, tested across devices, and validated against web standards and accessibility guidelines.</p>
+
+        <h2>Core Improvements Since Beta</h2>
+        <ul>
+            <li><strong>Navigation System Reworked:</strong> Navigation now operates as a true single-page application — each section functions as a distinct page with its own URL hash, browser history entry, and active state indicator. Sharing a link to any section works perfectly.</li>
+            <li><strong>Full Version Update:</strong> Labeling changed from Beta to Stable. The badge color has been updated from blue to green to clearly signal stability and readiness.</li>
+            <li><strong>Expanded Content Structure:</strong> All sections have been substantially expanded with comprehensive, long-form explanatory content. Every page now provides complete context rather than placeholder text.</li>
+            <li><strong>Responsive Behavior Refined:</strong> Header navigation reorganizes gracefully on smaller screens. Touch targets have been enlarged. Spacing scales appropriately across all breakpoints.</li>
+            <li><strong>Typography Hierarchy Finalized:</strong> Heading sizes, line heights, margins, and font family assignments are now fixed and documented. Noto Sans for body text, Noto Serif for headings — established permanently.</li>
+            <li><strong>Color Palette Standardized:</strong> Backgrounds, borders, text shades, and accent colors selected and tested for contrast consistency. Neutral palette ensures readability everywhere.</li>
+            <li><strong>Button Component Extended:</strong> Two button variants — primary and secondary — with consistent padding, rounding, hover states, and active feedback. Buttons may also serve as navigation links.</li>
+            <li><strong>Browser History Support:</strong> Navigation now updates the browser history stack. Back and forward buttons work as expected. Page changes are recorded and restorable.</li>
+        </ul>
+
+        <h2>Technical Changes</h2>
+        <p>Under the hood, several important improvements have been implemented:</p>
+        <ul>
+            <li>Page switching system rewritten to use CSS display toggling with smooth fade-in animation.</li>
+            <li>Navigation logic consolidated — all links use shared behavior regardless of location.</li>
+            <li>Font preconnect hints added to improve Google Fonts loading performance.</li>
+            <li>Sticky header with subtle shadow improves navigation visibility during scrolling.</li>
+            <li>All JavaScript behaviors consolidated into one unified block at page end.</li>
+            <li>Semantic HTML structure validated and refined for better accessibility.</li>
+        </ul>
+
+        <h2>Known Limitations</h2>
+        <p>As this is the first stable release, there are some areas that may be expanded in future versions:</p>
+        <ul>
+            <li>Additional page components such as tables, code blocks, and form inputs will be added in subsequent releases.</li>
+            <li>Dark mode support is planned but not yet included in v1.0.</li>
+            <li>Print styles may be refined in a future update.</li>
+            <li>Internationalization and language switching support is under consideration.</li>
+        </ul>
+
+        <h2>Release Timeline</h2>
+        <p>Version 1.0 Stable represents the culmination of the initial design and development phase. Moving forward, the versioning scheme will follow standard practice: minor increments for additions and refinements, major increments only when structural changes require attention. Full backward compatibility will be maintained throughout the v1.x series.</p>
+
+        <div class="button-group">
+            <a href="#about" data-page="about" class="btn">About Clarity</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div id="about" class="page">
+        <h1>About Clarity</h1>
+        <p>Clarity is an open web design template and reference implementation created to demonstrate how well-designed, professional web interfaces can be built using only standard, fundamental web technologies. It was developed as a practical response to the increasing complexity, dependencies, and build tooling found in many modern web frameworks.</p>
+
+        <h2>Philosophy</h2>
+        <p>The guiding philosophy is simple: <em>web design should be straightforward, transparent, and accessible to everyone.</em> Clarity believes that:</p>
+        <ul>
+            <li>A web page should remain comprehensible from first principles. You should not need to learn a framework, compiler, or abstraction layer just to understand how a page is constructed.</li>
+            <li>Structure, presentation, and behavior should be kept separate. HTML defines content. CSS defines appearance. JavaScript defines interaction. Mixing them obscures understanding.</li>
+            <li>Design decisions should have clear reasoning. Choices regarding font, spacing, and color should serve a measurable purpose — legibility, comprehension, or usability — rather than following trends arbitrarily.</li>
+            <li>Technology should be timeless. Standards-compliant HTML, CSS, and JavaScript will continue working for decades. Projects should not be tied to frameworks that may become obsolete.</li>
+            <li>Accessibility is not optional. Every aspect of design — color contrast, heading hierarchy, keyboard navigation, semantic structure — must serve all users equally well.</li>
+        </ul>
+
+        <h2>How It Is Built</h2>
+        <p>Clarity consists of exactly three components — HTML, CSS, and JavaScript — contained within a single file for ease of use. There are no external dependencies beyond the font and icon services provided by Google Fonts.</p>
+        <ul>
+            <li><strong>HTML:</strong> Semantic structure with proper heading hierarchy, navigation elements, and content containers. Valid and accessible.</li>
+            <li><strong>CSS:</strong> Modular, organized by purpose. Reset, base, typography, layout, components, and responsiveness — each section clearly labeled.</li>
+            <li><strong>JavaScript:</strong> Minimal, unobtrusive behavior. Navigation, history management, and feedback. No frameworks, libraries, or build steps.</li>
+        </ul>
+        <p>Because everything is standard technology without abstraction layers, Clarity may be edited in any text editor and viewed in any modern browser immediately.</p>
+
+        <h2>Versioning</h2>
+        <p>Clarity follows simple version numbering. The current release is <strong>Version 1.0 (Stable)</strong> — the first stable milestone. Future releases will increment version numbers according to the scale of changes introduced. The v1.x series will maintain structural compatibility.</p>
+
+        <h2>Acknowledgments</h2>
+        <p>Clarity gratefully uses several excellent resources made freely available to the web community:</p>
+        <ul>
+            <li><strong>Noto Fonts:</strong> Designed by Google, released as open-source. Comprehensive global typography for every language.</li>
+            <li><strong>Material Symbols:</strong> Designed by Google. Consistent, readable icons that integrate naturally with text.</li>
+            <li><strong>Web Standards:</strong> Developed and maintained by W3C and WHATWG. The foundation upon which everything is built.</li>
+        </ul>
+
+        <h2>Contributing & Future</h2>
+        <p>Clarity is intended as a shared reference and starting point. Feedback, suggestions, and improvements are welcome. The goal is not to build yet another framework, but to maintain a clear, well-constructed example of professional web design that evolves thoughtfully over time.</p>
+
+        <div class="button-group">
+            <a href="#learnmore" data-page="learnmore" class="btn">Continue Learning</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+
+    <!-- ==================== LEARN MORE PAGE ==================== -->
+    <div id="learnmore" class="page">
+        <h1>Learn More</h1>
+        <p>Thank you for your interest in Clarity. This page provides additional information, guidance, and resources to help you understand, use, and extend the template effectively.</p>
+
+        <h2>Getting Started</h2>
+        <p>Using Clarity is straightforward. There are no installations, setup procedures, or build tools required. Here is the complete process:</p>
+        <ol>
+            <li>Copy the full HTML code from the source.</li>
+            <li>Paste it into any plain text editor — Notepad, Sublime Text, VS Code, Vim, or any editor of your choice.</li>
+            <li>Save the file with an <code>.html</code> extension, for example <code>index.html</code>.</li>
+            <li>Open the file in any web browser. It will work immediately.</li>
+        </ol>
+        <p>That is everything. The fonts and icons load automatically from Google Fonts. Navigation works without a web server. You may begin editing content right away.</p>
+
+        <h2>How the Navigation Works</h2>
+        <p>Although it appears to be multiple separate pages, everything operates within a single HTML file. The system works as follows:</p>
+        <ul>
+            <li>All content sections exist together in the same file inside containers marked with a unique identifier.</li>
+            <li>Only one section is visible at any given time. Other sections are hidden.</li>
+            <li>When you click a navigation link, JavaScript identifies the requested section, hides the current one, displays the new one, and updates the address bar.</li>
+            <li>Browser back and forward buttons work because every change updates the browser history. Clicking back restores the previously viewed section.</li>
+            <li>Sharing or bookmarking the URL works because the section identifier is preserved in the address.</li>
+        </ul>
+        <p>This approach provides the convenience of separate pages without the overhead of loading separate files. Everything feels like a website, but everything remains in one place — simple to understand, simple to manage.</p>
+
+        <h2>Customization Guide</h2>
+        <p>Clarity is intentionally designed to be easy to modify. Here are the key areas you may wish to adjust:</p>
+        <ul>
+            <li><strong>Content:</strong> Simply edit the text inside each section. All headings, paragraphs, lists, and descriptions are plain HTML — change them to say whatever you need.</li>
+            <li><strong>Colors:</strong> The color scheme is defined near the top of the CSS section. Look for values such as <code>#2563eb</code> (primary blue), <code>#16a34a</code> (stable green), and the various grays. Replace these values with your preferred colors throughout.</li>
+            <li><strong>Navigation:</strong> Edit the links in the header to match your sections. Ensure each link's <code>data-page</code> attribute matches the corresponding section's <code>id</code> attribute.</li>
+            <li><strong>Icons:</strong> Replace the text inside <code>.material-symbols-outlined</code> tags with any icon name from the Material Symbols catalog.</li>
+            <li><strong>Fonts:</strong> If different typefaces are needed, replace the Google Fonts <code>link</code> tag with your preferred font and update the <code>font-family</code> entries in the CSS.</li>
+        </ul>
+
+        <h2>Best Practices Applied in Clarity</h2>
+        <p>You may examine Clarity's source code to learn good web design practices. Here is what demonstrates:</p>
+        <ul>
+            <li>Proper heading hierarchy — one <code>&lt;h1&gt;</code> per section, descending sequentially through <code>&lt;h2&gt;</code> and <code>&lt;h3&gt;</code>.</li>
+            <li>Semantic elements — <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, and <code>&lt;footer&gt;</code> describe purpose, not just appearance.</li>
+            <li>Separation of concerns — HTML contains content only, CSS contains presentation only, JavaScript contains behavior only.</li>
+            <li>Responsive design — layout adapts to screen width without requiring separate mobile pages.</li>
+            <li>Progressive enhancement — content remains accessible even without JavaScript enabled.</li>
+            <li>Performance considerations — font preconnect, efficient selectors, minimal script weight.</li>
+        </ul>
+
+        <h2>Recommended Resources</h2>
+        <p>To deepen your understanding of web technologies and standards, consider these trusted resources:</p>
+        <ul>
+            <li><strong>MDN Web Docs:</strong> Comprehensive reference and learning guides for HTML, CSS, and JavaScript — maintained by Mozilla.</li>
+            <li><strong>Google Web Fundamentals:</strong> Best practices for accessibility, performance, and responsive design.</li>
+            <li><strong>W3C Web Standards:</strong> The official specifications defining how the web works.</li>
+            <li><strong>WebAIM Contrast Checker:</strong> Tool to verify color contrast meets accessibility standards.</li>
+        </ul>
+
+        <h2>Support & Feedback</h2>
+        <p>Clarity is provided as an educational reference and starting template. While it is designed to be reliable and broadly compatible, it is offered without formal support. Issues, suggestions, and improvements may be proposed through standard community channels.</p>
+
+        <p>Thank you for exploring Clarity. May it serve you well as you build something clear, professional, and enduring.</p>
+
+        <div class="button-group">
+            <a href="#overview" data-page="overview" class="btn">Return to Overview</a>
+            <a href="#about" data-page="about" class="btn btn-secondary">Read About Clarity</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v1.0 (Stable). All rights reserved.
+    </footer>
+
+    <!-- === JavaScript Navigation System === -->
+    <script>
+        // Page switching function
+        function showPage(pageId) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            // Show selected page
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            // Update navigation active states
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            // Scroll to top on page change
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle navigation clicks
+        document.querySelectorAll('[data-page]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    history.pushState({ page: pageId }, '', '#' + pageId);
+                    showPage(pageId);
+                }
+            });
+        });
+
+        // Handle browser back/forward buttons
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        // Load initial page from URL hash or default to overview
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            const initialPage = hash || 'overview';
+            showPage(initialPage);
+        });
+
+        console.log("Clarity v1.0 (Stable) — loaded successfully.");
+    </script>
+
+</body>
+</html>
