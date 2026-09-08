@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v1.1 (Stable)</title>
+
+    <!-- Google Fonts: Noto Sans & Noto Serif -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+        }
+
+        /* === Base Reset === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === Font & Body === */
+        html {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: "Noto Sans", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-green);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-accent);
+            border-color: var(--accent-blue);
+        }
+
+        .theme-toggle .material-symbols-outlined {
+            font-size: 1.25rem;
+            color: inherit;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        /* === Page Container System === */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Headings & Spacing === */
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.2rem 0 1rem;
+            color: var(--text-strong);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.6rem 0 0.7rem;
+            color: var(--text-strong);
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 2.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.6rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 14px var(--shadow-soft);
+            transform: translateY(-3px);
+        }
+
+        .material-symbols-outlined {
+            font-size: 2.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.9rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* === Buttons === */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-family: "Noto Sans", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            margin: 0.3rem;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-accent);
+            color: var(--text-strong);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .button-group {
+            margin: 1.8rem 0;
+        }
+
+        /* === Version Highlights === */
+        .highlight-box {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.3rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent-green-text);
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-top: 3rem;
+            transition: border-color 0.3s ease;
+        }
+
+        /* === Code/Inline Elements === */
+        code {
+            background-color: var(--bg-accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        /* === Responsive === */
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                margin: 0 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Header & Navigation === -->
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v1.1 Stable</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#about" data-page="about" class="nav-link">About</a>
+                <a href="#learnmore" data-page="learnmore" class="nav-link">Learn More</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — a professional web design framework and template built with simplicity, consistency, and readability as its core principles. Clarity has been developed to provide a solid foundation upon which any kind of web project can be built, from documentation sites and dashboards to content-heavy publications and corporate portals.</p>
+        
+        <p>The philosophy behind Clarity is straightforward: content should be presented clearly, navigation should be intuitive, and design choices should serve the information rather than distract from it. Every element — from font sizes and line heights to color selections — has been chosen with purpose. There are no decorative flourishes that serve no function; every detail contributes toward legibility and comprehension.</p>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><strong>Readability First:</strong> Typography is the foundation of all design. Clarity uses Noto Sans for interface text and Noto Serif for headings — ensuring both structural distinction and visual harmony across every language and writing system.</li>
+            <li><strong>Light & Dark Ready:</strong> Clarity now supports both light and dark modes with full color palette consistency. Your preference is remembered automatically on future visits.</li>
+            <li><strong>Consistency Everywhere:</strong> Spacing, sizing, and styling follow consistent patterns throughout. Users should never have to relearn how to navigate or interpret different sections of the same experience.</li>
+            <li><strong>Responsive by Default:</strong> Layouts adapt fluidly to any screen size. Whether viewed on a compact smartphone, tablet, laptop, or large desktop monitor, the content remains accessible and well-structured.</li>
+            <li><strong>Standards Compliant:</strong> Built with semantic HTML, modular CSS, and unobtrusive JavaScript. Clarity follows recognized web standards to ensure broad compatibility, accessibility, and long-term maintainability.</li>
+        </ul>
+
+        <h2>Intended Use</h2>
+        <p>Clarity serves as both a ready-to-use template and a reference implementation of good web design practices. It may be used as-is for documentation, project homepages, internal tools, or content sites. It may also be extended and customized to suit more specific requirements.</p>
+
+        <p>With the release of version 1.1, Dark Mode is now available. Click the <strong>moon icon</strong> in the top-right corner to toggle between light and dark themes. Your preference will be saved automatically.</p>
+
+        <div class="button-group">
+            <a href="#features" data-page="features" class="btn">Explore Features</a>
+            <a href="#learnmore" data-page="learnmore" class="btn btn-secondary">Learn More</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+        <p>Clarity includes a carefully selected set of features designed to meet the needs of most web projects without unnecessary complexity. Every component and capability has been evaluated for utility, accessibility, and performance before being included.</p>
+
+        <h2>Typography & Fonts</h2>
+        <p>Clarity makes use of the Noto font family — a comprehensive, open-source collection designed to support every language and writing system. Two families are employed:</p>
+        <ul>
+            <li><strong>Noto Sans:</strong> Used for body text, navigation, buttons, and interface elements. Clean sans-serif forms ensure exceptional legibility at all sizes and weights.</li>
+            <li><strong>Noto Serif:</strong> Used exclusively for headings. Carefully proportioned serifs provide visual distinction and structure while maintaining graceful scaling.</li>
+        </ul>
+
+        <h2>Dark Mode Support</h2>
+        <p>Clarity v1.1 introduces full dual-theme support. The entire color palette is defined using CSS Custom Properties, allowing instantaneous switching between light and dark appearances without page reloads or style recalculations. Key characteristics include:</p>
+        <ul>
+            <li><strong>One Click Toggle:</strong> Click the moon/sun icon in the header to switch themes instantly.</li>
+            <li><strong>Automatic Persistence:</strong> Your choice is saved to local storage. Every future visit remembers your preference.</li>
+            <li><strong>System Preference Aware:</strong> On first visit, Clarity automatically matches your operating system's light/dark setting.</li>
+            <li><strong>Carefully Selected Palette:</strong> Both themes maintain identical contrast ratios, spacing, and visual hierarchy — colors change, readability stays constant.</li>
+            <li><strong>Smooth Transitions:</strong> All background and text colors animate gently — no jarring flashes during switch.</li>
+        </ul>
+
+        <h2>Interface & Icons</h2>
+        <p>Material Symbols Outlined provide consistent, scalable visual indicators. Because they integrate with the font system, they match text weight and scale perfectly in both themes.</p>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">dark_mode</span>
+                <h3>Dual Theme</h3>
+                <p>Light and dark modes with one-click toggle, auto-save, and smooth color transitions.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">text_fields</span>
+                <h3>Clear Typography</h3>
+                <p>Noto families with proper hierarchy — body sans-serif, headings with serif distinction.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">devices</span>
+                <h3>Responsive Layout</h3>
+                <p>Adapts seamlessly to any screen size, from phones to large desktop displays.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>Consistent Colors</h3>
+                <p>Full contrast-tested palette defined in CSS variables — identical structure in both themes.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">history</span>
+                <h3>Page History</h3>
+                <p>Browser back/forward buttons work. URL hash preserves your location and theme.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">code</span>
+                <h3>Standards Built</h3>
+                <p>HTML5, CSS3 variables, modern JS — no frameworks, no dependencies.</p>
+            </div>
+        </div>
+
+        <h2>Technical Foundation</h2>
+        <p>All styling is centralized through CSS Custom Properties. Adding new themes or modifying colors across the entire site now requires changing exactly one value in one place. Every component updates automatically.</p>
+
+        <div class="button-group">
+            <a href="#whatsnew" data-page="whatsnew" class="btn">What's New in v1.1</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 1.1 (Stable)</h1>
+        
+        <div class="highlight-box">
+            <h3>🌙 New Feature: Dark Mode</h3>
+            <p>Clarity v1.1 introduces complete dual-theme support. Toggle instantly between Light and Dark modes. Your preference is remembered automatically on every return visit.</p>
+        </div>
+
+        <p>Following the release of v1.0 Stable, this update adds the most requested feature: comprehensive Dark Mode support. Every color, border, background, and text shade has been carefully adapted to maintain perfect readability, contrast, and visual harmony in both themes. The version number has been incremented to v1.1 in accordance with our versioning rule: every new feature increases the version number.</p>
+
+        <h2>Dark Mode Implementation</h2>
+        <p>The entire color system has been rebuilt using CSS Custom Properties (variables). This means:</p>
+        <ul>
+            <li>Colors are defined in exactly ONE place at the top of the stylesheet — every element references these variables rather than hardcoded values.</li>
+            <li>Switching themes simply swaps the variable definitions — ALL elements update instantly and consistently.</li>
+            <li>Transitions are smooth — backgrounds and text fade gently rather than flash, because the color change is animated.</li>
+            <li>Contrast is maintained perfectly — dark backgrounds use lighter text with identical readability scores.</li>
+            <li>Component designs remain visually identical — only the palette changes, not the layout or structure.</li>
+        </ul>
+
+        <h2>Behavior & Persistence</h2>
+        <ul>
+            <li><strong>On First Visit:</strong> Clarity automatically detects your operating system preference — light or dark — and matches it.</li>
+            <li><strong>On Manual Toggle:</strong> Click the moon/sun icon. Your choice is saved to local storage and persists across browser restarts and future visits.</li>
+            <li><strong>URL Sharing:</strong> Theme preference is separate from page location. Sharing a link shares the page, not your personal theme setting.</li>
+        </ul>
+
+        <h2>All Changes Since v1.0</h2>
+        <ul>
+            <li><strong>Version:</strong> v1.0 → v1.1 (Feature release — backward compatible)</li>
+            <li><strong>Color System:</strong> Rebuilt entirely with CSS variables — light and dark palettes</li>
+            <li><strong>Theme Toggle:</strong> Button added to header with moon/sun icon that updates automatically</li>
+            <li><strong>Auto-Detection:</strong> Respects <code>prefers-color-scheme</code> on first load</li>
+            <li><strong>Preference Storage:</strong> Saves selection to localStorage — remembered forever until changed</li>
+            <li><strong>Smooth Transitions:</strong> Background and text colors animate during theme change</li>
+            <li><strong>All Components Updated:</strong> Cards, buttons, borders, highlights — everything adapts</li>
+        </ul>
+
+        <h2>Looking Ahead</h2>
+        <p>v1.1 remains fully backward-compatible with all v1.0 structure. Any page built on v1.0 will continue working without modification. Future versions will continue following this rule: every significant addition increments the version number clearly.</p>
+
+        <div class="button-group">
+            <a href="#about" data-page="about" class="btn">About Clarity</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div id="about" class="page">
+        <h1>About Clarity</h1>
+        <p>Clarity is an open web design template and reference implementation created to demonstrate how well-designed, professional web interfaces can be built using only standard, fundamental web technologies. It was developed as a practical response to the increasing complexity, dependencies, and build tooling found in many modern web frameworks.</p>
+
+        <h2>Versioning Rule</h2>
+        <p>Clarity follows a strict versioning policy established from the beginning:</p>
+        <blockquote style="border-left:3px solid var(--accent-blue); padding-left:1rem; font-style:italic; margin:1rem 0;">Every new feature increases the version number.</blockquote>
+        <p>From Beta → v1.0 → v1.1 and onward — each addition increments the version clearly. This ensures you always know exactly which iteration you are viewing.</p>
+
+        <h2>Philosophy</h2>
+        <p>The guiding philosophy remains unchanged:</p>
+        <ul>
+            <li>Web pages should be understandable from first principles — no frameworks required.</li>
+            <li>Structure, presentation, and behavior remain strictly separated.</li>
+            <li>Design decisions should serve legibility, comprehension, and usability above all else.</li>
+            <li>Technology should be timeless — standards-compliant HTML, CSS, and JavaScript.</li>
+            <li>Accessibility is not optional — every design choice must serve all users equally.</li>
+        </ul>
+
+        <h2>How It Is Built</h2>
+        <p>Clarity consists of HTML, CSS, and JavaScript — contained within one file for ease of use. No build tools, compilers, or dependencies are required. Fonts and icons load directly from Google Fonts.</p>
+
+        <h2>Acknowledgments</h2>
+        <p>Clarity gratefully uses Noto Fonts and Material Symbols — both freely available from Google Fonts — alongside open web standards developed by W3C and WHATWG.</p>
+
+        <div class="button-group">
+            <a href="#learnmore" data-page="learnmore" class="btn">Continue Learning</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+
+    <!-- ==================== LEARN MORE PAGE ==================== -->
+    <div id="learnmore" class="page">
+        <h1>Learn More</h1>
+        <p>Thank you for your interest in Clarity. This page provides additional information, guidance, and resources to help you understand, use, and extend the template effectively.</p>
+
+        <h2>Getting Started</h2>
+        <ol>
+            <li>Copy the full HTML code from the source.</li>
+            <li>Paste it into any plain text editor — Notepad, VS Code, Sublime, Vim, or any editor.</li>
+            <li>Save the file with an <code>.html</code> extension.</li>
+            <li>Open the file in any web browser. It will work immediately.</li>
+        </ol>
+
+        <h2>Using Dark Mode</h2>
+        <p>Dark Mode is fully integrated and ready to use:</p>
+        <ul>
+            <li><strong>Toggle:</strong> Click the moon/sun icon in the top-right corner at any time.</li>
+            <li><strong>Auto:</strong> First visit matches your system settings automatically.</li>
+            <li><strong>Remembers:</strong> Your choice is saved. Every return remembers your preference.</li>
+            <li><strong>Consistent:</strong> Layout, spacing, and contrast remain identical — only colors adapt.</li>
+        </ul>
+
+        <h2>How Everything Works</h2>
+        <p>Although it appears to be multiple separate pages, everything operates within a single HTML file. Clicking navigation links hides the current section, displays the requested one, updates the address bar, and records history. Browser back/forward buttons work normally.</p>
+
+        <h2>Customization Guide</h2>
+        <ul>
+            <li><strong>Change Colors:</strong> Modify the values in the <code>:root</code> and <code>[data-theme="dark"]</code> sections at the top of the CSS. Every element updates automatically.</li>
+            <li><strong>Add Content:</strong> Simply edit the text within each page section — no special formatting required.</li>
+            <li><strong>Add Pages:</strong> Create a new <code>&lt;div class="page" id="newid"&gt;</code> section, then add a navigation link with <code>data-page="newid"</code> — everything works automatically.</li>
+            <li><strong>Change Fonts:</strong> Replace the Google Fonts link and update the <code>font-family</code> entries — the entire structure adapts immediately.</li>
+        </ul>
+
+        <h2>Resources</h2>
+        <p>To deepen your understanding of web technologies and standards, refer to MDN Web Docs, Google Web Fundamentals, and W3C specifications — all freely available online.</p>
+
+        <p>Thank you for exploring Clarity. May it serve you well as you build something clear, professional, and enduring.</p>
+
+        <div class="button-group">
+            <a href="#overview" data-page="overview" class="btn">Return to Overview</a>
+            <a href="#about" data-page="about" class="btn btn-secondary">Read About Clarity</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v1.1 (Stable). All rights reserved.
+    </footer>
+
+    <!-- === JavaScript Navigation & Theme System === -->
+    <script>
+        // ========== THEME MANAGEMENT ==========
+        const THEME_KEY = "clarity-theme";
+
+        function getSystemTheme() {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            const icon = document.getElementById("themeIcon");
+            icon.textContent = theme === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+            applyTheme(current === "dark" ? "light" : "dark");
+        }
+
+        // Initialize theme on load
+        const savedTheme = localStorage.getItem(THEME_KEY) || getSystemTheme();
+        applyTheme(savedTheme);
+
+        // Theme toggle button
+        document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+        // ========== PAGE NAVIGATION ==========
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Handle navigation clicks
+        document.querySelectorAll('[data-page]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    history.pushState({ page: pageId }, '', '#' + pageId);
+                    showPage(pageId);
+                }
+            });
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        // Load initial page from URL hash
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            const initialPage = hash || 'overview';
+            showPage(initialPage);
+        });
+
+        console.log("Clarity v1.1 (Stable) — loaded successfully.");
+    </script>
+
+</body>
+</html>
