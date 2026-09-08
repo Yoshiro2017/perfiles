@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v1.7 (Stable)</title>
+
+    <!-- Google Fonts: Noto Sans, Noto Serif, Noto Sans JP, Noto Serif JP, Noto Sans KR, Noto Serif KR, Noto Sans Ethiopic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Ethiopic:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+KR:wght@200..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons from Google Fonts Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --bg-editor: #f8fafc;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --bg-editor: #283344;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+        }
+
+        /* === Base Reset === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === Font Families === */
+        html {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-serif {
+            font-family: "Noto Serif", serif;
+        }
+
+        .font-sans {
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+        }
+
+        .font-japan {
+            font-family: "Noto Sans JP", sans-serif;
+        }
+
+        .font-japan-serif {
+            font-family: "Noto Serif JP", serif;
+        }
+
+        .font-korea {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
+        .font-korea-serif {
+            font-family: "Noto Serif KR", serif;
+        }
+
+        /* Ethiopic has NO command — activates automatically */
+        .font-ethiopic {
+            font-family: "Noto Sans Ethiopic", sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Material Symbols Icon Base === */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .icon-accent {
+            color: var(--accent-blue);
+        }
+
+        .icon-green {
+            color: var(--accent-green);
+        }
+
+        .icon-lg {
+            font-size: 28px;
+            vertical-align: middle;
+            margin-right: 0.4rem;
+        }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-green);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-accent);
+            border-color: var(--accent-blue);
+        }
+
+        .theme-toggle .material-symbols-outlined {
+            font-size: 1.25rem;
+            color: inherit;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        /* === Page Container System === */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Headings & Spacing === */
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.2rem 0 1rem;
+            color: var(--text-strong);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.6rem 0 0.7rem;
+            color: var(--text-strong);
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 2.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        /* === EDITOR PAGE === */
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 720px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 320px;
+            padding: 1rem;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-editor);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .preview-box {
+            min-height: 320px;
+            padding: 1rem;
+            background-color: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .preview-box h1 { font-size: 1.8rem; margin: 0.6rem 0; border: none; padding: 0; }
+        .preview-box h2 { font-size: 1.4rem; margin: 0.5rem 0; }
+        .preview-box h3 { font-size: 1.15rem; margin: 0.4rem 0; }
+        .preview-box p { margin: 0.4rem 0; }
+        .preview-box ul, .preview-box ol { margin: 0.5rem 0 0.5rem 1.8rem; }
+        .preview-box strong { font-weight: 700; }
+        .preview-box em { font-style: italic; }
+        .preview-box hr { margin: 1rem 0; }
+        .preview-box code {
+            background-color: var(--bg-accent);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .preview-box pre {
+            background-color: var(--bg-accent);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .preview-box pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .commands-help {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1rem 1.2rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+        }
+
+        .commands-help h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .command-example {
+            font-family: monospace;
+            background-color: rgba(37,99,235,0.08);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+
+        .note-box {
+            background-color: rgba(22, 163, 74, 0.08);
+            border-left: 4px solid var(--accent-green);
+            padding: 1rem 1.2rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1rem 0;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.6rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 14px var(--shadow-soft);
+            transform: translateY(-3px);
+        }
+
+        .feature-card .material-symbols-outlined {
+            font-size: 2.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.9rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* === Buttons === */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-family: "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            margin: 0.3rem 0;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-accent);
+            color: var(--text-strong);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .button-group {
+            margin: 1.8rem 0;
+        }
+
+        /* === Version Highlights === */
+        .highlight-box {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.3rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent-green-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-top: 3rem;
+            transition: border-color 0.3s ease;
+        }
+
+        /* === Code/Inline Elements === */
+        code {
+            background-color: var(--bg-accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        /* === Responsive === */
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                margin: 0 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Header & Navigation === -->
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v1.7 Stable</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#editor" data-page="editor" class="nav-link">Editor</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#about" data-page="about" class="nav-link">About</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — a professional web design framework and template built with simplicity, consistency, and readability as its core principles.</p>
+        
+        <p>With the addition of <strong>Noto Serif JP</strong> and <strong>Noto Serif KR</strong> in v1.7, Clarity now provides both Sans and Serif variants for Japanese and Korean.</p>
+
+        <h2>Sample Text — All Variants</h2>
+        <ul>
+            <li><strong>Japanese Sans:</strong> <span class="font-japan">すべて の</span></li>
+            <li><strong>Japanese Serif:</strong> <span class="font-japan-serif">すべて の</span></li>
+            <li><strong>Korean Sans:</strong> <span class="font-korea">모든인간</span></li>
+            <li><strong>Korean Serif:</strong> <span class="font-korea-serif">모든인간</span></li>
+            <li><strong>Ethiopic:</strong> <span class="font-ethiopic">የሰውል</span> (auto)</li>
+            <li><strong>Latin Serif:</strong> <span class="font-serif">AaLl</span></li>
+            <li><strong>Latin Sans:</strong> <span class="font-sans">AaLl</span></li>
+        </ul>
+
+        <div class="note-box">
+            <strong>New Commands:</strong> <code>/japan serif</code> → Japanese Serif · <code>/korea serif</code> → Korean Serif. Use <code>/japan</code> / <code>/korea</code> for Sans variants.
+        </div>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">language</span><strong>Full Serif/Sans Variants:</strong> Japanese and Korean now have both Sans and Serif font families available.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">edit_note</span><strong>Extended Commands:</strong> /japan serif and /korea serif select the serif variants. /japan and /korea alone select sans-serif.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>Dual Theme Support:</strong> Light and dark modes with one-click toggle, auto-saved preference.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Open Editor</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Explore Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+        
+        <h2>Typography — Serif Variants for Japanese & Korean</h2>
+        <p>Clarity now loads seven font families from the Noto collection:</p>
+        <ul>
+            <li><strong>Noto Sans:</strong> Latin, Greek, Cyrillic — primary interface font.</li>
+            <li><strong>Noto Serif:</strong> Latin headings and titles — elegant distinction.</li>
+            <li><strong>Noto Sans JP:</strong> Japanese Sans — activated via /japan.</li>
+            <li><strong>Noto Serif JP:</strong> Japanese Serif — activated via /japan serif.</li>
+            <li><strong>Noto Sans KR:</strong> Korean Sans — activated via /korea.</li>
+            <li><strong>Noto Serif KR:</strong> Korean Serif — activated via /korea serif.</li>
+            <li><strong>Noto Sans Ethiopic:</strong> Ethiopic script — auto-activated, no command needed.</li>
+        </ul>
+
+        <h2>All Commands Summary</h2>
+        <table style="border-collapse:collapse; width:100%; margin:1rem 0;">
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <th style="text-align:left; padding:0.5rem; color:var(--accent-blue);">Command</th>
+                <th style="text-align:left; padding:0.5rem; color:var(--accent-blue);">Font Selected</th>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/normal</code></td>
+                <td style="padding:0.5rem;">Noto Sans (default)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/serif</code></td>
+                <td style="padding:0.5rem;">Noto Serif (Latin Serif)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/sansserif</code></td>
+                <td style="padding:0.5rem;">Noto Sans</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/japan</code></td>
+                <td style="padding:0.5rem;">Noto Sans JP (Japanese Sans)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/japan serif</code></td>
+                <td style="padding:0.5rem;">Noto Serif JP (Japanese Serif)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/korea</code></td>
+                <td style="padding:0.5rem;">Noto Sans KR (Korean Sans)</td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+                <td style="padding:0.5rem;"><code>/korea serif</code></td>
+                <td style="padding:0.5rem;">Noto Serif KR (Korean Serif)</td>
+            </tr>
+            <tr>
+                <td style="padding:0.5rem;"><em>Ethiopic</em></td>
+                <td style="padding:0.5rem;">Auto-renders via font stack</td>
+            </tr>
+        </table>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">font_download</span>
+                <h3>Serif JP & KR</h3>
+                <p>Japanese and Korean now have both Sans and Serif variants — full typographic flexibility.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">terminal</span>
+                <h3>Extended Commands</h3>
+                <p>/japan serif and /korea serif select the serif variants. Clear and intuitive.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">edit_note</span>
+                <h3>Live Editor</h3>
+                <p>Preview instantly — mix and match any font variants in the same paragraph.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>Dual Theme</h3>
+                <p>All fonts adapt perfectly to both light and dark mode.</p>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== EDITOR PAGE ==================== -->
+    <div id="editor" class="page">
+        <h1>Editor</h1>
+        <p>Type anything below. Your text appears in the preview instantly. Use commands to select fonts — including serif variants for Japanese and Korean.</p>
+
+        <div class="commands-help">
+            <h3><span class="material-symbols-outlined">terminal</span> All Commands</h3>
+            <p><span class="command-example">/normal</span> → Reset to Noto Sans<br>
+               <span class="command-example">/serif</span> → Noto Serif (Latin Serif)<br>
+               <span class="command-example">/sansserif</span> → Noto Sans<br>
+               <span class="command-example">/japan</span> → Noto Sans JP (Japanese Sans)<br>
+               <span class="command-example">/japan serif</span> → Noto Serif JP (Japanese Serif)<br>
+               <span class="command-example">/korea</span> → Noto Sans KR (Korean Sans)<br>
+               <span class="command-example">/korea serif</span> → Noto Serif KR (Korean Serif)</p>
+            <p><strong>Ethiopic:</strong> No command needed — auto-renders.</p>
+            <p><strong>Example:</strong> <code>/japan serif すべて /korea serif 모든인간 /serif Hello</code></p>
+        </div>
+
+        <div class="editor-container">
+            <div>
+                <h3 style="margin-top:0">Input</h3>
+                <textarea id="textInput" placeholder="Type here... Use /japan serif and /korea serif for serif variants.">Sample Text — Serif & Sans Variants
+
+/japan すべて の — Japanese Sans
+/japan serif すべて の — Japanese Serif
+/korea 모든인간 — Korean Sans
+/korea serif 모든인간 — Korean Serif
+/serif Latin Serif
+/sansserif Latin Sans
+የሰውል — Ethiopic (auto)
+/normal Back to default.
+
+**Bold text**, *italic text*, and `code`.
+</textarea>
+            </div>
+            <div>
+                <h3 style="margin-top:0">Preview</h3>
+                <div id="previewOutput" class="preview-box"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn" id="clearBtn"><span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;margin-right:0.3rem;">delete_sweep</span>Clear All</button>
+            <a href="#whatsnew" data-page="whatsnew" class="btn btn-secondary">What's New in v1.7</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 1.7 (Stable)</h1>
+        
+        <div class="highlight-box">
+            <h3><span class="material-symbols-outlined icon-green">check_circle</span> Noto Serif JP & KR Added</h3>
+            <p>Clarity v1.7 adds serif variants for Japanese and Korean. Use <strong>/japan serif</strong> and <strong>/korea serif</strong> to select them. Original sans commands remain: /japan and /korea.</p>
+        </div>
+
+        <h2>Changes in v1.7</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">add_font</span><strong>Font Link Updated:</strong> Added Noto Serif JP (wght@200..900) & Noto Serif KR (wght@200..900).</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">font_download</span><strong>Two New Font Families:</strong> Noto Serif JP and Noto Serif KR now available alongside all existing fonts.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">terminal</span><strong>Two New Commands:</strong> <code>/japan serif</code> → Japanese Serif · <code>/korea serif</code> → Korean Serif.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">rule</span><strong>Backward Compatible:</strong> Existing <code>/japan</code> and <code>/korea</code> still work → select Sans variants.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">label</strong><strong>Version Bumped:</strong> v1.6 → v1.7 ✅ (new feature = version number increased)</li>
+        </ul>
+
+        <h2>Command Behavior Explained</h2>
+        <ul>
+            <li><code>/japan</code> → Noto Sans JP (Sans) — unchanged from before</li>
+            <li><code>/japan serif</code> → Noto Serif JP — NEW</li>
+            <li><code>/korea</code> → Noto Sans KR (Sans) — unchanged from before</li>
+            <li><code>/korea serif</code> → Noto Serif KR — NEW</li>
+        </ul>
+        <p>Commands are now two-tiered: base command selects Sans; command + "serif" selects Serif.</p>
+
+        <h2>Font Loading Details</h2>
+        <p>The updated link requests SEVEN families in a single efficient request:</p>
+        <ul>
+            <li>Noto Serif JP — 200 to 900 weight ✅</li>
+            <li>Noto Serif KR — 200 to 900 weight ✅</li>
+            <li>Noto Sans Ethiopic — 100 to 900 weight ✅</li>
+            <li>Noto Sans JP — 100 to 900 weight ✅</li>
+            <li>Noto Sans KR — 100 to 900 weight ✅</li>
+            <li>Noto Sans — normal & italic, 100 to 900 ✅</li>
+            <li>Noto Serif — normal & italic, 100 to 900 ✅</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#about" data-page="about" class="btn">About Clarity</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div id="about" class="page">
+        <h1>About Clarity</h1>
+        <p>Clarity is an open web design template created to demonstrate professional web design using standard HTML, CSS, and JavaScript — no frameworks or build tools required.</p>
+
+        <h2>Versioning Rule</h2>
+        <blockquote style="border-left:3px solid var(--accent-blue); padding-left:1rem; font-style:italic; margin:1rem 0;">Every new feature increases the version number.</blockquote>
+        <p>v1.0 → v1.1 → v1.2 → v1.3 → v1.4 → v1.5 → v1.6 → v1.7 — each addition increments the version clearly.</p>
+
+        <h2>Supported Fonts & Commands</h2>
+        <ul>
+            <li><strong>Latin:</strong> Sans (/normal /sansserif), Serif (/serif)</li>
+            <li><strong>Japanese:</strong> Sans (/japan), Serif (/japan serif)</li>
+            <li><strong>Korean:</strong> Sans (/korea), Serif (/korea serif)</li>
+            <li><strong>Ethiopic:</strong> Sans (auto-activated)</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v1.7 (Stable). All rights reserved.
+    </footer>
+
+    <!-- === JavaScript: Theme + Navigation + Editor === -->
+    <script>
+        // ========== THEME MANAGEMENT ==========
+        const THEME_KEY = "clarity-theme";
+
+        function getSystemTheme() {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            const icon = document.getElementById("themeIcon");
+            icon.textContent = theme === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+            applyTheme(current === "dark" ? "light" : "dark");
+        }
+
+        const savedTheme = localStorage.getItem(THEME_KEY) || getSystemTheme();
+        applyTheme(savedTheme);
+        document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+        // ========== PAGE NAVIGATION ==========
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('[data-page]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    history.pushState({ page: pageId }, '', '#' + pageId);
+                    showPage(pageId);
+                    if (pageId === 'editor') renderPreview();
+                }
+            });
+        });
+
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            const initialPage = hash || 'overview';
+            showPage(initialPage);
+            renderPreview();
+        });
+
+        // ========== EDITOR: FONT COMMANDS + MARKDOWN RENDERER ==========
+        const input = document.getElementById('textInput');
+        const output = document.getElementById('previewOutput');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function renderMarkdown(text) {
+            text = text.replace(/\r\n/g, '\n');
+            let lines = text.split('\n');
+            let html = '';
+            let inCodeBlock = false;
+            let codeContent = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+                if (line.trim().startsWith('```')) {
+                    if (!inCodeBlock) { inCodeBlock = true; codeContent = ''; }
+                    else { inCodeBlock = false; html += `<pre><code>${codeContent}</code></pre>`; }
+                    continue;
+                }
+                if (inCodeBlock) { codeContent += line + '\n'; continue; }
+                if (line.startsWith('### ')) { html += `<h3>${line.slice(4)}</h3>`; continue; }
+                if (line.startsWith('## ')) { html += `<h2>${line.slice(3)}</h2>`; continue; }
+                if (line.startsWith('# ')) { html += `<h1>${line.slice(2)}</h1>`; continue; }
+                if (line.trim() === '---' || line.trim() === '***') { html += `<hr>`; continue; }
+                if (line.startsWith('- ') || line.startsWith('* ')) { html += `<ul><li>${line.slice(2)}</li></ul>`; continue; }
+                if (line.trim() !== '') { html += `<p>${line}</p>`; }
+                else { html += `<br>`; }
+            }
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            return html;
+        }
+
+        function processFontCommands(text) {
+            // Match multi-word commands FIRST: /japan serif, /korea serif
+            const parts = text.split(/(\/(?:japan|korea)\s+serif|\/(?:normal|serif|sansserif|japan|korea)\b)/g);
+            let currentFont = 'font-sans';
+            let result = '';
+
+            for (let i = 0; i < parts.length; i++) {
+                let part = parts[i].trim();
+                let rawPart = parts[i];
+
+                // Multi-word commands
+                if (/^\/japan\s+serif$/.test(part)) { currentFont = 'font-japan-serif'; continue; }
+                if (/^\/korea\s+serif$/.test(part)) { currentFont = 'font-korea-serif'; continue; }
+                // Single-word commands
+                if (part === '/normal') { currentFont = 'font-sans'; continue; }
+                if (part === '/serif') { currentFont = 'font-serif'; continue; }
+                if (part === '/sansserif') { currentFont = 'font-sans'; continue; }
+                if (part === '/japan') { currentFont = 'font-japan'; continue; }
+                if (part === '/korea') { currentFont = 'font-korea'; continue; }
+
+                // Wrap text in current font
+                if (rawPart !== '') {
+                    result += `<span class="${currentFont}">${rawPart}</span>`;
+                }
+            }
+            return result;
+        }
+
+        function renderPreview() {
+            let text = input.value;
+            let processed = processFontCommands(text);
+            let markdowned = renderMarkdown(processed);
+            output.innerHTML = markdowned;
+        }
+
+        input.addEventListener('input', renderPreview);
+        clearBtn.addEventListener('click', function() {
+            input.value = '';
+            renderPreview();
+            input.focus();
+        });
+
+        console.log("Clarity v1.7 (Stable) — Noto Serif JP & KR added. Commands: /japan serif, /korea serif.");
+    </script>
+
+</body>
+</html>
