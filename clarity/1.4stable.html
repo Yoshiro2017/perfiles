@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v1.4 (Stable)</title>
+
+    <!-- Google Fonts: Noto Sans, Noto Serif, Noto Sans JP -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons from Google Fonts Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --bg-editor: #f8fafc;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --bg-editor: #283344;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+        }
+
+        /* === Base Reset === */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* === Font Families === */
+        html {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body {
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .font-serif {
+            font-family: "Noto Serif", serif;
+        }
+
+        .font-sans {
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+        }
+
+        .font-japan {
+            font-family: "Noto Sans JP", sans-serif;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Material Symbols Icon Base === */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .icon-accent {
+            color: var(--accent-blue);
+        }
+
+        .icon-green {
+            color: var(--accent-green);
+        }
+
+        .icon-lg {
+            font-size: 28px;
+            vertical-align: middle;
+            margin-right: 0.4rem;
+        }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+
+        .logo {
+            font-family: "Noto Serif", serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--accent-blue);
+            cursor: pointer;
+        }
+
+        .version-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #ffffff;
+            background-color: var(--accent-green);
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 0.4rem 0.6rem;
+            cursor: pointer;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bg-accent);
+            border-color: var(--accent-blue);
+        }
+
+        .theme-toggle .material-symbols-outlined {
+            font-size: 1.25rem;
+            color: inherit;
+            margin: 0;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 500;
+            transition: color 0.2s ease, border-color 0.2s ease;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--accent-blue);
+            border-bottom-color: var(--accent-blue);
+        }
+
+        /* === Page Container System === */
+        .page {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* === Headings & Spacing === */
+        h1 {
+            font-size: 2.4rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 0.6rem;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            margin: 2.2rem 0 1rem;
+            color: var(--text-strong);
+        }
+
+        h3 {
+            font-size: 1.2rem;
+            margin: 1.6rem 0 0.7rem;
+            color: var(--text-strong);
+        }
+
+        p {
+            margin-bottom: 1.1rem;
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin: 1rem 0 1.5rem 2.2rem;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-color);
+            margin: 2.5rem 0;
+        }
+
+        /* === EDITOR PAGE === */
+        .editor-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 720px) {
+            .editor-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 320px;
+            padding: 1rem;
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            font-size: 1rem;
+            line-height: 1.7;
+            color: var(--text-main);
+            background-color: var(--bg-editor);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .preview-box {
+            min-height: 320px;
+            padding: 1rem;
+            background-color: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow-y: auto;
+        }
+
+        .preview-box h1 { font-size: 1.8rem; margin: 0.6rem 0; border: none; padding: 0; }
+        .preview-box h2 { font-size: 1.4rem; margin: 0.5rem 0; }
+        .preview-box h3 { font-size: 1.15rem; margin: 0.4rem 0; }
+        .preview-box p { margin: 0.4rem 0; }
+        .preview-box ul, .preview-box ol { margin: 0.5rem 0 0.5rem 1.8rem; }
+        .preview-box strong { font-weight: 700; }
+        .preview-box em { font-style: italic; }
+        .preview-box hr { margin: 1rem 0; }
+        .preview-box code {
+            background-color: var(--bg-accent);
+            padding: 0.1rem 0.3rem;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+        .preview-box pre {
+            background-color: var(--bg-accent);
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+        }
+        .preview-box pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .commands-help {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-blue);
+            padding: 1rem 1.2rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+        }
+
+        .commands-help h3 {
+            margin-top: 0;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .command-example {
+            font-family: monospace;
+            background-color: rgba(37,99,235,0.08);
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            display: inline-block;
+            margin: 0.2rem 0;
+        }
+
+        /* === Feature Cards === */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-content);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.6rem;
+            transition: box-shadow 0.25s ease, transform 0.25s ease, background-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            box-shadow: 0 4px 14px var(--shadow-soft);
+            transform: translateY(-3px);
+        }
+
+        .feature-card .material-symbols-outlined {
+            font-size: 2.3rem;
+            color: var(--accent-blue);
+            margin-bottom: 0.9rem;
+        }
+
+        .feature-card h3 {
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card p {
+            font-size: 0.98rem;
+            color: var(--text-muted);
+            margin-bottom: 0;
+        }
+
+        /* === Buttons === */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-blue);
+            color: #ffffff;
+            font-family: "Noto Sans", "Noto Sans JP", sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 1.6rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            text-decoration: none;
+            margin: 0.3rem 0;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-blue-hover);
+        }
+
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn-secondary {
+            background-color: var(--bg-accent);
+            color: var(--text-strong);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--border-color);
+        }
+
+        .button-group {
+            margin: 1.8rem 0;
+        }
+
+        /* === Version Highlights === */
+        .highlight-box {
+            background-color: var(--bg-accent);
+            border-left: 4px solid var(--accent-green);
+            padding: 1.3rem 1.5rem;
+            border-radius: 0 6px 6px 0;
+            margin: 1.5rem 0;
+            transition: background-color 0.3s ease;
+        }
+
+        .highlight-box h3 {
+            margin-top: 0;
+            color: var(--accent-green-text);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* === Footer === */
+        footer {
+            border-top: 1px solid var(--border-color);
+            text-align: center;
+            padding: 1.8rem;
+            font-size: 0.9rem;
+            color: var(--text-soft);
+            margin-top: 3rem;
+            transition: border-color 0.3s ease;
+        }
+
+        /* === Code/Inline Elements === */
+        code {
+            background-color: var(--bg-accent);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-family: monospace;
+            color: var(--accent-blue);
+        }
+
+        /* === Responsive === */
+        @media (max-width: 720px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 0.5rem;
+            }
+            nav a {
+                margin: 0 0.6rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- === Header & Navigation === -->
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v1.4 Stable</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#editor" data-page="editor" class="nav-link">Editor</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#about" data-page="about" class="nav-link">About</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — a professional web design framework and template built with simplicity, consistency, and readability as its core principles.</p>
+        
+        <p>With the addition of the <strong>Editor</strong> page in v1.3, and <strong>Material Symbols Icons</strong> in v1.4, Clarity now provides a complete, professional environment — all icons loaded from Google Fonts Icons, perfectly matching your selected theme.</p>
+
+        <h2>Design Principles</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">language</span><strong>Global Typography:</strong> Noto Sans, Noto Serif, and Noto Sans JP — unified typography for every language.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">edit_note</span><strong>Inline Font Commands:</strong> Change font anywhere in your text — /serif, /sansserif, /japan, /normal.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>Dual Theme Support:</strong> Light and dark modes with one-click toggle, auto-saved preference.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">devices</span><strong>Responsive by Default:</strong> Layouts adapt fluidly to any screen size.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">code</span><strong>Standards Compliant:</strong> Built with semantic HTML, modular CSS, and unobtrusive JavaScript.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Open Editor</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Explore Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+        
+        <h2>Editor & Commands</h2>
+        <p>The Editor page provides a live typing area with preview. You can change fonts mid-text using simple commands:</p>
+        
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">edit_note</span>
+                <h3>Live Editor</h3>
+                <p>Type anything — preview updates instantly. Split view: input and rendered result side-by-side.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">font_download</span>
+                <h3>Font Commands</h3>
+                <p>/serif · /sansserif · /japan · /normal — change font anywhere in your text.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">format_text</span>
+                <h3>Markdown Support</h3>
+                <p>Bold, italic, headings, lists, and code — all rendered automatically.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">language</span>
+                <h3>Multi-Language</h3>
+                <p>Noto Sans JP built-in — mix Japanese and Latin text with matching style.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">dark_mode</span>
+                <h3>Dual Theme</h3>
+                <p>Light and dark modes with toggle, auto-save, and smooth transitions.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">devices</span>
+                <h3>Responsive Layout</h3>
+                <p>Adapts seamlessly to any screen size, from phones to desktop displays.</p>
+            </div>
+        </div>
+
+        <h2>Typography</h2>
+        <ul>
+            <li><strong>Noto Sans:</strong> Default sans-serif — clean, modern, highly readable.</li>
+            <li><strong>Noto Serif:</strong> Elegant serif — great for headings and emphasis.</li>
+            <li><strong>Noto Sans JP:</strong> Japanese Kanji, Hiragana, Katakana — matches Latin perfectly.</li>
+            <li><strong>Material Symbols:</strong> Icons loaded from Google Fonts Icons — match text weight, color, and theme.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== EDITOR PAGE ==================== -->
+    <div id="editor" class="page">
+        <h1>Editor</h1>
+        <p>Type anything below. Your text appears in the preview instantly. Use commands to change fonts and Markdown for formatting.</p>
+
+        <div class="commands-help">
+            <h3><span class="material-symbols-outlined">terminal</span> Commands</h3>
+            <p><span class="command-example">/normal</span> → Reset to default (Noto Sans)<br>
+               <span class="command-example">/serif</span> → Noto Serif<br>
+               <span class="command-example">/sansserif</span> → Noto Sans<br>
+               <span class="command-example">/japan</span> → Noto Sans JP</p>
+            <p><strong>Example:</strong> <code>/serif Hello, /sansserif world!</code> → "Hello," in Serif, "world!" in Sans-serif</p>
+        </div>
+
+        <div class="editor-container">
+            <div>
+                <h3 style="margin-top:0">Input</h3>
+                <textarea id="textInput" placeholder="Type here... Use /serif /sansserif /japan /normal to change fonts. Use Markdown like **bold**, *italic*, # Heading, - list, etc.">Type something...
+
+/serif This is in Serif.
+/sansserif Back to Sans.
+/japan こんにちは — Japanese text.
+/normal Back to default.
+
+**Bold text**, *italic text*, and `code`.
+
+- Item one
+- Item two
+- Item three
+</textarea>
+            </div>
+            <div>
+                <h3 style="margin-top:0">Preview</h3>
+                <div id="previewOutput" class="preview-box"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn" id="clearBtn"><span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;margin-right:0.3rem;">delete_sweep</span>Clear All</button>
+            <a href="#whatsnew" data-page="whatsnew" class="btn btn-secondary">What's New in v1.4</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 1.4 (Stable)</h1>
+        
+        <div class="highlight-box">
+            <h3><span class="material-symbols-outlined icon-green">check_circle</span> Icons Updated to Material Symbols</h3>
+            <p>All emojis replaced with professional Material Symbols Icons loaded from Google Fonts Icons. Icons integrate seamlessly with typography, adapt to theme colors, and scale perfectly.</p>
+        </div>
+
+        <h2>Changes in v1.4</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">check_box</span><strong>All Emojis Removed:</strong> Every emoji replaced with Material Symbols icon.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">link</span><strong>Icons Source:</strong> Icons loaded from <code>fonts.googleapis.com/icon?family=Material+Symbols+Outlined</code> — exactly as specified.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>Theme-Aware:</strong> Icons automatically adapt to light/dark mode colors.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">text_fields</span><strong>Consistent Style:</strong> Icons share weight, size, and design language with text — no visual mismatch.</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">label</span><strong>Version Bumped:</strong> v1.3 → v1.4 ✅ (new feature = version number increased)</li>
+        </ul>
+
+        <h2>About Google Fonts Icons</h2>
+        <p>Material Symbols Icons from Google Fonts Icons provide over 2,500+ icons as a single variable font. Benefits include:</p>
+        <ul>
+            <li>Loaded alongside fonts — no separate image files.</li>
+            <li>Scale to ANY size without pixelation.</li>
+            <li>Inherit text color automatically — match any theme.</li>
+            <li>Available under Apache 2.0 License — free for all uses.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#about" data-page="about" class="btn">About Clarity</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <div id="about" class="page">
+        <h1>About Clarity</h1>
+        <p>Clarity is an open web design template created to demonstrate professional web design using standard HTML, CSS, and JavaScript — no frameworks or build tools required.</p>
+
+        <h2>Versioning Rule</h2>
+        <blockquote style="border-left:3px solid var(--accent-blue); padding-left:1rem; font-style:italic; margin:1rem 0;">Every new feature increases the version number.</blockquote>
+        <p>v1.0 → v1.1 → v1.2 → v1.3 → v1.4 — each addition increments the version clearly. Backward compatibility is maintained throughout the v1.x series.</p>
+
+        <h2>Philosophy</h2>
+        <ul>
+            <li>Web design should be understandable from first principles — no frameworks required.</li>
+            <li>Global typography through Noto fonts — designed for every language on Earth.</li>
+            <li>Professional icons through Material Symbols — consistent, scalable, theme-aware.</li>
+            <li>Structure, presentation, and behavior remain strictly separated.</li>
+            <li>Accessibility is not optional — color contrast, semantic structure, keyboard navigation.</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v1.4 (Stable). All rights reserved.
+    </footer>
+
+    <!-- === JavaScript: Theme + Navigation + Editor === -->
+    <script>
+        // ========== THEME MANAGEMENT ==========
+        const THEME_KEY = "clarity-theme";
+
+        function getSystemTheme() {
+            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+
+        function applyTheme(theme) {
+            document.documentElement.setAttribute("data-theme", theme);
+            const icon = document.getElementById("themeIcon");
+            icon.textContent = theme === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, theme);
+        }
+
+        function toggleTheme() {
+            const current = document.documentElement.getAttribute("data-theme") || getSystemTheme();
+            applyTheme(current === "dark" ? "light" : "dark");
+        }
+
+        const savedTheme = localStorage.getItem(THEME_KEY) || getSystemTheme();
+        applyTheme(savedTheme);
+        document.getElementById("themeToggle").addEventListener("click", toggleTheme);
+
+        // ========== PAGE NAVIGATION ==========
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+            }
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('data-page') === pageId) {
+                    link.classList.add('active');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('[data-page]').forEach(element => {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const pageId = this.getAttribute('data-page');
+                if (pageId) {
+                    history.pushState({ page: pageId }, '', '#' + pageId);
+                    showPage(pageId);
+                    if (pageId === 'editor') renderPreview();
+                }
+            });
+        });
+
+        window.addEventListener('popstate', function(e) {
+            if (e.state && e.state.page) {
+                showPage(e.state.page);
+            }
+        });
+
+        window.addEventListener('DOMContentLoaded', function() {
+            const hash = window.location.hash.replace('#', '');
+            const initialPage = hash || 'overview';
+            showPage(initialPage);
+            renderPreview();
+        });
+
+        // ========== EDITOR: FONT COMMANDS + MARKDOWN RENDERER ==========
+        const input = document.getElementById('textInput');
+        const output = document.getElementById('previewOutput');
+        const clearBtn = document.getElementById('clearBtn');
+
+        function renderMarkdown(text) {
+            text = text.replace(/\r\n/g, '\n');
+            let lines = text.split('\n');
+            let html = '';
+            let inCodeBlock = false;
+            let codeContent = '';
+
+            for (let i = 0; i < lines.length; i++) {
+                let line = lines[i];
+                if (line.trim().startsWith('```')) {
+                    if (!inCodeBlock) { inCodeBlock = true; codeContent = ''; }
+                    else { inCodeBlock = false; html += `<pre><code>${codeContent}</code></pre>`; }
+                    continue;
+                }
+                if (inCodeBlock) { codeContent += line + '\n'; continue; }
+                if (line.startsWith('### ')) { html += `<h3>${line.slice(4)}</h3>`; continue; }
+                if (line.startsWith('## ')) { html += `<h2>${line.slice(3)}</h2>`; continue; }
+                if (line.startsWith('# ')) { html += `<h1>${line.slice(2)}</h1>`; continue; }
+                if (line.trim() === '---' || line.trim() === '***') { html += `<hr>`; continue; }
+                if (line.startsWith('- ') || line.startsWith('* ')) { html += `<ul><li>${line.slice(2)}</li></ul>`; continue; }
+                if (line.trim() !== '') { html += `<p>${line}</p>`; }
+                else { html += `<br>`; }
+            }
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+            html = html.replace(/`(.*?)`/g, '<code>$1</code>');
+            return html;
+        }
+
+        function processFontCommands(text) {
+            const parts = text.split(/(\/(?:normal|serif|sansserif|japan)\b)/g);
+            let currentFont = 'font-sans';
+            let result = '';
+            for (let i = 0; i < parts.length; i++) {
+                let part = parts[i];
+                if (part === '/normal') { currentFont = 'font-sans'; continue; }
+                if (part === '/serif') { currentFont = 'font-serif'; continue; }
+                if (part === '/sansserif') { currentFont = 'font-sans'; continue; }
+                if (part === '/japan') { currentFont = 'font-japan'; continue; }
+                if (part.trim() !== '') { result += `<span class="${currentFont}">${part}</span>`; }
+                else { result += part; }
+            }
+            return result;
+        }
+
+        function renderPreview() {
+            let text = input.value;
+            let processed = processFontCommands(text);
+            let markdowned = renderMarkdown(processed);
+            output.innerHTML = markdowned;
+        }
+
+        input.addEventListener('input', renderPreview);
+        clearBtn.addEventListener('click', function() {
+            input.value = '';
+            renderPreview();
+            input.focus();
+        });
+
+        console.log("Clarity v1.4 (Stable) — Material Symbols Icons active. Loaded successfully.");
+    </script>
+
+</body>
+</html>
