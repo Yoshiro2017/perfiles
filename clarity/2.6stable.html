@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity — v2.6 (Stable)</title>
+
+    <!-- Google Fonts: ALL families including Noto Sans Mono -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Emoji:wght@300..700&family=Noto+Sans+Ethiopic:wght@100..900&family=Noto+Sans+HK:wght@100..900&family=Noto+Sans+JP:wght@100..900&family=Noto+Sans+KR:wght@100..900&family=Noto+Sans+Mono:wght@100..900&family=Noto+Sans+SC:wght@100..900&family=Noto+Sans+TC:wght@100..900&family=Noto+Sans+Telugu:wght@100..900&family=Noto+Sans+Thai+Looped:wght@100..900&family=Noto+Sans+Thai:wght@100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif+JP:wght@200..900&family=Noto+Serif+KR:wght@200..900&family=Noto+Serif+SC:wght@200..900&family=Noto+Serif+TC:wght@200..900&family=Noto+Serif+Telugu:wght@100..900&family=Noto+Serif+Thai:wght@100..900&family=Noto+Serif+Tibetan:wght@100..900&family=Noto+Serif+Yezidi:wght@400..700&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Noto+Traditional+Nushu:wght@300..700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* === Color Variables — Light & Dark Mode === */
+        :root {
+            --bg-page: #fcfcfc;
+            --bg-content: #ffffff;
+            --bg-accent: #f0fdf4;
+            --bg-editor: #f8fafc;
+            --text-main: #1a1a1a;
+            --text-strong: #0f0f0f;
+            --text-muted: #525252;
+            --text-soft: #6b7280;
+            --border-color: #e8e8e8;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --accent-green: #16a34a;
+            --accent-green-text: #15803d;
+            --shadow-soft: rgba(0,0,0,0.07);
+            --highlight-bg: #fef08a;
+            --highlight-text: #854d0e;
+        }
+
+        [data-theme="dark"] {
+            --bg-page: #111827;
+            --bg-content: #1f2937;
+            --bg-accent: #1e291f;
+            --bg-editor: #283344;
+            --text-main: #e5e7eb;
+            --text-strong: #f9fafb;
+            --text-muted: #b8c2cc;
+            --text-soft: #9ca3af;
+            --border-color: #374151;
+            --accent-blue: #3b82f6;
+            --accent-blue-hover: #2563eb;
+            --accent-green: #22c55e;
+            --accent-green-text: #86efac;
+            --shadow-soft: rgba(0,0,0,0.30);
+            --highlight-bg: #713f12;
+            --highlight-text: #fef08a;
+        }
+
+        /* === Base Reset — GLOBAL FONT STACK APPLIED EVERYWHERE === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { transition: background-color 0.3s ease, color 0.3s ease; }
+
+        /* === GLOBAL FONT STACK — EVERY PART OF THE SITE USES THESE FONTS === */
+        body, html, button, input, textarea, select, option, pre, code, samp, kbd {
+            font-family: "Noto Sans", "Noto Serif", "Noto Sans Mono", "Noto Sans Ethiopic", "Noto Sans SC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-page);
+            line-height: 1.7;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* === Font Classes === */
+        .font-serif         { font-family: "Noto Serif", serif; }
+        .font-sans          { font-family: "Noto Sans", sans-serif; }
+        .font-mono          { font-family: "Noto Sans Mono", monospace !important; }
+        .font-japan         { font-family: "Noto Sans JP", sans-serif; }
+        .font-japan-serif   { font-family: "Noto Serif JP", serif; }
+        .font-korea         { font-family: "Noto Sans KR", sans-serif; }
+        .font-korea-serif   { font-family: "Noto Serif KR", serif; }
+        .font-china         { font-family: "Noto Sans SC", sans-serif; }
+        .font-china-serif   { font-family: "Noto Serif SC", serif; }
+        .font-taiwan        { font-family: "Noto Sans TC", sans-serif; }
+        .font-taiwan-serif  { font-family: "Noto Serif TC", serif; }
+        .font-hongkong      { font-family: "Noto Sans HK", sans-serif; }
+        .font-nushu         { font-family: "Noto Traditional Nushu", sans-serif !important; }
+        .font-yezidi        { font-family: "Noto Serif Yezidi", serif !important; }
+        .font-tibetan       { font-family: "Noto Serif Tibetan", serif !important; }
+        .font-thai          { font-family: "Noto Sans Thai", sans-serif !important; }
+        .font-thai-serif    { font-family: "Noto Serif Thai", serif !important; }
+        .font-thai-looped   { font-family: "Noto Sans Thai Looped", sans-serif !important; }
+        .font-telugu        { font-family: "Noto Sans Telugu", sans-serif !important; }
+        .font-telugu-serif  { font-family: "Noto Serif Telugu", serif !important; }
+        .font-emoji-color   { font-family: "Noto Color Emoji", sans-serif !important; }
+        .font-emoji-mono    { font-family: "Noto Emoji", sans-serif !important; }
+        .font-ethiopic      { font-family: "Noto Sans Ethiopic", sans-serif; }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: "Noto Serif", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Serif Thai", "Noto Serif Telugu", serif;
+            font-weight: 600;
+            color: var(--text-strong);
+        }
+
+        /* === Inline Styles === */
+        mark { background: var(--highlight-bg); color: var(--highlight-text); padding: 0.15rem 0.3rem; border-radius: 3px; }
+        del { text-decoration: line-through; }
+
+        /* === Material Symbols === */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            font-family: 'Material Symbols Outlined';
+            font-weight: normal; font-style: normal; font-size: 24px; line-height: 1;
+            letter-spacing: normal; text-transform: none; display: inline-block;
+            white-space: nowrap; word-wrap: normal; direction: ltr;
+            -webkit-font-smoothing: antialiased;
+        }
+        .icon-accent { color: var(--accent-blue); }
+        .icon-green  { color: var(--accent-green); }
+        .icon-lg     { font-size: 28px; vertical-align: middle; margin-right: 0.4rem; }
+
+        /* === Header & Navigation === */
+        header {
+            background: var(--bg-content); border-bottom: 1px solid var(--border-color);
+            padding: 1.2rem 2rem; display: flex;
+            justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 1px 4px var(--shadow-soft);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .logo { font-family: "Noto Serif", serif; font-size: 1.4rem; font-weight: 700; color: var(--accent-blue); cursor: pointer; }
+        .version-badge { font-size: 0.75rem; font-weight: 500; color: #fff; background: var(--accent-green); padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.5rem; }
+        .license-badge { font-size: 0.75rem; font-weight: 500; color: #fff; background: var(--accent-blue); padding: 0.15rem 0.5rem; border-radius: 4px; margin-left: 0.3rem; }
+        .header-right { display: flex; align-items: center; gap: 1.5rem; }
+        .theme-toggle {
+            background: none; border: 1px solid var(--border-color); border-radius: 6px;
+            padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text-main);
+            display: flex; align-items: center; justify-content: center;
+            transition: all 0.2s ease;
+        }
+        .theme-toggle:hover { background: var(--bg-accent); border-color: var(--accent-blue); }
+        .theme-toggle .material-symbols-outlined { font-size: 1.25rem; margin: 0; }
+        nav a { color: var(--text-main); text-decoration: none; margin-left: 2rem; font-weight: 500;
+            border-bottom: 2px solid transparent; padding-bottom: 0.2rem;
+            transition: color 0.2s ease, border-color 0.2s ease; }
+        nav a:hover, nav a.active { color: var(--accent-blue); border-bottom-color: var(--accent-blue); }
+
+        /* === Page System === */
+        .page { display: none; max-width: 900px; margin: 0 auto; padding: 3rem 2rem; animation: fadeIn 0.3s ease; }
+        .page.active { display: block; }
+        @keyframes fadeIn { from { opacity:0; transform: translateY(8px); } to { opacity:1; transform: translateY(0); } }
+
+        /* === Headings & Spacing === */
+        h1 { font-size: 2.4rem; margin-bottom: 1.5rem; border-bottom: 2px solid var(--border-color); padding-bottom: 0.6rem; }
+        h2 { font-size: 1.6rem; margin: 2.2rem 0 1rem; color: var(--text-strong); }
+        h3 { font-size: 1.2rem; margin: 1.6rem 0 0.7rem; color: var(--text-strong); }
+        p { margin-bottom: 1.1rem; font-size: 1.05rem; }
+        ul, ol { margin: 1rem 0 1.5rem 2.2rem; }
+        li { margin-bottom: 0.6rem; }
+        hr { border: none; border-top: 1px solid var(--border-color); margin: 2.5rem 0; }
+
+        /* === Editor — FULL FONT STACK APPLIED === */
+        .editor-container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 1.5rem; }
+        @media (max-width:720px) { .editor-container { grid-template-columns: 1fr; } }
+        textarea {
+            width: 100%; min-height: 320px; padding: 1rem;
+            font-family: "Noto Sans", "Noto Sans Mono", "Noto Sans SC", "Noto Sans TC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", "Noto Emoji", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+            font-size: 1rem; line-height: 1.7; color: var(--text-main); background: var(--bg-editor);
+            border: 1px solid var(--border-color); border-radius: 8px; resize: vertical;
+            transition: border-color 0.2s ease;
+        }
+        textarea:focus { outline: none; border-color: var(--accent-blue); }
+        .preview-box {
+            min-height: 320px; padding: 1rem; background: var(--bg-content);
+            border: 1px solid var(--border-color); border-radius: 8px; overflow-y: auto;
+            font-family: "Noto Sans", "Noto Serif", "Noto Sans Mono", "Noto Sans SC", "Noto Sans TC", "Noto Sans HK", "Noto Traditional Nushu", "Noto Serif Yezidi", "Noto Serif Tibetan", "Noto Sans Thai", "Noto Sans Thai Looped", "Noto Serif Thai", "Noto Sans Telugu", "Noto Serif Telugu", "Noto Color Emoji", "Noto Emoji", "Noto Sans JP", "Noto Sans KR", "Noto Sans Ethiopic", sans-serif;
+        }
+        .preview-box h1 { font-size:1.8rem; margin:0.6rem 0; border:none; padding:0; }
+        .preview-box h2 { font-size:1.4rem; margin:0.5rem 0; }
+        .preview-box h3 { font-size:1.15rem; margin:0.4rem 0; }
+        .preview-box p { margin:0.4rem 0; }
+        .preview-box ul, .preview-box ol { margin:0.5rem 0 0.5rem 1.8rem; }
+        .preview-box strong { font-weight:700; }
+        .preview-box em { font-style:italic; }
+        .preview-box hr { margin:1rem 0; }
+        .preview-box code { background: var(--bg-accent); padding:0.1rem 0.3rem; border-radius:3px; font-family:"Noto Sans Mono",monospace; }
+        .preview-box pre { background: var(--bg-accent); padding:1rem; border-radius:6px; overflow-x:auto; }
+        .preview-box pre code { background:none; padding:0; }
+
+        .commands-help { background: var(--bg-accent); border-left:4px solid var(--accent-blue); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+        .commands-help h3 { margin-top:0; color: var(--accent-blue); display:flex; align-items:center; gap:0.5rem; }
+        .command-example { font-family:"Noto Sans Mono",monospace; background:rgba(37,99,235,0.08); padding:0.2rem 0.4rem; border-radius:3px; display:inline-block; margin:0.2rem 0; }
+        .note-box { background:rgba(22,163,74,0.08); border-left:4px solid var(--accent-green); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1rem 0; }
+        .license-box { background:rgba(37,99,235,0.08); border-left:4px solid var(--accent-blue); padding:1rem 1.2rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+
+        /* === Feature Cards === */
+        .feature-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.5rem; margin-top:1.5rem; }
+        .feature-card { background:var(--bg-content); border:1px solid var(--border-color); border-radius:8px; padding:1.6rem; transition: all 0.25s ease; }
+        .feature-card:hover { box-shadow:0 4px 14px var(--shadow-soft); transform: translateY(-3px); }
+        .feature-card .material-symbols-outlined { font-size:2.3rem; color:var(--accent-blue); margin-bottom:0.9rem; }
+        .feature-card h3 { font-family: "Noto Sans", sans-serif; font-size:1.1rem; margin:0 0 0.5rem; }
+        .feature-card p { font-size:0.98rem; color:var(--text-muted); margin:0; }
+
+        /* === Buttons === */
+        .btn { display:inline-block; background:var(--accent-blue); color:#fff; font-family:inherit; font-size:1rem; font-weight:500; padding:0.8rem 1.6rem; border-radius:6px; border:none; cursor:pointer; text-decoration:none; margin:0.3rem 0; transition:background 0.2s ease; }
+        .btn:hover { background:var(--accent-blue-hover); }
+        .btn:active { transform:scale(0.98); }
+        .btn-secondary { background:var(--bg-accent); color:var(--text-strong); }
+        .btn-secondary:hover { background:var(--border-color); }
+        .button-group { margin:1.8rem 0; }
+
+        /* === Highlights === */
+        .highlight-box { background:var(--bg-accent); border-left:4px solid var(--accent-green); padding:1.3rem 1.5rem; border-radius:0 6px 6px 0; margin:1.5rem 0; }
+        .highlight-box h3 { margin-top:0; color:var(--accent-green-text); display:flex; align-items:center; gap:0.5rem; }
+
+        /* === Footer === */
+        footer { border-top:1px solid var(--border-color); text-align:center; padding:1.8rem; font-size:0.9rem; color:var(--text-soft); margin-top:3rem; }
+
+        /* === Code === */
+        code { background:var(--bg-accent); padding:0.15rem 0.4rem; border-radius:3px; font-family:"Noto Sans Mono",monospace; color:var(--accent-blue); }
+
+        /* === Responsive === */
+        @media (max-width:720px) {
+            header { flex-direction:column; gap:1rem; text-align:center; }
+            .header-right { width:100%; justify-content:center; flex-wrap:wrap; }
+            nav { display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; }
+            nav a { margin:0 0.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo" data-page="overview">Clarity <span class="version-badge">v2.6 Stable</span><span class="license-badge">MIT License</span></div>
+        <div class="header-right">
+            <nav>
+                <a href="#overview" data-page="overview" class="nav-link">Overview</a>
+                <a href="#features" data-page="features" class="nav-link">Features</a>
+                <a href="#editor" data-page="editor" class="nav-link">Editor</a>
+                <a href="#whatsnew" data-page="whatsnew" class="nav-link">What's New</a>
+                <a href="#license" data-page="license" class="nav-link">License</a>
+            </nav>
+            <button class="theme-toggle" id="themeToggle" title="Toggle Dark Mode">
+                <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== OVERVIEW PAGE ==================== -->
+    <div id="overview" class="page active">
+        <h1>Overview</h1>
+        <p>Welcome to Clarity — now at <strong>Version 2.6</strong>! Monospace font + highlight/strikethrough + RGB color commands!</p>
+
+        <h2>New Features Demo</h2>
+        <ul>
+            <li><strong>Monospace:</strong> <span class="font-mono">==highlighted== code text</span> — <code>/monospace</code> ✨ NEW</li>
+            <li><strong>Highlight:</strong> <mark>==highlighted text==</mark> — use `` `text` `` or <code>==text==</code> ✨ NEW</li>
+            <li><strong>Strikethrough:</strong> <del>~~struck through~~</del> — use <code>~~text~~</code> ✨ NEW</li>
+            <li><strong>Color Command:</strong> <span style="color:#ef4444">/colorrgb #ef4444 red text</span> — <code>/colorrgb #hex</code> then text ✨ NEW</li>
+        </ul>
+
+        <h2>All Supported Writing Systems</h2>
+        <ul>
+            <li><strong>Emoji:</strong> 🎶🎷🐛 — auto-renders</li>
+            <li><strong>Thai:</strong> มนุษย์ — auto-renders</li>
+            <li><strong>Telugu:</strong> పరతస — auto-renders</li>
+            <li><strong>Tibetan:</strong> འགབམ — auto-renders</li>
+            <li><strong>Nüshu:</strong> 𛅰𛇤𛈕𛅸</li>
+            <li><strong>Yezidi:</strong> 𐺍𐺁𐺄𐺀</li>
+            <li><strong>Ethiopic:</strong> የሰውል</li>
+        </ul>
+
+        <div class="license-box">
+            <span class="material-symbols-outlined icon-accent" style="font-size:1.2rem; vertical-align:middle;">copyright</span>
+            <strong>v2.6 Highlights:</strong> Monospace (/monospace) · Highlight `==text==` · Strikethrough `~~text~~` · RGB Color (/colorrgb #hex) · 23 Font Families · MIT License
+        </div>
+
+        <h2>Command Quick Reference</h2>
+        <ul>
+            <li><code>/monospace</code> → Noto Sans Mono ✨</li>
+            <li><code>/colorrgb #RRGGBB</code> → Color following text ✨</li>
+            <li><code>/normal</code> → Reset font + color ✨</li>
+            <li><code>/sansserif</code> → Reset to Noto Sans (default font)</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Open Editor</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Explore Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== FEATURES PAGE ==================== -->
+    <div id="features" class="page">
+        <h1>Features</h1>
+
+        <h2>Typography — 23 Font Families</h2>
+        <p>Noto Sans Mono added — clean, readable monospace font! Command: <code>/monospace</code></p>
+
+        <h2>Markdown Extensions</h2>
+        <table style="border-collapse:collapse; width:100%; margin:1rem 0;">
+            <tr style="border-bottom:2px solid var(--border-color); background:var(--bg-accent);">
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Syntax</th>
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Output</th>
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Status</th>
+            </tr>
+            <tr style="background:rgba(22,163,74,0.05);"><td style="padding:0.5rem;"><code>==text==</code> or <code>`text`</code></td><td style="padding:0.5rem;"><mark>highlighted background</mark></td><td style="padding:0.5rem;">✅ ✨ NEW</td></tr>
+            <tr style="background:rgba(37,99,235,0.05);"><td style="padding:0.5rem;"><code>~~text~~</code></td><td style="padding:0.5rem;"><del>strikethrough</del></td><td style="padding:0.5rem;">✅ ✨ NEW</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/colorrgb #ff0000 text</code></td><td style="padding:0.5rem;"><span style="color:#ff0000">colored text</span></td><td style="padding:0.5rem;">✅ ✨ NEW</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/monospace</code></td><td style="padding:0.5rem;"><span class="font-mono">monospace font</span></td><td style="padding:0.5rem;">✅ ✨ NEW</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/normal</code> / <code>/sansserif</code></td><td style="padding:0.5rem;">Reset to default font + color</td><td style="padding:0.5rem;">✅</td></tr>
+        </table>
+
+        <h2>All Commands</h2>
+        <table style="border-collapse:collapse; width:100%; margin:1rem 0;">
+            <tr style="border-bottom:2px solid var(--border-color); background:var(--bg-accent);">
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Command</th>
+                <th style="text-align:left; padding:0.6rem; color:var(--accent-blue);">Effect</th>
+            </tr>
+            <tr><td style="padding:0.5rem;"><code>/normal</code></td><td style="padding:0.5rem;">Reset to Noto Sans + default color</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/sansserif</code></td><td style="padding:0.5rem;">Alias for /normal</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/serif</code></td><td style="padding:0.5rem;">Noto Serif</td></tr>
+            <tr style="background:rgba(22,163,74,0.05);"><td style="padding:0.5rem;"><strong>/monospace</strong></td><td style="padding:0.5rem;"><strong>Noto Sans Mono ✨ NEW</strong></td></tr>
+            <tr style="background:rgba(37,99,235,0.05);"><td style="padding:0.5rem;"><strong>/colorrgb #RRGGBB</strong></td><td style="padding:0.5rem;"><strong>Apply color to following text ✨ NEW</strong></td></tr>
+            <tr><td style="padding:0.5rem;"><code>/monochrome</code></td><td style="padding:0.5rem;">Noto Emoji (outline)</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/looped</code></td><td style="padding:0.5rem;">Noto Sans Thai Looped</td></tr>
+            <tr><td style="padding:0.5rem;"><code>/thai serif</code></td><td style="padding:0.5rem;">Noto Serif Thai</td></tr>
+        </table>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <span class="material-symbols-outlined">code</span>
+                <h3>Monospace Font</h3>
+                <p>Noto Sans Mono — clean, readable code-style font. /monospace</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">border_color</span>
+                <h3>Highlight Text</h3>
+                <p>==mark== or `mark` → yellow background highlight. Theme-adaptive!</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">strikethrough_s</span>
+                <h3>Strikethrough</h3>
+                <p>~~crossed out~~ text with simple markdown syntax.</p>
+            </div>
+            <div class="feature-card">
+                <span class="material-symbols-outlined">palette</span>
+                <h3>RGB Color Command</h3>
+                <p>/colorrgb #ff4444 makes text red until /normal.</p>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <a href="#editor" data-page="editor" class="btn">Try the Editor</a>
+            <a href="#overview" data-page="overview" class="btn btn-secondary">Back to Overview</a>
+        </div>
+    </div>
+
+    <!-- ==================== EDITOR PAGE ==================== -->
+    <div id="editor" class="page">
+        <h1>Editor</h1>
+        <p>Try all new features! Type <code>==highlight==</code>, <code>~~strike~~</code>, <code>/monospace</code>, or <code>/colorrgb #ff4444 colored text</code></p>
+
+        <div class="commands-help">
+            <h3><span class="material-symbols-outlined">terminal</span> Commands & Markdown</h3>
+            <p><strong>Commands:</strong> /normal · /sansserif · /serif · <strong>/monospace</strong> · /monochrome · /looped · /thai serif · <strong>/colorrgb #RRGGBB</strong><br>
+            <strong>Markdown:</strong> ==highlight== or `highlight` · ~~strikethrough~~ · **bold** · *italic* · `code`</p>
+        </div>
+
+        <div class="editor-container">
+            <div>
+                <h3 style="margin-top:0">Input</h3>
+                <textarea id="textInput" placeholder="Type here... Try: ==highlight== ~~strike~~ /monospace code /colorrgb #2563eb blue text">Sample Text — v2.6
+
+==This is highlighted text==
+`This is also highlighted`
+~~This is struck through~~
+
+/monospace This is monospaced text
+/colorrgb #ef4444 This text is red
+/colorrgb #2563eb This text is blue
+/colorrgb #16a34a This text is green
+/normal Back to default color & font
+
+**Bold text** and *italic text*
+`inline code`
+
+---
+
+🎶🎷🐛 Emoji still works
+มนุษย์ Thai still works
+పరతస Telugu still works
+</textarea>
+            </div>
+            <div>
+                <h3 style="margin-top:0">Preview</h3>
+                <div id="previewOutput" class="preview-box"></div>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button class="btn" id="clearBtn"><span class="material-symbols-outlined" style="font-size:1rem;vertical-align:middle;margin-right:0.3rem;">delete_sweep</span>Clear All</button>
+            <a href="#whatsnew" data-page="whatsnew" class="btn btn-secondary">What's New in v2.6</a>
+        </div>
+    </div>
+
+    <!-- ==================== WHAT'S NEW PAGE ==================== -->
+    <div id="whatsnew" class="page">
+        <h1>What's New — Version 2.6 (Stable)</h1>
+
+        <div class="highlight-box">
+            <h3><span class="material-symbols-outlined icon-green">check_circle</span> Monospace + Highlight + Strikethrough + RGB Color!</h3>
+            <p>Clarity v2.6 adds <strong>Noto Sans Mono</strong> font, <strong>==highlight==</strong> / <strong>`code`</strong> markdown, <strong>~~strikethrough~~</strong> markdown, and <strong>/colorrgb #hex</strong> text coloring command!</p>
+        </div>
+
+        <h2>Changes in v2.6</h2>
+        <ul>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">code</span><strong>Noto Sans Mono Added:</strong> Monospace font, weight 100–900. Command: <code>/monospace</code> ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">border_color</span><strong>Highlight Markdown:</strong> <code>==text==</code> or `` `text` `` → yellow background highlight. Adapts to light/dark mode ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">strikethrough_s</span><strong>Strikethrough Markdown:</strong> <code>~~text~~</code> → line-through text ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">palette</span><strong>RGB Color Command:</strong> <code>/colorrgb #RRGGBB</code> sets text color. <code>/normal</code> resets both font and color ✨</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">rule</span><strong>/normal & /sansserif:</strong> Reset to default font AND default text color. /sansserif is alias for /normal ✅</li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">link</span><strong>Font Link Updated:</strong> Noto Sans Mono added → <strong>23 total font families</strong></li>
+            <li><span class="material-symbols-outlined icon-lg icon-accent">label</span><strong>Version Bumped:</strong> v2.5 → <strong>v2.6</strong> ✅</li>
+        </ul>
+
+        <h2>Command Usage Examples</h2>
+        <ul>
+            <li><code>/monospace</code> → applies Noto Sans Mono to following text</li>
+            <li><code>/colorrgb #ff4444 Hello</code> → "Hello" appears in red</li>
+            <li><code>/colorrgb #2563eb Blue</code> → "Blue" appears in blue</li>
+            <li><code>/normal</code> → resets font to Noto Sans AND color to default</li>
+            <li><code>/sansserif</code> → same as /normal</li>
+        </ul>
+
+        <div class="button-group">
+            <a href="#license" data-page="license" class="btn">Read License</a>
+            <a href="#features" data-page="features" class="btn btn-secondary">Review Features</a>
+        </div>
+    </div>
+
+    <!-- ==================== LICENSE PAGE ==================== -->
+    <div id="license" class="page">
+        <h1>MIT License</h1>
+        <p>Copyright © 2026 Clarity</p>
+        <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+        <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+        <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+
+        <div class="button-group">
+            <a href="#overview" data-page="overview" class="btn">Return Home</a>
+        </div>
+    </div>
+
+    <!-- === Footer === -->
+    <footer>
+        &copy; 2026 Clarity — v2.6 (Stable). Monospace · Highlight · Strikethrough · RGB Color · 23 Font Families · MIT License.
+    </footer>
+
+    <!-- === JavaScript === -->
+    <script>
+        // ========== THEME ==========
+        const THEME_KEY = "clarity-theme";
+        const getSystemTheme = () => window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        function applyTheme(t) {
+            document.documentElement.setAttribute("data-theme", t);
+            document.getElementById("themeIcon").textContent = t === "dark" ? "light_mode" : "dark_mode";
+            localStorage.setItem(THEME_KEY, t);
+        }
+        applyTheme(localStorage.getItem(THEME_KEY) || getSystemTheme());
+        document.getElementById("themeToggle").addEventListener("click", () =>
+            applyTheme(document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark")
+        );
+
+        // ========== NAVIGATION ==========
+        function showPage(id) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(id)?.classList.add('active');
+            document.querySelectorAll('.nav-link').forEach(l =>
+                l.classList.toggle('active', l.getAttribute('data-page') === id)
+            );
+            window.scrollTo({ top:0, behavior:'smooth' });
+        }
+        document.querySelectorAll('[data-page]').forEach(el => {
+            el.addEventListener('click', e => {
+                e.preventDefault();
+                const pid = el.getAttribute('data-page');
+                history.pushState({page:pid}, '', '#'+pid);
+                showPage(pid);
+                if(pid==='editor') renderPreview();
+            });
+        });
+        window.addEventListener('popstate', e => e.state?.page && showPage(e.state.page));
+        window.addEventListener('DOMContentLoaded', () => {
+            const hash = location.hash.slice(1) || 'overview';
+            showPage(hash);
+            renderPreview();
+        });
+
+        // ========== EDITOR — Parser ==========
+        const input = document.getElementById('textInput');
+        const output = document.getElementById('previewOutput');
+        document.getElementById('clearBtn').onclick = () => { input.value=''; renderPreview(); input.focus(); };
+
+        function renderMarkdown(text) {
+            // Apply line-by-line block transforms
+            let html = text.replace(/\r\n/g,'\n').split('\n').map(line => {
+                if(line.startsWith('### ')) return `<h3>${line.slice(4)}</h3>`;
+                if(line.startsWith('## '))  return `<h2>${line.slice(3)}</h2>`;
+                if(line.startsWith('# '))   return `<h1>${line.slice(2)}</h1>`;
+                if(line==='---'||line==='***') return '<hr>';
+                if(line.startsWith('- ')||line.startsWith('* ')) return `<ul><li>${processInline(line.slice(2))}</li></ul>`;
+                return line.trim() ? `<p>${processInline(line)}</p>` : '<br>';
+            }).join('');
+            return html;
+        }
+
+        function processInline(text) {
+            // Inline transforms — apply in correct order
+            let s = text;
+            // Highlight: ==text== or `text` → mark
+            s = s.replace(/==([^=]+)==/g, '<mark>$1</mark>');
+            s = s.replace(/`([^`]+)`/g, '<mark>$1</mark>');
+            // Strikethrough: ~~text~~ → del
+            s = s.replace(/~~([^~]+)~~/g, '<del>$1</del>');
+            // Bold & Italic & Code
+            s = s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+            s = s.replace(/\*(.*?)\*/g,'<em>$1</em>');
+            s = s.replace(/`([^`]+)`/g,'<code>$1</code>');
+            return s;
+        }
+
+        function processFontCommands(text) {
+            // Command pattern: capture /colorrgb #hex separately
+            const pattern = /(\/colorrgb\s+([A-Fa-f0-9]{3,8})\b|\/(?:japan|korea|china|taiwan|macau|hongkong|thai)\s+serif|\/monospace|\/monochrome|\/looped|\/(?:normal|sansserif|serif|japan|korea|china|taiwan|macau|hongkong)\b)/g;
+            const parts = text.split(pattern);
+            let font = 'font-sans', color = '';
+            let result = '';
+
+            for (let i=0; i<parts.length; i++) {
+                const p = parts[i]?.trim();
+                if(!p && parts[i]) {
+                    // Append raw content with current font+color
+                    const spanStyle = color ? `color:${color};` : '';
+                    result += `<span class="${font}" style="${spanStyle}">${parts[i]}</span>`;
+                    continue;
+                }
+
+                // === COLORRGB COMMAND ===
+                if(/^\/colorrgb\s+([A-Fa-f0-9]{3,8})$/i.test(p)) {
+                    const hexMatch = p.match(/^\/colorrgb\s+([A-Fa-f0-9]{3,8})$/i);
+                    let hex = hexMatch[1];
+                    // Normalize shorthand: #fff → #ffffff
+                    if(hex.length===3) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+                    if(hex.length===4) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2]+hex[3]+hex[3];
+                    color = '#' + hex;
+                    continue;
+                }
+
+                // === RESET COMMANDS ===
+                if(p==='/normal' || p==='/sansserif') { font='font-sans'; color=''; continue; }
+
+                // === FONT COMMANDS ===
+                if(p==='/monospace')    { font='font-mono'; continue; }
+                if(p==='/serif')         { font='font-serif'; continue; }
+                if(p==='/monochrome')    { font='font-emoji-mono'; continue; }
+                if(p==='/looped')        { font='font-thai-looped'; continue; }
+                if(p==='/thai serif')    { font='font-thai-serif'; continue; }
+                if(p==='/japan')         { font='font-japan'; continue; }
+                if(p==='/japan serif')   { font='font-japan-serif'; continue; }
+                if(p==='/korea')         { font='font-korea'; continue; }
+                if(p==='/korea serif')   { font='font-korea-serif'; continue; }
+                if(p==='/china')         { font='font-china'; continue; }
+                if(p==='/china serif')    { font='font-china-serif'; continue; }
+                if(p==='/taiwan'||p==='/macau') { font='font-taiwan'; continue; }
+                if(p==='/taiwan serif'||p==='/macau serif') { font='font-taiwan-serif'; continue; }
+                if(p==='/hongkong')      { font='font-hongkong'; continue; }
+
+                // === Regular text ===
+                const spanStyle = color ? `color:${color};` : '';
+                result += `<span class="${font}" style="${spanStyle}">${processInline(parts[i])}</span>`;
+            }
+            return result;
+        }
+
+        function renderPreview() {
+            output.innerHTML = renderMarkdown(processFontCommands(input.value));
+        }
+        input.addEventListener('input', renderPreview);
+
+        console.log("Clarity v2.6 — Monospace · Highlight · Strikethrough · RGB Color · 23 Font Families · MIT License.");
+    </script>
+</body>
+</html>
