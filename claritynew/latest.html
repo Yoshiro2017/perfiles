@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clarity</title>
+
+    <!-- Noto Fonts — including Armenian variants -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Sans+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Sans+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Mono:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+
+    <style>
+        /* ========== LICENSE NOTICE ==========
+           Clarity — A clean, single-file website template
+           Copyright 2026 — Licensed under the Apache License 2.0
+        ====================================== */
+
+        /* ========== THEME VARIABLES ========== */
+        :root {
+            --bg: #ffffff;
+            --bg-alt: #f3f4f6;
+            --bg-card: #fafafa;
+            --text: #1f2937;
+            --text-alt: #4b5563;
+            --text-muted: #6b7280;
+            --accent: #2563eb;
+            --accent-soft: #dbeafe;
+            --accent-hover: #1d4ed8;
+            --border: #e5e7eb;
+            --shadow: 0 2px 12px rgba(0,0,0,0.08);
+            --shadow-hover: 0 4px 18px rgba(0,0,0,0.12);
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f172a;
+            --bg-alt: #1e293b;
+            --bg-card: #1e293b;
+            --text: #f1f5f9;
+            --text-alt: #cbd5e1;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --accent-soft: #1e3a5f;
+            --accent-hover: #60a5fa;
+            --border: #334155;
+            --shadow: 0 2px 12px rgba(0,0,0,0.35);
+            --shadow-hover: 0 4px 18px rgba(0,0,0,0.45);
+        }
+
+        [data-theme="sepia"] {
+            --bg: #f8f4e9;
+            --bg-alt: #f0e9d6;
+            --bg-card: #fcf8ee;
+            --text: #433424;
+            --text-alt: #6b5640;
+            --text-muted: #8f7860;
+            --accent: #a05a2c;
+            --accent-soft: #f3e2c8;
+            --accent-hover: #854a24;
+            --border: #d9c8ad;
+            --shadow: 0 2px 12px rgba(67,52,36,0.12);
+            --shadow-hover: 0 4px 18px rgba(67,52,36,0.18);
+        }
+
+        /* ========== LOADING SCREEN ========== */
+        #loading-screen {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        #loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loading-title {
+            font-family: 'Noto Sans Display', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--accent);
+        }
+
+        .loading-list {
+            list-style: none;
+            text-align: center;
+            color: var(--text-alt);
+        }
+
+        .loading-list li {
+            padding: 0.4rem 0;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            opacity: 0.4;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-list li.loaded {
+            opacity: 1;
+        }
+
+        .loading-list li .material-symbols-outlined {
+            font-size: 1.1rem;
+        }
+
+        .loading-check {
+            color: #10b981;
+            opacity: 0;
+            transform: scale(0.6);
+            transition: all 0.3s ease;
+        }
+
+        .loading-list li.loaded .loading-check {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ========== RESET & GLOBAL ========== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans', 'Noto Sans Armenian', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* ========== FONT COMMAND CLASSES ========== */
+        .font-serif { font-family: 'Noto Serif', 'Noto Serif Armenian', serif; }
+        .font-sansserif { font-family: 'Noto Sans', 'Noto Sans Armenian', sans-serif; }
+        .font-monospace { font-family: 'Noto Sans Mono', monospace; }
+        .font-emoji { font-family: 'Noto Color Emoji'; }
+        .font-noemoji { font-family: 'Noto Sans', 'Noto Sans Armenian', sans-serif; }
+        .font-armenian-sans { font-family: 'Noto Sans Armenian', sans-serif; }
+        .font-armenian-serif { font-family: 'Noto Serif Armenian', serif; }
+
+        /* ========== FONT ASSIGNMENT ========== */
+        h1, h2, h3, h4, .display {
+            font-family: 'Noto Sans Display', 'Noto Sans Armenian', sans-serif;
+            letter-spacing: -0.02em;
+        }
+
+        h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; }
+        h2 { font-size: 1.8rem; font-weight: 600; margin: 2rem 0 1rem; }
+        h3 { font-size: 1.35rem; font-weight: 600; margin: 1.4rem 0 0.8rem; }
+        h4 { font-size: 1.1rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+
+        code, pre, .mono {
+            font-family: 'Noto Sans Mono', monospace;
+        }
+
+        .serif { font-family: 'Noto Serif', 'Noto Serif Armenian', serif; }
+        .serif-display { font-family: 'Noto Serif Display', serif; }
+        .armenian-sans { font-family: 'Noto Sans Armenian', sans-serif; }
+        .armenian-serif { font-family: 'Noto Serif Armenian', serif; }
+
+        p { color: var(--text-alt); margin-bottom: 1.1rem; font-size: 1.03rem; }
+        strong { color: var(--text); font-weight: 600; }
+        a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+        a:hover { color: var(--accent-hover); text-decoration: underline; }
+
+        ul, ol { margin: 1rem 0 1.4rem 1.8rem; color: var(--text-alt); }
+        li { margin-bottom: 0.6rem; }
+
+        hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
+
+        /* ========== MATERIAL SYMBOLS ========== */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            line-height: 1;
+        }
+        .icon-left { margin-right: 0.4rem; }
+        .icon-right { margin-left: 0.4rem; }
+
+        /* ========== LAYOUT & HEADER ========== */
+        header {
+            background: var(--bg-alt);
+            border-bottom: 1px solid var(--border);
+            padding: 1.1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+        }
+
+        .header-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-family: 'Noto Sans Display', 'Noto Sans Armenian', sans-serif;
+            font-size: 1.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 0.3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 0.55rem 0.95rem;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 0.95rem;
+            border-radius: 7px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: inherit;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .nav-btn:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .nav-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .theme-btn-group {
+            display: flex;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            margin-left: 0.3rem;
+        }
+
+        .theme-btn {
+            padding: 0.4rem 0.55rem;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .theme-btn:hover {
+            background: var(--accent-soft);
+        }
+
+        .theme-btn.active {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        /* ========== MAIN & PAGES ========== */
+        main {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2.5rem 2rem 4rem;
+        }
+
+        .page {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ========== CARDS & BOXES ========== */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+            box-shadow: var(--shadow);
+            transition: box-shadow 0.3s, transform 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-2px);
+        }
+
+        .card h2:first-child, .card h3:first-child { margin-top: 0; }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+            padding: 1.4rem 0;
+        }
+
+        .faq-item:last-child { border-bottom: none; }
+
+        .faq-question {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.08rem;
+            margin-bottom: 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-answer {
+            padding-left: 1.8rem;
+            color: var(--text-alt);
+        }
+
+        .license-text {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: var(--text-alt);
+            background: var(--accent-soft);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .command-demo {
+            background: var(--accent-soft);
+            padding: 1.2rem;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+            margin: 1rem 0;
+        }
+
+        .command-source {
+            font-family: 'Noto Sans Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .script-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.3rem;
+        }
+
+        /* ========== FOOTER ========== */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+            font-size: 0.92rem;
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 720px) {
+            .header-inner { flex-direction: column; align-items: flex-start; }
+            h1 { font-size: 2rem; }
+            .card { padding: 1.4rem; }
+            main { padding: 1.5rem 1.2rem 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== FONT LOADING SCREEN ========== -->
+    <div id="loading-screen">
+        <h1 class="loading-title">Clarity</h1>
+        <ul class="loading-list">
+            <li id="load-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans</li>
+            <li id="load-sans-display"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Display</li>
+            <li id="load-serif"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif</li>
+            <li id="load-serif-display"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif Display</li>
+            <li id="load-mono"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Mono</li>
+            <li id="load-armenian-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Armenian</li>
+            <li id="load-armenian-serif"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif Armenian</li>
+            <li id="load-emoji"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Color Emoji</li>
+            <li id="load-icons"><span class="material-symbols-outlined loading-check">check_circle</span> Material Symbols Icons</li>
+        </ul>
+    </div>
+
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <span class="material-symbols-outlined icon-left">visibility</span>
+                Clarity
+            </div>
+            <nav>
+                <button class="nav-btn active" data-page="home">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">home</span> Home
+                </button>
+                <button class="nav-btn" data-page="about">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">info</span> About
+                </button>
+                <button class="nav-btn" data-page="fonts">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">text_fields</span> Fonts
+                </button>
+                <button class="nav-btn" data-page="faq">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">help_center</span> FAQ
+                </button>
+                <button class="nav-btn" data-page="license">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">description</span> License
+                </button>
+                <button class="nav-btn" data-page="contact">
+                    <span class="material-symbols-outlined" style="font-size:1.05rem;">mail</span> Contact
+                </button>
+                <div class="theme-btn-group">
+                    <button class="theme-btn" data-theme="light" title="Light Mode">☀</button>
+                    <button class="theme-btn" data-theme="dark" title="Dark Mode">●</button>
+                    <button class="theme-btn" data-theme="sepia" title="Sepia Mode">◐</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <!-- HOME PAGE -->
+        <div id="home" class="page active">
+            <h1>Welcome to Clarity</h1>
+            <p>A thoughtfully designed, single-file website built with pure HTML, modern CSS, and lightweight JavaScript — featuring the comprehensive Noto font family including Armenian script support, three theme modes, and Material Symbols icons. Everything you see lives in one file for maximum simplicity and portability.</p>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">star</span> Font Command System</h2>
+                <p>Clarity supports inline font commands that are invisible in the source but change how text is displayed. Commands affect the text that follows them until another command is encountered.</p>
+
+                <div class="command-demo">
+                    <div class="command-source">Source: /serif Hello, /sansserif world! /normal</div>
+                    <div class="font-render">/serif Hello, /sansserif world! /normal</div>
+                </div>
+
+                <h3>Available Commands</h3>
+                <ul>
+                    <li><code>/serif</code> — Use Noto Serif for following text</li>
+                    <li><code>/sansserif</code> — Use Noto Sans for following text</li>
+                    <li><code>/monospace</code> — Use Noto Sans Mono for following text</li>
+                    <li><code>/emoji</code> — Force Noto Color Emoji for following text</li>
+                    <li><code>/noemoji</code> — Disable emoji rendering (default state)</li>
+                    <li><code>/normal</code> — Reset to default font, regardless of prior command</li>
+                </ul>
+            </div>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">palette</span> Three Theme Modes</h2>
+                <p>Choose your appearance using the theme buttons in the navigation bar:</p>
+                <ul>
+                    <li><strong>Light Mode</strong> — Clean white background, high contrast text</li>
+                    <li><strong>Dark Mode</strong> — Deep blue-gray background, soft white text</li>
+                    <li><strong>Sepia Mode</strong> — Warm paper tone, reduced contrast for comfortable reading</li>
+                </ul>
+                <p>Your selection is saved automatically and restored on your next visit.</p>
+            </div>
+        </div>
+
+        <!-- ABOUT PAGE -->
+        <div id="about" class="page">
+            <h1>About Clarity</h1>
+            <p><strong>Clarity</strong> demonstrates how much can be achieved with a single HTML file and a commitment to good typography. It includes comprehensive script support — including Armenian — alongside Latin and emoji support.</p>
+
+            <div class="card">
+                <h2>Design Philosophy</h2>
+                <p>Good typography should be universal. The Noto font family was created to provide high-quality, open-source typefaces for every language and writing system on Earth. By including Armenian variants alongside standard Latin fonts, text remains beautifully rendered regardless of script.</p>
+            </div>
+
+            <div class="card">
+                <h2>Font Management & Emoji Policy</h2>
+                <p>Noto Color Emoji is included but never used by default. Standard text never renders emoji symbols. Use the <code>/emoji</code> command to force Noto Color Emoji. Use <code>/noemoji</code> or <code>/normal</code> to return to standard typography.</p>
+
+                <div class="command-demo">
+                    <div class="command-source">/emoji 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜 /noemoji</div>
+                    <div class="font-render">/emoji 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜 /noemoji</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FONTS PAGE -->
+        <div id="fonts" class="page">
+            <h1>The Noto Font Collection</h1>
+            <p>This website demonstrates the Noto family with expanded support for the Armenian script. Each variant has a specific purpose and is carefully coordinated with the rest of the collection.</p>
+
+            <div class="card">
+                <h2>Noto Sans Armenian</h2>
+                <p class="script-label">Armenian Script · Sans-Serif</p>
+                <p class="armenian-sans">Ոչ ոք չի կարող ենթարկվել կամայական միջամտության իր անձնական ու ընտանեկան կյանքի նկատմամբ, իր տան, թղթակցության և կամ իր պատվի ու համբավի դեմ կամայական ոտնձգության։ Ամեն ոք ունի օրենքով պաշտպանվելու իրավունք ընդդեմ նման միջամտության կամ ոտնձգության։</p>
+                <p class="armenian-sans">Յուրաքանչյուր ոք ունի մտքի, խղճի ու դավանանքի ազատության իրավունք․ այս իրավունքը ներառնում է իր դավանանքը կամ համոզմունքները փոխելու ազատություն և իր դավանանքին կամ համոզմունքներին հետևելու ազատություն, մենակ կամ ուրիշների հետ համատեղ, հրապարակայնորեն կամ գաղտնի՝ քարոզի, ժամերգության, կրոնական ու ծիսական արարողությունների ձևով։</p>
+            </div>
+
+            <div class="card">
+                <h2>Noto Serif Armenian</h2>
+                <p class="script-label">Armenian Script · Serif</p>
+                <p class="armenian-serif">Ոչ ոք չի կարող ենթարկվել կամայական միջամտության իր անձնական ու ընտանեկան կյանքի նկատմամբ, իր տան, թղթակցության և կամ իր պատվի ու համբավի դեմ կամայական ոտնձգության։ Ամեն ոք ունի օրենքով պաշտպանվելու իրավունք ընդդեմ նման միջամտության կամ ոտնձգության։</p>
+                <p class="armenian-serif">Յուրաքանչյուր ոք ունի մտքի, խղճի ու դավանանքի ազատության իրավունք․ այս իրավունքը ներառնում է իր դավանանքը կամ համոզմունքները փոխելու ազատություն և իր դավանանքին կամ համոզմունքներին հետևելու ազատություն, մենակ կամ ուրիշների հետ համատեղ, հրապարակայնորեն կամ գաղտնի՝ քարոզի, ժամերգության, կրոնական ու ծիսական արարողությունների ձևով։</p>
+            </div>
+
+            <div class="card">
+                <h2>Noto Sans — Latin</h2>
+                <p class="script-label">Latin Script · Sans-Serif</p>
+                <p>Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance.</p>
+                <p>Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.</p>
+            </div>
+
+            <div class="card">
+                <h2>Noto Serif — Latin</h2>
+                <p class="script-label">Latin Script · Serif</p>
+                <p class="serif">Everyone has the right to freedom of thought, conscience and religion; this right includes freedom to change his religion or belief, and freedom, either alone or in community with others and in public or private, to manifest his religion or belief in teaching, practice, worship and observance.</p>
+                <p class="serif">Everyone has the right to freedom of opinion and expression; this right includes freedom to hold opinions without interference and to seek, receive and impart information and ideas through any media and regardless of frontiers. Everyone has the right to rest and leisure, including reasonable limitation of working hours and periodic holidays with pay.</p>
+            </div>
+
+            <div class="card">
+                <h2>Noto Sans Mono</h2>
+                <p class="script-label">Latin Script · Monospace</p>
+                <p class="mono">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 !@#$%^&*()_+-=</p>
+            </div>
+
+            <div class="card">
+                <h2>Noto Color Emoji</h2>
+                <p class="script-label">Emoji Symbols · Color</p>
+                <p>Noto Color Emoji is included but never used by default. Use the <code>/emoji</code> command to explicitly force emoji rendering.</p>
+                <p class="font-render">/emoji 🥰💀✌️🌴🐢🐐🍄⚽🍻👑📸😬👀🚨🏡🕊️🏆😻🌟🧿🍀🎨🍜 /noemoji</p>
+            </div>
+
+            <hr>
+            <h3>Font Usage Summary</h3>
+            <ul>
+                <li><strong>Noto Sans</strong> — Default body text, navigation, labels, UI</li>
+                <li><strong>Noto Sans Armenian</strong> — Armenian script content, sans-serif</li>
+                <li><strong>Noto Serif Armenian</strong> — Armenian script content, serif</li>
+                <li><strong>Noto Serif</strong> — Latin serif body text, enabled with /serif</li>
+                <li><strong>Noto Sans Mono</strong> — Code, data, technical content</li>
+                <li><strong>Noto Color Emoji</strong> — Enabled ONLY with /emoji (forces emoji font)</li>
+            </ul>
+        </div>
+
+        <!-- FAQ PAGE -->
+        <div id="faq" class="page">
+            <h1>Frequently Asked Questions</h1>
+            <p>Answers to common questions about Clarity — including expanded script support.</p>
+
+            <div class="card">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="material-symbols-outlined">question_mark</span>
+                        What script families are supported?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Clarity now includes both <strong>Noto Sans Armenian</strong> and <strong>Noto Serif Armenian</strong> alongside the standard Latin collection. This ensures Armenian text displays beautifully in both sans-serif and serif forms, matching the typographic style of the surrounding content.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="material-symbols-outlined">question_mark</span>
+                        How do the font commands work?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Commands such as <code>/serif</code>, <code>/sansserif</code>, <code>/monospace</code>, <code>/emoji</code>, <code>/noemoji</code>, and <code>/normal</code> are parsed invisibly within your text. They change the active font for all text that follows until another command is encountered. Commands do not appear in rendered output.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span class="material-symbols-outlined">question_mark</span>
+                        Why include Armenian variants separately?
+                    </div>
+                    <div class="faq-answer">
+                        <p>Armenian is a distinct writing system with its own letterforms. By including dedicated Armenian font files, text renders at optimal quality and weight — not as fallback glyphs. Sans-serif and serif variants are both provided so Armenian content can match the typographic tone of the document.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- LICENSE PAGE -->
+        <div id="license" class="page">
+            <h1>Apache License Version 2.0</h1>
+            <p>Clarity is licensed under the Apache License, Version 2.0. Additional resource attributions are provided below.</p>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">description</span> License Terms</h2>
+                <div class="license-text">
+                    <p>Copyright 2026 Clarity</p>
+                    <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at:</p>
+                    <p style="padding-left: 1rem;">http://www.apache.org/licenses/LICENSE-2.0</p>
+                    <p>Unless required by applicable law or agreed to in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under the License.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">info</span> Resource Attribution</h2>
+                <h3>Noto Fonts</h3>
+                <p>Noto Sans, Noto Sans Display, Noto Serif, Noto Serif Display, Noto Sans Mono, Noto Sans Armenian, Noto Serif Armenian, and Noto Color Emoji are distributed under the SIL Open Font License, Version 1.1.</p>
+                <h3>Material Symbols Icons</h3>
+                <p>Material Symbols are distributed by Google under the Apache License Version 2.0.</p>
+            </div>
+        </div>
+
+        <!-- CONTACT PAGE -->
+        <div id="contact" class="page">
+            <h1>Contact</h1>
+            <p>Clarity is designed to be a starting point — adaptable and expandable. This page may be customized to display your preferred information.</p>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">code</span> Project Information</h2>
+                <p><strong>Name:</strong> Clarity<br>
+                <strong>Version:</strong> 1.4<br>
+                <strong>License:</strong> Apache License Version 2.0<br>
+                <strong>Scripts:</strong> Latin, Armenian<br>
+                <strong>Fonts:</strong> Noto Sans / Display, Noto Serif / Display, Noto Mono, Noto Sans Armenian, Noto Serif Armenian, Noto Color Emoji<br>
+                <strong>Themes:</strong> Light, Dark, Sepia</p>
+            </div>
+
+            <div class="card">
+                <h2><span class="material-symbols-outlined icon-left">history</span> Version History</h2>
+                <ul>
+                    <li><strong>1.4</strong> — Added Noto Sans Armenian and Noto Serif Armenian; included sample text in Armenian and Latin; updated loading screen and font assignments</li>
+                    <li><strong>1.3.1</strong> — /emoji forces Noto Color Emoji; /noemoji disables it completely</li>
+                    <li><strong>1.3</strong> — Sepia theme, font loading indicator, inline font command system</li>
+                </ul>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        Clarity · Licensed under Apache License 2.0 · Noto Fonts · Material Symbols Icons
+    </footer>
+
+    <script>
+        // ========== FONT LOADING DETECTION ==========
+        document.fonts.ready.then(() => {
+            const order = ['load-sans', 'load-sans-display', 'load-serif', 'load-serif-display', 'load-mono', 'load-armenian-sans', 'load-armenian-serif', 'load-emoji', 'load-icons'];
+            let delay = 280;
+            order.forEach((id, i) => {
+                setTimeout(() => {
+                    const el = document.getElementById(id);
+                    if (el) el.classList.add('loaded');
+                    if (i === order.length - 1) {
+                        setTimeout(() => {
+                            document.getElementById('loading-screen').classList.add('hidden');
+                        }, 600);
+                    }
+                }, delay * (i + 1));
+            });
+        });
+
+        // ========== PAGE SWITCHING ==========
+        const navButtons = document.querySelectorAll('.nav-btn[data-page]');
+        const pages = document.querySelectorAll('.page');
+
+        navButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                navButtons.forEach(b => b.classList.remove('active'));
+                pages.forEach(p => p.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.page).classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // ========== THEME SWITCHING ==========
+        const themeButtons = document.querySelectorAll('.theme-btn[data-theme]');
+        const savedTheme = localStorage.getItem('theme') || 'light';
+
+        function applyTheme(theme) {
+            if (theme === 'light') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+            localStorage.setItem('theme', theme);
+            themeButtons.forEach(b => b.classList.toggle('active', b.dataset.theme === theme));
+        }
+
+        applyTheme(savedTheme);
+
+        themeButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyTheme(btn.dataset.theme);
+            });
+        });
+
+        // ========== FONT COMMAND PARSER ==========
+        document.querySelectorAll('.font-render').forEach(el => {
+            const originalText = el.textContent;
+            el.innerHTML = parseCommands(originalText);
+        });
+
+        function parseCommands(text) {
+            const parts = text.split(/(\/(?:serif|sansserif|monospace|emoji|noemoji|normal))/g);
+            let currentClass = 'font-noemoji';
+
+            return parts.map(part => {
+                const trimmed = part.trim();
+                switch(trimmed) {
+                    case '/serif': currentClass = 'font-serif'; return '';
+                    case '/sansserif': currentClass = 'font-sansserif'; return '';
+                    case '/monospace': currentClass = 'font-monospace'; return '';
+                    case '/emoji': currentClass = 'font-emoji'; return '';
+                    case '/noemoji': currentClass = 'font-noemoji'; return '';
+                    case '/normal': currentClass = 'font-noemoji'; return '';
+                    case '': return '';
+                    default: return `<span class="${currentClass}">${part}</span>`;
+                }
+            }).join('');
+        }
+    </script>
+</body>
+</html>
