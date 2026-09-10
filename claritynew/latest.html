@@ -9,8 +9,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <!-- Google Fonts — UPDATED: includes Noto Sans Math (400 only), core fonts FIRST, scripts LAST, Noto Color Emoji FINAL -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Kufi+Arabic:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&family=Noto+Rashi+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&family=Noto+Sans+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Sans+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Sans+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Sans+Math:wght@400&family=Noto+Sans+Mono:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Serif+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Serif:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap" rel="stylesheet">
+    <!-- Google Fonts — EXPANDED: Deseret, Duployan, Sundanese, Dives Akuru, Tangut added -->
+    <!-- NOTO SANS MATH is placed LAST in CSS fallback — protects Arabic rendering -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Kufi+Arabic:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&family=Noto+Rashi+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&family=Noto+Sans+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Sans+Deseret&family=Noto+Sans+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Sans+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Duployan:wght@400;700&family=Noto+Sans+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Sans+Sundanese:wght@400..700&family=Noto+Sans+Mono:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Serif+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Dives+Akuru&family=Noto+Serif+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Serif+Tangut&family=Noto+Serif:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Math:wght@400&display=swap" rel="stylesheet">
 
     <!-- Material Symbols Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
@@ -18,10 +19,14 @@
     <style>
 /* ============================================================
    CLARITY — Global Styles · No System Fonts Anywhere
+   FALLBACK ORDER:
+   Core → Display → Devanagari → Arabic/Hebrew/Armenian
+   → Deseret → Duployan → Sundanese → Dives Akuru → Tangut
+   → Mono → Math → Emoji
+   NOTO SANS MATH is LAST BEFORE EMOJI — never breaks Arabic
    ============================================================ */
 
 :root {
-    /* Default: Light mode */
     --color-front: #1f2937;
     --color-back: #ffffff;
     --color-backlight: #f3f4f6;
@@ -31,7 +36,6 @@
     --color-alert: #dc2626;
     --color-gray: #9ca3af;
 
-    /* Dynamic typography defaults */
     --dyn-wght: 400;
     --dyn-wdth: 100;
     --dyn-ital: 0;
@@ -41,7 +45,6 @@
     --transition: 0.2s ease;
 }
 
-/* Dark — custom palette */
 [data-theme="dark"] {
     --color-front: #c8caf4;
     --color-back: #20213f;
@@ -53,7 +56,6 @@
     --color-gray: #6b6ea8;
 }
 
-/* Electric */
 [data-theme="electric"] {
     --color-front: #bbdbf3;
     --color-back: #110a5d;
@@ -65,7 +67,6 @@
     --color-gray: #7c74c8;
 }
 
-/* Sunset */
 [data-theme="sunset"] {
     --color-front: #dcd8f1;
     --color-back: #2b1752;
@@ -77,7 +78,6 @@
     --color-gray: #8c78b8;
 }
 
-/* Forest */
 [data-theme="forest"] {
     --color-front: #d6ddcb;
     --color-back: #063a2a;
@@ -89,7 +89,6 @@
     --color-gray: #779970;
 }
 
-/* Pastel */
 [data-theme="pastel"] {
     --color-front: #5b2a7d;
     --color-back: #dfc8f1;
@@ -101,7 +100,6 @@
     --color-gray: #b8a0d0;
 }
 
-/* Paper */
 [data-theme="paper"] {
     --color-front: #663F00;
     --color-back: #e9d8c6;
@@ -113,7 +111,6 @@
     --color-gray: #b8a088;
 }
 
-/* Contrast */
 [data-theme="contrast"] {
     --color-front: #FFFFFF;
     --color-back: #000000;
@@ -125,7 +122,6 @@
     --color-gray: #666666;
 }
 
-/* Tsartnoc (Contrast reversed) */
 [data-theme="tsartnoc"] {
     --color-front: #000000;
     --color-back: #FFFFFF;
@@ -137,7 +133,6 @@
     --color-gray: #888888;
 }
 
-/* Plum */
 [data-theme="plum"] {
     --color-front: #F1BCD8;
     --color-back: #5D0344;
@@ -149,7 +144,6 @@
     --color-gray: #994078;
 }
 
-/* Seascape */
 [data-theme="seascape"] {
     --color-front: #ADEFE8;
     --color-back: #003D41;
@@ -162,7 +156,7 @@
 }
 
 /* ============================================================
-   ⚠️ TOFU NOTICE — displayed until fonts fully loaded
+   ⚠️ TOFU NOTICE — displayed until all fonts fully loaded
    ============================================================ */
 #tofu-notice {
     background-color: var(--color-backlight);
@@ -176,12 +170,19 @@
 #tofu-notice .material-symbols-outlined { margin-right: 0.5rem; }
 
 /* ============================================================
-   Font Families — NO SYSTEM FONTS ANYWHERE
-   Core fonts FIRST → scripts → Math → Mono → Emoji LAST
+   FONT FAMILIES — ALL IN FALLBACK ORDER, NO SYSTEM FONTS
+   Math always last before Emoji
    ============================================================ */
 
 body {
-    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Devanagari', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Devanagari', 'Noto Serif Devanagari',
+                 'Noto Sans Arabic', 'Noto Kufi Arabic', 'Noto Naskh Arabic', 'Noto Nastaliq Urdu',
+                 'Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew',
+                 'Noto Sans Armenian', 'Noto Serif Armenian',
+                 'Noto Sans Deseret', 'Noto Sans Duployan', 'Noto Sans Sundanese',
+                 'Noto Serif Dives Akuru', 'Noto Serif Tangut',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
     background-color: var(--color-back);
     color: var(--color-front);
@@ -190,94 +191,150 @@ body {
     transition: background-color var(--transition), color var(--transition);
 }
 
-/* Serif — all axes */
 .font-serif {
-    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Sans', 'Noto Sans Display', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Serif Devanagari', 'Noto Sans Devanagari',
+                 'Noto Serif Hebrew', 'Noto Serif Armenian',
+                 'Noto Serif Dives Akuru', 'Noto Serif Tangut',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
 
-/* Display fonts — intended for larger sizes, all axes */
 .font-sans-display {
-    font-family: 'Noto Sans Display', 'Noto Sans', 'Noto Serif Display', 'Noto Serif', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
-    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
-}
-.font-serif-display {
-    font-family: 'Noto Serif Display', 'Noto Serif', 'Noto Sans Display', 'Noto Sans', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Display', 'Noto Sans', 'Noto Serif Display', 'Noto Serif',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
 
-/* Math — fixed weight 400 ONLY, no axes */
+.font-serif-display {
+    font-family: 'Noto Serif Display', 'Noto Serif', 'Noto Sans Display', 'Noto Sans',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Math — fixed weight 400, explicitly isolated */
 .font-math {
-    font-family: 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Math', 'Noto Color Emoji';
     font-weight: 400;
     font-variation-settings: 'wght' 400;
 }
 
-/* Devanagari — wght + wdth, NO italics */
 .font-devanagari-sans {
-    font-family: 'Noto Sans Devanagari', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
-    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
-}
-.font-devanagari-serif {
-    font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Devanagari', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
 
-/* Mono — wght + wdth ONLY, NO italics */
+.font-devanagari-serif {
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
 .font-monospace {
     font-family: 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
 
-/* Script fonts — wght + wdth, NO italics */
 .font-armenian-sans {
-    font-family: 'Noto Sans Armenian', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Armenian', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
+
 .font-armenian-serif {
-    font-family: 'Noto Serif Armenian', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Serif Armenian', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
+
 .font-hebrew-sans {
-    font-family: 'Noto Sans Hebrew', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Hebrew', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
+
 .font-hebrew-serif {
-    font-family: 'Noto Serif Hebrew', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Serif Hebrew', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
+
 .font-arabic-sans {
-    font-family: 'Noto Sans Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans Arabic', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
 }
 
-/* Script fonts — wght ONLY, NO width / NO italics */
 .font-rashi {
-    font-family: 'Noto Rashi Hebrew', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-family: 'Noto Rashi Hebrew', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wght' var(--dyn-wght);
 }
+
 .font-kufi {
-    font-family: 'Noto Kufi Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-family: 'Noto Kufi Arabic', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'wght' var(--dyn-wght);
 }
+
 .font-naskh {
-    font-family: 'Noto Naskh Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
-    font-weight: clamp(400, var(--dyn-wght), 700);
-}
-.font-urdu {
-    font-family: 'Noto Nastaliq Urdu', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-family: 'Noto Naskh Arabic', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Math', 'Noto Color Emoji';
     font-weight: clamp(400, var(--dyn-wght), 700);
 }
 
-/* Emoji — static 400 only, LAST in fallback chain */
+.font-urdu {
+    font-family: 'Noto Nastaliq Urdu', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Math', 'Noto Color Emoji';
+    font-weight: clamp(400, var(--dyn-wght), 700);
+}
+
+/* New script fonts */
+.font-deseret {
+    font-family: 'Noto Sans Deseret', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wght' var(--dyn-wght);
+}
+
+.font-duployan {
+    font-family: 'Noto Sans Duployan', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-weight: clamp(400, var(--dyn-wght), 700);
+}
+
+.font-sundanese {
+    font-family: 'Noto Sans Sundanese', 'Noto Sans', 'Noto Sans Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-weight: clamp(400, var(--dyn-wght), 700);
+}
+
+.font-divesakuru {
+    font-family: 'Noto Serif Dives Akuru', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wght' var(--dyn-wght);
+}
+
+.font-tangut {
+    font-family: 'Noto Serif Tangut', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wght' var(--dyn-wght);
+}
+
 .font-emoji {
     font-family: 'Noto Color Emoji';
     font-weight: 400;
 }
 
-/* Command preview area — NO SYSTEM FALLBACKS */
 .command-render {
-    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Devanagari', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display',
+                 'Noto Sans Devanagari', 'Noto Serif Devanagari',
+                 'Noto Sans Arabic', 'Noto Kufi Arabic', 'Noto Naskh Arabic', 'Noto Nastaliq Urdu',
+                 'Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew',
+                 'Noto Sans Armenian', 'Noto Serif Armenian',
+                 'Noto Sans Deseret', 'Noto Sans Duployan', 'Noto Sans Sundanese',
+                 'Noto Serif Dives Akuru', 'Noto Serif Tangut',
+                 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
     transition: all 0.15s ease;
 }
@@ -301,7 +358,7 @@ body {
 #loading-screen.hidden { opacity: 0; pointer-events: none; }
 
 .font-list-container {
-    width: 320px;
+    width: 340px;
     height: 140px;
     overflow: hidden;
     position: relative;
@@ -444,7 +501,7 @@ th { background-color: var(--color-backlight); color: var(--color-vivid); }
     padding: 2rem;
     background-color: var(--color-backlight);
     border-radius: var(--radius);
-    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Serif Dives Akuru', 'Noto Serif Tangut', 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
     line-height: 1.8;
 }
 
@@ -466,7 +523,6 @@ footer {
 </head>
 <body>
 
-<!-- Loading Screen → scrolls font list up/down until all fonts ready -->
 <div id="loading-screen">
     <h2>Clarity</h2>
     <p>Loading font resources…</p>
@@ -476,19 +532,24 @@ footer {
             <div>Noto Serif</div>
             <div>Noto Sans Display</div>
             <div>Noto Serif Display</div>
-            <div>Noto Sans Mono</div>
-            <div>Noto Sans Math</div>
-            <div>Noto Sans Armenian</div>
-            <div>Noto Serif Armenian</div>
-            <div>Noto Sans Hebrew</div>
-            <div>Noto Serif Hebrew</div>
-            <div>Noto Rashi Hebrew</div>
             <div>Noto Sans Devanagari</div>
             <div>Noto Serif Devanagari</div>
             <div>Noto Sans Arabic</div>
             <div>Noto Kufi Arabic</div>
             <div>Noto Naskh Arabic</div>
             <div>Noto Nastaliq Urdu</div>
+            <div>Noto Sans Hebrew</div>
+            <div>Noto Serif Hebrew</div>
+            <div>Noto Rashi Hebrew</div>
+            <div>Noto Sans Armenian</div>
+            <div>Noto Serif Armenian</div>
+            <div>Noto Sans Deseret</div>
+            <div>Noto Sans Duployan</div>
+            <div>Noto Sans Sundanese</div>
+            <div>Noto Serif Dives Akuru</div>
+            <div>Noto Serif Tangut</div>
+            <div>Noto Sans Mono</div>
+            <div>Noto Sans Math</div>
             <div>Noto Color Emoji</div>
         </div>
     </div>
@@ -502,6 +563,9 @@ footer {
         </button>
         <button class="nav-btn" data-page="typography">
             <span class="material-symbols-outlined">text_fields</span> Typography
+        </button>
+        <button class="nav-btn" data-page="scripts">
+            <span class="material-symbols-outlined">font_download</span> Scripts
         </button>
         <button class="nav-btn" data-page="commands">
             <span class="material-symbols-outlined">terminal</span> Commands
@@ -532,46 +596,44 @@ footer {
 
 <main>
 
-<!-- ⚠️ TOFU NOTICE — appears until fonts are fully loaded -->
 <div id="tofu-notice">
     <span class="material-symbols-outlined">warning</span>
-    <strong>Fonts are loading.</strong> You may see missing characters or empty boxes (often called "tofu") while font resources download. All text will display correctly once loading completes.
+    <strong>Fonts are loading.</strong> You may see missing characters or empty boxes ("tofu") while font resources download — especially for Deseret, Duployan, Sundanese, Dives Akuru, and Tangut. All text will display correctly once loading completes.
 </div>
 
 <!-- HOME PAGE -->
 <div id="home" class="page active">
     <h1>Welcome to Clarity</h1>
-    <p>Clarity is a multilingual typography framework built exclusively on the Noto font family — with <strong>no system fonts used anywhere</strong> in the entire website. Every character, space, and glyph renders from Noto fonts only.</p>
+    <p>Clarity is a multilingual typography framework built exclusively on the Noto font family — with <strong>no system fonts used anywhere</strong> and <strong>Noto Sans Math placed last</strong> in the fallback chain to prevent Arabic and complex scripts from being broken by Math's limited glyph set.</p>
 
     <h2>About This Framework</h2>
-    <p>Designed for clarity across writing systems. Every font is served with its actual supported axes — no italics are applied to fonts that do not support them, and weight ranges are constrained where the font itself is limited. The space character (U+0020) always renders from core fonts, never from emoji.</p>
-    <p>Noto Sans Math is included for mathematical notation and formula display — it supports only weight 400 (Regular), and does not provide width or italic axes. All math content uses this font exclusively.</p>
+    <p>Designed for clarity across writing systems. Every font is served with its actual supported axes. The space character (U+0020) always renders from core fonts, never from emoji or Math. <strong>Noto Sans Math is placed intentionally LAST</strong> so it only renders mathematical symbols that no other font provides — Arabic, Hebrew, Devanagari, and all other scripts resolve from their dedicated fonts first.</p>
+
+    <h2>Expanded Script Support</h2>
+    <p>This version adds five additional writing systems: <strong>Deseret, Duployan, Sundanese, Dives Akuru, and Tangut</strong>. All are placed in the fallback chain before Mono and Math, ensuring they render correctly without interference.</p>
+
+    <h2>Complete Fallback Order</h2>
+    <p><strong>Core → Display → Devanagari → Arabic/Hebrew/Armenian → Deseret → Duployan → Sundanese → Dives Akuru → Tangut → Mono → <u>Math</u> → Emoji</strong></p>
+    <p>By placing Noto Sans Math after every script font, Arabic and other complex scripts will always use their dedicated fonts. Math only catches mathematical symbols — it will never break Arabic text.</p>
 
     <h2>Supported Scripts & Axes</h2>
     <table>
         <tr><th>Font</th><th>Weight Range</th><th>Width Axis</th><th>Italics</th></tr>
         <tr><td>Noto Sans / Serif</td><td>100–900</td><td>✅</td><td>✅</td></tr>
         <tr><td>Noto Sans Display / Serif Display</td><td>100–900</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Devanagari / Arabic / Hebrew / Armenian</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Noto Sans Deseret</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Noto Sans Duployan</td><td>400, 700</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Noto Sans Sundanese</td><td>400–700</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Noto Serif Dives Akuru</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Noto Serif Tangut</td><td>100–900</td><td>✅</td><td>❌</td></tr>
         <tr><td>Noto Sans Mono</td><td>100–900</td><td>✅</td><td>❌</td></tr>
         <tr><td><strong>Noto Sans Math</strong></td><td><strong>400 only</strong></td><td>❌</td><td>❌</td></tr>
-        <tr><td>Noto Sans Devanagari</td><td>100–900</td><td>✅</td><td>❌</td></tr>
-        <tr><td>Noto Serif Devanagari</td><td>100–900</td><td>✅</td><td>❌</td></tr>
-        <tr><td>Armenian / Hebrew (Sans & Serif)</td><td>100–900</td><td>✅</td><td>❌</td></tr>
-        <tr><td>Arabic Sans</td><td>100–900</td><td>✅</td><td>❌</td></tr>
-        <tr><td>Rashi / Kufi</td><td>100–900</td><td>❌</td><td>❌</td></tr>
-        <tr><td>Naskh / Nastaliq</td><td>400–700</td><td>❌</td><td>❌</td></tr>
         <tr><td>Noto Color Emoji</td><td>400 only</td><td>❌</td><td>❌</td></tr>
     </table>
 
-    <h2>Theme System — 11 Themes Available</h2>
-    <p>Light, Dark, Electric, Sunset, Forest, Pastel, Paper, Contrast, Tsartnoc, Plum, Seascape. Switch instantly from the navigation bar; your preference saves automatically to your browser.</p>
-
-    <h2>Font Loading Behavior</h2>
-    <p>Because this framework uses <strong>only Noto fonts and no system fonts</strong>, all glyphs must be downloaded before they can display. This means you may see empty boxes or "tofu" temporarily — especially for less common scripts or mathematical symbols. The loading screen and notice above will disappear once all font resources are fully ready.</p>
-
     <p style="height: 80vh;"></p>
-    <p>End of home page section. Additional content continues below to demonstrate page length and font behavior across extended text blocks.</p>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Additional reference content extends this page length. All font specifications, axis ranges, and weight values come directly from Google Fonts' published font metadata. No system fonts are referenced anywhere in this framework — every glyph must be downloaded before it displays.</p>
     <p style="height: 40vh;"></p>
 </div>
 
@@ -579,105 +641,87 @@ footer {
 <div id="typography" class="page">
     <h1>Typography &amp; Font Descriptions</h1>
 
-    <h2>Core Text Fonts</h2>
-    <p><strong>Noto Sans</strong> — A sans‑serif design optimized for body text across all sizes. Supports full weight range (100–900), width axis (62.5–100), and italics. Primary source for consistent space character metrics. This font is listed first in every font‑family declaration to ensure consistent spacing and punctuation rendering.</p>
-    <p><strong>Noto Serif</strong> — A serif design for body text. Matches the same axes and metrics as Noto Sans, serving as the primary serif fallback for spacing and punctuation.</p>
-
-    <h2>Display Fonts — For Larger Sizes</h2>
-    <p><strong>Noto Sans Display</strong> — An unmodulated (sans‑serif) design for texts in larger font sizes in the European Latin script and in Cyrillic, Greek. Italic styles, multiple weights and widths, 3,316 glyphs. Intended for headings and display text.</p>
-    <p><strong>Noto Serif Display</strong> — A modulated (serif) design for texts in larger font sizes. Italic styles, multiple weights and widths, 3,256 glyphs. Optimized for headings and titles.</p>
-
-    <h2>Noto Sans Math — Mathematical Notation</h2>
-    <p><strong>Noto Sans Math</strong> — A font specifically designed for mathematical formulas, equations, and technical notation. <strong>Only supports weight 400 (Regular)</strong> — it does not provide variable weight, width, or italic axes. This font is placed after Devanagari variants but before Mono in the fallback chain, ensuring mathematical symbols resolve correctly while preserving standard text metrics. When using mathematical notation, explicitly apply the <code>.font-math</code> class to guarantee proper glyph selection.</p>
-    <p>Because Noto Sans Math has no variable axes, weight, width, and italic commands will have no effect on math‑tagged text — the font will always display at its fixed 400 weight.</p>
-
-    <h2>Devanagari — Indic Script</h2>
-    <p><strong>Noto Sans Devanagari</strong> — An unmodulated design for texts in the Indic Devanagari script. 954 glyphs. Supports weight (100–900) and width (62.5–100) axes — no italics. Coverage: Devanagari, Vedic Extensions, Devanagari Extended, Basic Latin, General Punctuation, Common Indic Number Forms.</p>
-    <p><strong>Noto Serif Devanagari</strong> — A modulated design for texts in the Indic Devanagari script. 871 glyphs. Supports weight (100–900) and width (62.5–100) axes — no italics. Unicode coverage matches Sans Devanagari across 6 blocks.</p>
-
-    <h2>Weight Axis Reference</h2>
-    <table>
-        <tr><th>Name</th><th>Value</th><th>Available in Math?</th></tr>
-        <tr><td>Thin</td><td>100</td><td>❌</td></tr>
-        <tr><td>ExtraLight</td><td>200</td><td>❌</td></tr>
-        <tr><td>Light</td><td>300</td><td>❌</td></tr>
-        <tr><td>Regular</td><td>400</td><td>✅ Only</td></tr>
-        <tr><td>Medium</td><td>500</td><td>❌</td></tr>
-        <tr><td>SemiBold</td><td>600</td><td>❌</td></tr>
-        <tr><td>Bold</td><td>700</td><td>❌</td></tr>
-        <tr><td>ExtraBold</td><td>800</td><td>❌</td></tr>
-        <tr><td>Black</td><td>900</td><td>❌</td></tr>
-    </table>
-
-    <h2>Width Axis Reference</h2>
-    <table>
-        <tr><th>Name</th><th>Value</th><th>Available in Math?</th></tr>
-        <tr><td>ExtraCondensed</td><td>62.5</td><td>❌</td></tr>
-        <tr><td>Condensed</td><td>75</td><td>❌</td></tr>
-        <tr><td>SemiCondensed</td><td>87.5</td><td>❌</td></tr>
-        <tr><td>Normal</td><td>100</td><td>✅ Only</td></tr>
-    </table>
+    <h2>Noto Sans Math — Placement Explained</h2>
+    <p>Noto Sans Math contains almost exclusively mathematical glyphs. It lacks Arabic, Hebrew, Devanagari, and most standard characters. When placed earlier in the fallback chain, the browser would attempt to use it for those scripts and display empty boxes or broken characters. <strong>It is now placed immediately before Noto Color Emoji</strong> so it only applies to mathematical notation — all other scripts are unaffected and render from their own dedicated fonts.</p>
 
     <h2>Axis Support Summary</h2>
-    <p><strong>Core fonts (Sans / Serif / Display):</strong> wght ✅ wdth ✅ ital ✅</p>
-    <p><strong>Devanagari / Mono / Armenian / Hebrew / Arabic Sans:</strong> wght ✅ wdth ✅ ital ❌</p>
-    <p><strong>Noto Sans Math:</strong> wght = 400 only, wdth ❌ ital ❌</p>
-    <p><strong>Rashi / Kufi:</strong> wght ✅ wdth ❌ ital ❌</p>
-    <p><strong>Naskh / Nastaliq:</strong> wght 400–700 wdth ❌ ital ❌</p>
-    <p><strong>Noto Color Emoji:</strong> static 400 — no variable axes, listed LAST in fallback</p>
+    <p><strong>Core & Display fonts:</strong> wght ✅ wdth ✅ ital ✅</p>
+    <p><strong>Devanagari / Arabic / Hebrew / Armenian:</strong> wght ✅ wdth ✅ ital ❌</p>
+    <p><strong>Deseret:</strong> Full variable weight and width axes</p>
+    <p><strong>Duployan:</strong> Only weights 400 and 700 available — no width or italic axes</p>
+    <p><strong>Sundanese:</strong> Weight range 400–700 — no width or italic axes</p>
+    <p><strong>Dives Akuru / Tangut:</strong> Full variable weight and width axes, Serif style</p>
+    <p><strong>Noto Sans Math:</strong> wght = 400 only, wdth ❌ ital ❌ — use <code>class="font-math"</code> explicitly</p>
 
-    <h2>⚠️ No System Font Policy</h2>
-    <p>This website does not use <em>any</em> operating system fonts — no sans-serif, serif, monospace, or other generic fallbacks appear anywhere in the CSS. Every font-family declaration consists exclusively of Noto fonts, ending with Noto Color Emoji. This guarantees consistent rendering across all devices and operating systems, but it also means all glyphs must be downloaded before they can display. Temporary tofu boxes are normal during the loading period.</p>
+    <h2>Font Loading Behavior</h2>
+    <p>Because this framework uses <strong>no system fonts at all</strong>, every glyph must be downloaded from Google Fonts before it can display. Less common scripts like Deseret, Duployan, Sundanese, Dives Akuru, and Tangut contain large numbers of unique glyphs and may take longer to load. Temporary empty boxes ("tofu") are normal during loading — the notice and loading screen will disappear automatically when all resources are ready.</p>
 
     <p style="height: 80vh;"></p>
-    <p>Additional typography reference content continues here to extend page length. All font metrics, axis values, and script descriptions are derived directly from Google Fonts' published variable font specifications. No values are guessed or assumed beyond what each font officially supports.</p>
+    <p>All font-family declarations follow the identical fallback order throughout the entire framework. There are no generic system font names anywhere — every entry is an explicit Noto font name. This guarantees consistent rendering across all devices but means glyphs not present in any downloaded font file will display as empty boxes until their specific font finishes loading.</p>
+    <p style="height: 40vh;"></p>
+</div>
+
+<!-- SCRIPTS PAGE -->
+<div id="scripts" class="page">
+    <h1>Supported Writing Systems</h1>
+
+    <h2>Core & General Scripts</h2>
+    <p>Latin, Cyrillic, Greek, and extended Latin coverage is provided by Noto Sans, Noto Serif, and their Display variants. These are listed first in the fallback chain and provide the base character set for most text.</p>
+
+    <h2>South Asian Scripts</h2>
+    <p><strong>Devanagari</strong> — Supported by both Sans and Serif variants. Full weight and width axes.</p>
+
+    <h2>Middle Eastern Scripts</h2>
+    <p><strong>Arabic</strong> — Sans Arabic, Kufi, Naskh, and Nastaliq Urdu provide comprehensive coverage across calligraphic styles. Weight ranges vary by variant.</p>
+    <p><strong>Hebrew</strong> — Sans, Serif, and Rashi variants. Full weight and width axes.</p>
+    <p><strong>Armenian</strong> — Sans and Serif variants. Full weight and width axes.</p>
+
+    <h2>Added Scripts</h2>
+    <p><strong>Deseret</strong> — Also known as the Mormon alphabet. Full variable weight and width axes.</p>
+    <p><strong>Duployan</strong> — A shorthand writing system. Only Regular (400) and Bold (700) available.</p>
+    <p><strong>Sundanese</strong> — Script used for the Sundanese language. Weight range 400–700.</p>
+    <p><strong>Dives Akuru</strong> — Historical script from the Maldives. Serif style, full variable axes.</p>
+    <p><strong>Tangut</strong> — Historical script of the Western Xia empire. Serif style, full variable axes.</p>
+
+    <h2>Special Purpose</h2>
+    <p><strong>Noto Sans Math</strong> — Mathematical symbols and operators. Always use explicit <code>class="font-math"</code>. Fixed weight 400.</p>
+    <p><strong>Noto Color Emoji</strong> — Color emoji glyphs. Always last in the chain.</p>
+
+    <p style="height: 80vh;"></p>
+    <p>Script fonts load in stages by Unicode range — Latin and common characters appear first, followed by regional scripts, then historical and special-purpose scripts. Deseret, Duployan, Sundanese, Dives Akuru, and Tangut may take the longest to display due to larger file sizes and fewer cached occurrences.</p>
     <p style="height: 40vh;"></p>
 </div>
 
 <!-- COMMANDS PAGE -->
 <div id="commands" class="page">
     <h1>Command Reference</h1>
-    <p>Control font properties with inline commands. Both numbers and official Google Font names are accepted. Width and weight commands work on all Devanagari variants; italics are silently ignored where fonts do not support them. Commands applied to mathematical notation will have no effect — Noto Sans Math is fixed at 400 weight.</p>
+    <p>Width and weight commands work on all fonts except Math — which is permanently fixed at weight 400. Math is never selected automatically for Arabic or other scripts due to its position at the end of the fallback chain, immediately before Emoji.</p>
 
     <div class="command-container">
         <input type="text" id="command-input" class="command-input" placeholder="/wght Bold /wdth Condensed Sample Text">
         <div id="command-output" class="command-output command-render">Type commands above to preview…</div>
         <div class="command-help">
-            <strong>Commands:</strong><br>
-            <code>/wght [value or name]</code> — Thin(100) ExtraLight(200) Light(300) Regular(400) Medium(500) SemiBold(600) Bold(700) ExtraBold(800) Black(900)<br>
-            <code>/wdth [value or name]</code> — ExtraCondensed(62.5) Condensed(75) SemiCondensed(87.5) Normal(100)<br>
-            <code>/ital enable|disable</code> — Core &amp; Display fonts only (ignored by Devanagari, Mono, Math, Script fonts)<br>
-            <code>/normal</code> — Reset all to defaults (400, 100, italic off)
+            <code>/wght</code> — 100–900 · <code>/wdth</code> — 62.5–100 · <code>/ital enable|disable</code> · <code>/normal</code> reset
         </div>
     </div>
 
-    <h2>Usage Examples</h2>
-    <ul>
-        <li><code>/wght 300 /wdth 87.5 Devanagari text</code> — Light weight, SemiCondensed width</li>
-        <li><code>/wght Bold Heading Text</code> — Bold weight, normal width</li>
-        <li><code>/ital enable Italic heading</code> — Italic on core or Display fonts</li>
-        <li><code>/normal Plain text at Regular weight</code> — Reset all axes to default values</li>
-        <li><code>Mathematical notation — commands ignored</code> — Math always renders at weight 400, normal width, no italics</li>
-    </ul>
+    <h2>Font-Specific Command Limits</h2>
+    <table>
+        <tr><th>Font</th><th>Weight Range</th><th>Width Axis</th><th>Responds to Commands?</th></tr>
+        <tr><td>Core / Display</td><td>100–900</td><td>62.5–100</td><td>✅ Full</td></tr>
+        <tr><td>Devanagari / Arabic / Hebrew / Armenian</td><td>100–900</td><td>62.5–100</td><td>✅ Weight + Width</td></tr>
+        <tr><td>Deseret</td><td>100–900</td><td>62.5–100</td><td>✅ Weight + Width</td></tr>
+        <tr><td>Duployan</td><td>400, 700</td><td>—</td><td>Limited to 400/700</td></tr>
+        <tr><td>Sundanese</td><td>400–700</td><td>—</td><td>Weight only</td></tr>
+        <tr><td>Dives Akuru / Tangut</td><td>100–900</td><td>62.5–100</td><td>✅ Weight + Width</td></tr>
+        <tr><td>Noto Sans Math</td><td>400 only</td><td>—</td><td>❌ Fixed — no commands apply</td></tr>
+    </table>
 
-    <h2>Important Limitations</h2>
-    <p>Devanagari Sans and Serif support width and weight but NOT italics — any <code>/ital</code> command has no effect on those fonts. Naskh and Nastaliq weights are clamped to 400–700. <strong>Noto Sans Math ignores all commands entirely</strong> — it is permanently fixed at weight 400 with no width or italic variations available. Noto Color Emoji also ignores all font axis commands entirely.</p>
-
-    <h2>Font Fallback Order — No System Fonts</h2>
-    <p>Every font-family declaration follows this exact chain with <strong>no generic or system fallbacks included</strong>:</p>
-    <ol>
-        <li>Core text fonts (Noto Sans → Noto Serif)</li>
-        <li>Display fonts (Noto Sans Display → Noto Serif Display)</li>
-        <li>Devanagari fonts</li>
-        <li>Noto Sans Math</li>
-        <li>Noto Sans Mono</li>
-        <li>Script fonts (Armenian, Hebrew, Arabic variants)</li>
-        <li>Noto Color Emoji — <strong>always last</strong></li>
-    </ol>
-    <p>This ordering guarantees U+0020 space characters always render from core fonts, never from emoji or script fonts. It also means glyphs not present in any downloaded Noto font will display as empty boxes (tofu) until the necessary font resource finishes loading.</p>
+    <h2>Important: Math Font Position</h2>
+    <p>Because Math comes <em>after</em> Arabic, Hebrew, Devanagari, and all other scripts, it will <strong>never be used</strong> to render Arabic or non‑mathematical text. To display mathematical symbols, apply the <code>class="font-math"</code> explicitly — otherwise the font will only be used as a last resort for math‑specific Unicode code points.</p>
 
     <p style="height: 80vh;"></p>
-    <p>Command parsing logic automatically clamps values to supported ranges per font family. Values outside a font's documented support range are silently adjusted to the nearest valid value. This prevents unsupported axes from requesting invalid font instances or triggering system fallback fonts.</p>
+    <p>Command parsing automatically clamps values to each font's documented support range. Values outside a font's published range are silently adjusted to the nearest valid value — preventing unsupported axis combinations from triggering unintended fallback behavior.</p>
     <p style="height: 40vh;"></p>
 </div>
 
@@ -701,50 +745,26 @@ footer {
 
     <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Why do I see empty boxes or "tofu"?</span>
+            <span>Why was Noto Sans Math moved to the end?</span>
             <span class="material-symbols-outlined">expand_more</span>
         </div>
-        <div class="faq-a">This framework uses <strong>no system fonts at all</strong>. Every glyph must be downloaded from Google Fonts before it can display. Until each font file finishes loading, characters not yet available may appear as empty boxes (often called "tofu"). This is normal — the loading screen and warning notice will disappear once all resources are ready. Script fonts and mathematical notation take longest to load because they contain many unique glyphs.</div>
+        <div class="faq-a">Noto Sans Math contains almost no Arabic, Hebrew, or Devanagari glyphs. When placed earlier in the fallback chain, the browser would attempt to use it for those scripts and display empty boxes or broken characters. By placing it <strong>after all script fonts and immediately before Emoji</strong>, Math only renders mathematical symbols — all other text resolves from its correct dedicated font.</div>
     </div>
 
     <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>What is Noto Sans Math and why is it different?</span>
+            <span>How do I use mathematical notation now?</span>
             <span class="material-symbols-outlined">expand_more</span>
         </div>
-        <div class="faq-a">Noto Sans Math is a specialized font designed exclusively for mathematical symbols, equations, and formula notation. Unlike other Noto fonts, it <strong>only supports weight 400 (Regular)</strong> with no width axis or italics. It is placed in the fallback chain specifically to catch mathematical glyphs that other fonts do not provide, but it will always display at a single weight regardless of commands applied.</div>
+        <div class="faq-a">Apply the <code>class="font-math"</code> directly to math elements. This class has Math as its first (and only non‑emoji) font, so equations will render correctly. Without this class, math symbols still work via fallback — but regular text will always prefer the correct script font first.</div>
     </div>
 
     <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>What themes are available?</span>
+            <span>Why do I see empty boxes for Deseret/Duployan/Sundanese/Dives Akuru/Tangut?</span>
             <span class="material-symbols-outlined">expand_more</span>
         </div>
-        <div class="faq-a">Eleven themes are included: Light (default), Dark, Electric, Sunset, Forest, Pastel, Paper, Contrast, Tsartnoc, Plum, and Seascape. Your selection is saved automatically in browser storage and persists across visits.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Contrast vs Tsartnoc — what's the difference?</span>
-            <span class="material-symbols-outlined">expand_more</span>
-        </div>
-        <div class="faq-a"><strong>Contrast:</strong> Pure white text on pure black background — cyan, yellow, and magenta accents for maximum visibility.<br><strong>Tsartnoc:</strong> Pure black text on pure white — blue, green, and red accents. "Tsartnoc" is simply "Contrast" spelled backward.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Why are some fonts missing italic support?</span>
-            <span class="material-symbols-outlined">expand_more</span>
-        </div>
-        <div class="faq-a">Only core fonts (Sans / Serif) and Display fonts (Sans Display / Serif Display) include italics. Devanagari, Mono, Math, Armenian, Hebrew, and Arabic fonts do not provide an italic axis — this framework does not simulate or force italics where the font itself does not support it.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>How is the space character (U+0020) protected?</span>
-            <span class="material-symbols-outlined">expand_more</span>
-        </div>
-        <div class="faq-a">Font family ordering guarantees the space character always renders from a core font (Noto Sans / Serif / Mono / Display). Devanagari, Math, and other script fonts appear afterward. Noto Color Emoji is listed LAST and only renders emoji‑specific Unicode ranges — it never supplies the space character.</div>
+        <div class="faq-a">These scripts have large glyph sets and are downloaded separately. No system fonts are used anywhere — every glyph must be downloaded before it can display. The loading screen and tofu notice will disappear automatically when all 24 font resources are fully ready.</div>
     </div>
 
     <div class="faq-item">
@@ -756,7 +776,7 @@ footer {
     </div>
 
     <p style="height: 80vh;"></p>
-    <p>All FAQ content is designed to provide comprehensive reference information. Additional explanatory text extends the page length to demonstrate scrolling behavior and font rendering across extended text blocks while resources load.</p>
+    <p>All FAQ content is designed to provide comprehensive reference information. Additional explanatory text extends page length to demonstrate scrolling behavior and font rendering across extended text blocks while resources load in the background.</p>
     <p style="height: 40vh;"></p>
 </div>
 
@@ -768,16 +788,13 @@ footer {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // ============================================================
-    // FONT LOADING SCREEN — auto‑reverse scrolling list
-    // ============================================================
     const fontList = document.getElementById('font-list-scroll');
     const loadingScreen = document.getElementById('loading-screen');
     const tofuNotice = document.getElementById('tofu-notice');
-    const fontCount = 18; // UPDATED: includes Noto Sans Math
+    const fontCount = 24; // Updated: includes all new scripts
     const scrollSpeed = 0.8;
     let pos = 0;
-    let direction = 1; // 1 = down, -1 = up
+    let direction = 1;
     const itemHeight = 44;
     const viewHeight = 140;
     const totalHeight = fontCount * itemHeight;
@@ -794,20 +811,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     animateList();
 
-    // Reveal site & hide tofu notice once ALL fonts fully loaded
+    // Hide loading screen & tofu notice when ALL fonts are ready
     document.fonts.ready.then(() => {
         setTimeout(() => {
             loadingScreen.classList.add('hidden');
-            tofuNotice.style.display = 'none'; // Hide tofu warning once ready
+            tofuNotice.style.display = 'none';
         }, 600);
     });
 
-    // ============================================================
-    // PAGE NAVIGATION
-    // ============================================================
+    // Page navigation
     const navButtons = document.querySelectorAll('.nav-btn[data-page]');
     const pages = document.querySelectorAll('.page');
-
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const targetPage = btn.dataset.page;
@@ -819,9 +833,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // ============================================================
-    // THEME SWITCHER — with localStorage persistence
-    // ============================================================
+    // Theme switching with persistence
     const themeSelect = document.getElementById('theme-select');
     const DEFAULT_THEME = 'light';
 
@@ -842,21 +854,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ============================================================
-    // COMMAND PARSER — axis-aware with name mapping & clamping
+    // COMMAND PARSER — axis-aware with range clamping
     // Math font is fixed at wght=400; commands have no effect on it
     // ============================================================
     const commandInput = document.getElementById('command-input');
     const commandOutput = document.getElementById('command-output');
 
     const WEIGHT_MAP = {
-        thin: 100, extralight: 200, light: 300, regular: 400,
-        medium: 500, semibold: 600, bold: 700, extrabold: 800, black: 900
+        thin: 100,
+        extralight: 200,
+        light: 300,
+        regular: 400,
+        medium: 500,
+        semibold: 600,
+        bold: 700,
+        extrabold: 800,
+        black: 900
     };
+
     const WIDTH_MAP = {
-        extracondensed: 62.5, condensed: 75, semicondensed: 87.5, normal: 100
+        extracondensed: 62.5,
+        condensed: 75,
+        semicondensed: 87.5,
+        normal: 100
     };
-    const VALID_WGHT = [100,200,300,400,500,600,700,800,900];
-    const VALID_WDTH = [62.5,75,87.5,100];
+
+    const VALID_WGHT = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+    const VALID_WDTH = [62.5, 75, 87.5, 100];
     const DEFAULTS = { wght: 400, wdth: 100, ital: 0 };
 
     function parseCommands(input) {
@@ -865,28 +889,39 @@ document.addEventListener('DOMContentLoaded', function () {
         let ital = DEFAULTS.ital;
         let text = input;
 
+        // /normal — reset all values
         if (/\/normal\b/i.test(input)) {
-            return { ...DEFAULTS, text: input.replace(/\/normal\b/gi, '').trim() };
+            return {
+                ...DEFAULTS,
+                text: input.replace(/\/normal\b/gi, '').trim()
+            };
         }
 
-        const wghtMatch = input.match(/\/wght\s+([A-Za-z]+|\d+)/i);
-        if (wghtMatch) {
-            const raw = wghtMatch[1].toLowerCase();
-            let val = parseInt(raw,10) || WEIGHT_MAP[raw];
-            if (VALID_WGHT.includes(val)) wght = val;
+        // /wght — parse weight
+        const weightMatch = input.match(/\/wght\s+([A-Za-z]+|\d+)/i);
+        if (weightMatch) {
+            const raw = weightMatch[1].toLowerCase();
+            const value = parseInt(raw, 10) || WEIGHT_MAP[raw];
+            if (VALID_WGHT.includes(value)) wght = value;
         }
 
-        const wdthMatch = input.match(/\/wdth\s+([A-Za-z]+|[\d.]+)/i);
-        if (wdthMatch) {
-            const raw = wdthMatch[1].toLowerCase();
-            let val = parseFloat(raw) || WIDTH_MAP[raw];
-            if (VALID_WDTH.includes(val)) wdth = val;
+        // /wdth — parse width
+        const widthMatch = input.match(/\/wdth\s+([A-Za-z]+|[\d.]+)/i);
+        if (widthMatch) {
+            const raw = widthMatch[1].toLowerCase();
+            const value = parseFloat(raw) || WIDTH_MAP[raw];
+            if (VALID_WDTH.includes(value)) wdth = value;
         }
 
-        const italMatch = input.match(/\/ital\s+(enable|disable)/i);
-        if (italMatch) ital = italMatch[1].toLowerCase() === 'enable' ? 1 : 0;
+        // /ital — parse italic
+        const italicMatch = input.match(/\/ital\s+(enable|disable)/i);
+        if (italicMatch) {
+            ital = italicMatch[1].toLowerCase() === 'enable' ? 1 : 0;
+        }
 
-        text = text.replace(/\/normal\b/gi, '')
+        // Remove commands from display text
+        text = text
+            .replace(/\/normal\b/gi, '')
             .replace(/\/wght\s+([A-Za-z]+|\d+)/gi, '')
             .replace(/\/wdth\s+([A-Za-z]+|[\d.]+)/gi, '')
             .replace(/\/ital\s+(enable|disable)/gi, '')
