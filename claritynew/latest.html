@@ -3,950 +3,910 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clarity</title>
+    <title>Clarity — Multilingual Typography Framework</title>
 
-    <!-- Noto Fonts — Latin · Armenian · Hebrew · Arabic · Urdu · Emoji -->
+    <!-- Preconnect for performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Kufi+Arabic:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&family=Noto+Rashi+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&family=Noto+Sans+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Sans+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Sans+Mono:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Serif:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap" rel="stylesheet">
+
+    <!-- Google Fonts — UPDATED: includes Noto Sans Math (400 only), core fonts FIRST, scripts LAST, Noto Color Emoji FINAL -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&family=Noto+Kufi+Arabic:wght@100..900&family=Noto+Naskh+Arabic:wght@400..700&family=Noto+Nastaliq+Urdu:wght@400..700&family=Noto+Rashi+Hebrew:wght@100..900&family=Noto+Sans+Arabic:wdth,wght@62.5..100,100..900&family=Noto+Sans+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Sans+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Sans+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Sans+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Sans+Math:wght@400&family=Noto+Sans+Mono:wdth,wght@62.5..100,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Armenian:wdth,wght@62.5..100,100..900&family=Noto+Serif+Devanagari:wdth,wght@62.5..100,100..900&family=Noto+Serif+Display:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Noto+Serif+Hebrew:wdth,wght@62.5..100,100..900&family=Noto+Serif:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&display=swap" rel="stylesheet">
 
     <!-- Material Symbols Icons -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined" rel="stylesheet">
 
-<style>
-/* ========== LICENSE NOTICE ==========
-   Clarity — Multilingual Typography Framework
-   Copyright 2026 — Licensed under the MIT License
-====================================== */
+    <style>
+/* ============================================================
+   CLARITY — Global Styles · No System Fonts Anywhere
+   ============================================================ */
 
 :root {
-    --color-front: #ffffff;
-    --color-back: #1f2937;
-    --color-backlight: #374151;
-    --color-backdark: #111827;
-    --color-mono: #2563eb;
-    --color-vivid: #f59e0b;
-    --color-alert: #ef4444;
+    /* Default: Light mode */
+    --color-front: #1f2937;
+    --color-back: #ffffff;
+    --color-backlight: #f3f4f6;
+    --color-backdark: #e5e7eb;
+    --color-mono: #4b5563;
+    --color-vivid: #2563eb;
+    --color-alert: #dc2626;
     --color-gray: #9ca3af;
 
-    --bg: var(--color-front);
-    --bg-alt: #f3f4f6;
-    --bg-card: #fafafa;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #dbeafe;
-    --accent-hover: #1d4ed8;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(0,0,0,0.08);
-    --shadow-hover: 0 4px 18px rgba(0,0,0,0.12);
+    /* Dynamic typography defaults */
+    --dyn-wght: 400;
+    --dyn-wdth: 100;
+    --dyn-ital: 0;
+
+    --spacing: 1.25rem;
+    --radius: 0.5rem;
+    --transition: 0.2s ease;
 }
 
+/* Dark — custom palette */
+[data-theme="dark"] {
+    --color-front: #c8caf4;
+    --color-back: #20213f;
+    --color-backlight: #2c2e5c;
+    --color-backdark: #181930;
+    --color-mono: #768FFF;
+    --color-vivid: #2cda9d;
+    --color-alert: #f168a0;
+    --color-gray: #6b6ea8;
+}
+
+/* Electric */
 [data-theme="electric"] {
     --color-front: #bbdbf3;
     --color-back: #110a5d;
-    --color-backlight: #121e6a;
-    --color-backdark: #0d084a;
+    --color-backlight: #1e1a78;
+    --color-backdark: #0c0747;
     --color-mono: #23d2e8;
     --color-vivid: #d7f75b;
     --color-alert: #e185dc;
-    --color-gray: #8fb2b6;
-
-    --bg: var(--color-front);
-    --bg-alt: #a8cdeb;
-    --bg-card: #d0e6f8;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #c2edf4;
-    --accent-hover: #0fd4e8;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(17,10,93,0.15);
-    --shadow-hover: 0 4px 18px rgba(17,10,93,0.22);
+    --color-gray: #7c74c8;
 }
 
+/* Sunset */
 [data-theme="sunset"] {
     --color-front: #dcd8f1;
     --color-back: #2b1752;
-    --color-backlight: #3c2470;
+    --color-backlight: #3f2575;
     --color-backdark: #1f103d;
     --color-mono: #c35dff;
     --color-vivid: #f2c76f;
     --color-alert: #e5686e;
-    --color-gray: #9e95b5;
-
-    --bg: var(--color-front);
-    --bg-alt: #cfc8e8;
-    --bg-card: #e9e5f8;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #eedfff;
-    --accent-hover: #b540ff;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(43,23,82,0.15);
-    --shadow-hover: 0 4px 18px rgba(43,23,82,0.22);
+    --color-gray: #8c78b8;
 }
 
+/* Forest */
 [data-theme="forest"] {
     --color-front: #d6ddcb;
     --color-back: #063a2a;
-    --color-backlight: #0b4731;
-    --color-backdark: #042e21;
+    --color-backlight: #0b503c;
+    --color-backdark: #04271d;
     --color-mono: #3fbd75;
     --color-vivid: #d8b801;
     --color-alert: #ee8060;
-    --color-gray: #94ad9f;
-
-    --bg: var(--color-front);
-    --bg-alt: #cbd4bc;
-    --bg-card: #e0e6d5;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #b8dabf;
-    --accent-hover: #28a862;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(6,58,42,0.15);
-    --shadow-hover: 0 4px 18px rgba(6,58,42,0.22);
+    --color-gray: #779970;
 }
 
-[data-theme="dark"] {
-    --color-front: #c8caf4;
-    --color-back: #20213f;
-    --color-backlight: #2f305c;
-    --color-backdark: #171830;
-    --color-mono: #768fff;
-    --color-vivid: #2cda9d;
-    --color-alert: #f168a0;
-    --color-gray: #878ab8;
-
-    --bg: var(--color-front);
-    --bg-alt: #b9bced;
-    --bg-card: #e0e2fc;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #e0e4ff;
-    --accent-hover: #5c77ff;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(32,33,63,0.15);
-    --shadow-hover: 0 4px 18px rgba(32,33,63,0.22);
-}
-
+/* Pastel */
 [data-theme="pastel"] {
     --color-front: #5b2a7d;
     --color-back: #dfc8f1;
-    --color-backlight: #eadbfa;
-    --color-backdark: #451f63;
+    --color-backlight: #eed9fc;
+    --color-backdark: #c4a8e0;
     --color-mono: #9a63d9;
     --color-vivid: #5184d2;
     --color-alert: #c353a0;
-    --color-gray: #9b78b3;
-
-    --bg: var(--color-front);
-    --bg-alt: #4a2266;
-    --bg-card: #6b3a8f;
-    --text: var(--color-back);
-    --text-alt: #cbb3e0;
-    --text-muted: #a88ebf;
-    --accent: var(--color-mono);
-    --accent-soft: #3d1f5c;
-    --accent-hover: #ab75e8;
-    --border: #7a5299;
-    --shadow: 0 2px 12px rgba(91,42,125,0.40);
-    --shadow-hover: 0 4px 18px rgba(91,42,125,0.55);
+    --color-gray: #b8a0d0;
 }
 
+/* Paper */
 [data-theme="paper"] {
-    --color-front: #663f00;
+    --color-front: #663F00;
     --color-back: #e9d8c6;
-    --color-backlight: #f5e9da;
-    --color-backdark: #4d3000;
+    --color-backlight: #f5ebe0;
+    --color-backdark: #d4b89c;
     --color-mono: #bf7853;
     --color-vivid: #ad588b;
-    --color-alert: #729c0e;
-    --color-gray: #a68866;
-
-    --bg: var(--color-front);
-    --bg-alt: #523300;
-    --bg-card: #7a4d0a;
-    --text: var(--color-back);
-    --text-alt: #d4c4b0;
-    --text-muted: #b89973;
-    --accent: var(--color-mono);
-    --accent-soft: #4a2f00;
-    --accent-hover: #d48a63;
-    --border: #806030;
-    --shadow: 0 2px 12px rgba(102,63,0,0.40);
-    --shadow-hover: 0 4px 18px rgba(102,63,0,0.55);
+    --color-alert: #729C0E;
+    --color-gray: #b8a088;
 }
 
+/* Contrast */
 [data-theme="contrast"] {
-    --color-mono: #ffffff;
-    --color-front: #000000;
-    --color-vivid: #ffff00;
-    --color-back: #00ffff;
-    --color-alert: #ff00ff;
-
-    --color-backlight: #1a1a1a;
-    --color-backdark: #000000;
+    --color-front: #FFFFFF;
+    --color-back: #000000;
+    --color-backlight: #222222;
+    --color-backdark: #0a0a0a;
+    --color-mono: #00FFFF;
+    --color-vivid: #FFFF00;
+    --color-alert: #FF00FF;
     --color-gray: #666666;
-
-    --bg: var(--color-front);
-    --bg-alt: #1a1a1a;
-    --bg-card: #0d0d0d;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: #888888;
-    --accent: var(--color-mono);
-    --accent-soft: #333333;
-    --accent-hover: #cccccc;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(0,255,255,0.25);
-    --shadow-hover: 0 4px 18px rgba(0,255,255,0.35);
 }
 
+/* Tsartnoc (Contrast reversed) */
 [data-theme="tsartnoc"] {
-    --color-mono: #000000;
-    --color-front: #ffffff;
-    --color-vivid: #00cc00;
-    --color-back: #0000ff;
-    --color-alert: #cc0000;
-
-    --color-backlight: #4d4dff;
-    --color-backdark: #0000b3;
-    --color-gray: #b3b3b3;
-
-    --bg: var(--color-front);
-    --bg-alt: #f0f0f0;
-    --bg-card: #ffffff;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: #808080;
-    --accent: var(--color-mono);
-    --accent-soft: #e6e6e6;
-    --accent-hover: #333333;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(0,0,255,0.10);
-    --shadow-hover: 0 4px 18px rgba(0,0,255,0.18);
+    --color-front: #000000;
+    --color-back: #FFFFFF;
+    --color-backlight: #E8E8E8;
+    --color-backdark: #CCCCCC;
+    --color-mono: #0000FF;
+    --color-vivid: #00CC00;
+    --color-alert: #CC0000;
+    --color-gray: #888888;
 }
 
+/* Plum */
 [data-theme="plum"] {
-    --color-mono: #e63f8b;
-    --color-front: #f1bcd8;
-    --color-vivid: #e456fb;
-    --color-back: #5d0344;
-    --color-alert: #ffc148;
-
-    --color-backlight: #7a045a;
-    --color-backdark: #3f022e;
-    --color-gray: #b88ea8;
-
-    --bg: var(--color-front);
-    --bg-alt: #e8a9c8;
-    --bg-card: #f8d6e8;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #fce6f0;
-    --accent-hover: #cc2f78;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(93,3,68,0.15);
-    --shadow-hover: 0 4px 18px rgba(93,3,68,0.22);
+    --color-front: #F1BCD8;
+    --color-back: #5D0344;
+    --color-backlight: #7A055C;
+    --color-backdark: #420230;
+    --color-mono: #E63F8B;
+    --color-vivid: #E456FB;
+    --color-alert: #FFC148;
+    --color-gray: #994078;
 }
 
+/* Seascape */
 [data-theme="seascape"] {
-    --color-mono: #1afdaf;
-    --color-front: #adefe8;
-    --color-vivid: #b489ff;
-    --color-back: #003d41;
-    --color-alert: #fd88be;
-
-    --color-backlight: #005257;
+    --color-front: #ADEFE8;
+    --color-back: #003D41;
+    --color-backlight: #005559;
     --color-backdark: #00282b;
-    --color-gray: #7eb8b0;
-
-    --bg: var(--color-front);
-    --bg-alt: #98e5dc;
-    --bg-card: #c6f7f1;
-    --text: var(--color-back);
-    --text-alt: var(--color-backlight);
-    --text-muted: var(--color-gray);
-    --accent: var(--color-mono);
-    --accent-soft: #d6fcf0;
-    --accent-hover: #00e69c;
-    --border: var(--color-gray);
-    --shadow: 0 2px 12px rgba(0,61,65,0.15);
-    --shadow-hover: 0 4px 18px rgba(0,61,65,0.22);
+    --color-mono: #1AFDAF;
+    --color-vivid: #B489FF;
+    --color-alert: #FD88BE;
+    --color-gray: #5a9996;
 }
+
+/* ============================================================
+   ⚠️ TOFU NOTICE — displayed until fonts fully loaded
+   ============================================================ */
+#tofu-notice {
+    background-color: var(--color-backlight);
+    border: 2px dashed var(--color-alert);
+    border-radius: var(--radius);
+    padding: 1rem 1.25rem;
+    margin: 1rem 0;
+    color: var(--color-alert);
+    font-weight: 500;
+}
+#tofu-notice .material-symbols-outlined { margin-right: 0.5rem; }
+
+/* ============================================================
+   Font Families — NO SYSTEM FONTS ANYWHERE
+   Core fonts FIRST → scripts → Math → Mono → Emoji LAST
+   ============================================================ */
+
+body {
+    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Devanagari', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+    background-color: var(--color-back);
+    color: var(--color-front);
+    line-height: 1.6;
+    margin: 0;
+    transition: background-color var(--transition), color var(--transition);
+}
+
+/* Serif — all axes */
+.font-serif {
+    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Sans', 'Noto Sans Display', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Display fonts — intended for larger sizes, all axes */
+.font-sans-display {
+    font-family: 'Noto Sans Display', 'Noto Sans', 'Noto Serif Display', 'Noto Serif', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-serif-display {
+    font-family: 'Noto Serif Display', 'Noto Serif', 'Noto Sans Display', 'Noto Sans', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Math — fixed weight 400 ONLY, no axes */
+.font-math {
+    font-family: 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-weight: 400;
+    font-variation-settings: 'wght' 400;
+}
+
+/* Devanagari — wght + wdth, NO italics */
+.font-devanagari-sans {
+    font-family: 'Noto Sans Devanagari', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-devanagari-serif {
+    font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Mono — wght + wdth ONLY, NO italics */
+.font-monospace {
+    font-family: 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Script fonts — wght + wdth, NO italics */
+.font-armenian-sans {
+    font-family: 'Noto Sans Armenian', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-armenian-serif {
+    font-family: 'Noto Serif Armenian', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-hebrew-sans {
+    font-family: 'Noto Sans Hebrew', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-hebrew-serif {
+    font-family: 'Noto Serif Hebrew', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+.font-arabic-sans {
+    font-family: 'Noto Sans Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+}
+
+/* Script fonts — wght ONLY, NO width / NO italics */
+.font-rashi {
+    font-family: 'Noto Rashi Hebrew', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wght' var(--dyn-wght);
+}
+.font-kufi {
+    font-family: 'Noto Kufi Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-variation-settings: 'wght' var(--dyn-wght);
+}
+.font-naskh {
+    font-family: 'Noto Naskh Arabic', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-weight: clamp(400, var(--dyn-wght), 700);
+}
+.font-urdu {
+    font-family: 'Noto Nastaliq Urdu', 'Noto Sans', 'Noto Sans Display', 'Noto Sans Math', 'Noto Color Emoji';
+    font-weight: clamp(400, var(--dyn-wght), 700);
+}
+
+/* Emoji — static 400 only, LAST in fallback chain */
+.font-emoji {
+    font-family: 'Noto Color Emoji';
+    font-weight: 400;
+}
+
+/* Command preview area — NO SYSTEM FALLBACKS */
+.command-render {
+    font-family: 'Noto Sans', 'Noto Sans Display', 'Noto Serif', 'Noto Serif Display', 'Noto Sans Devanagari', 'Noto Serif Devanagari', 'Noto Sans Math', 'Noto Sans Mono', 'Noto Color Emoji';
+    font-variation-settings: 'ital' var(--dyn-ital), 'wdth' var(--dyn-wdth), 'wght' var(--dyn-wght);
+    transition: all 0.15s ease;
+}
+
+/* ============================================================
+   Layout & Navigation
+   ============================================================ */
 
 #loading-screen {
     position: fixed;
     inset: 0;
-    background: var(--bg);
-    color: var(--text);
+    background-color: var(--color-back);
+    color: var(--color-front);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 9999;
-    transition: opacity 0.4s ease, visibility 0.4s ease;
+    transition: opacity 0.5s ease;
+}
+#loading-screen.hidden { opacity: 0; pointer-events: none; }
+
+.font-list-container {
+    width: 320px;
+    height: 140px;
+    overflow: hidden;
+    position: relative;
+    border: 1px solid var(--color-gray);
+    border-radius: var(--radius);
+    background-color: var(--color-backlight);
+    margin-top: 1rem;
+}
+.font-list {
+    padding: 0.5rem;
+    will-change: transform;
 }
 
-#loading-screen.hidden {
-    opacity: 0;
-    visibility: hidden;
+header {
+    position: sticky;
+    top: 0;
+    background-color: color-mix(in srgb, var(--color-back) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-backdark);
+    padding: 1rem var(--spacing);
+    z-index: 100;
 }
-
-.loading-title {
-    font-family: 'Noto Sans Display', sans-serif;
-    font-size: 1.8rem;
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: var(--accent);
-}
-
-.loading-list {
-    list-style: none;
-    text-align: center;
-    color: var(--text-alt);
-}
-
-.loading-list li {
-    padding: 0.4rem 0;
+nav {
     display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+.nav-btn {
+    display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    opacity: 0.4;
-    transition: opacity 0.3s ease;
+    gap: 0.35rem;
+    padding: 0.5rem 1rem;
+    background: transparent;
+    border: 1px solid var(--color-backdark);
+    border-radius: var(--radius);
+    color: var(--color-front);
+    cursor: pointer;
+    transition: all var(--transition);
+    font-size: 0.95rem;
+}
+.nav-btn:hover {
+    background-color: var(--color-backlight);
+    border-color: var(--color-vivid);
+}
+.nav-btn.active {
+    background-color: var(--color-vivid);
+    border-color: var(--color-vivid);
+    color: var(--color-back);
+}
+.theme-switcher { margin-left: auto; }
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: var(--spacing);
+}
+.page {
+    display: none;
+    min-height: 150vh;
+}
+.page.active { display: block; }
+
+h1, h2, h3 { color: var(--color-vivid); font-variation-settings: 'wght' 600; }
+h1 { font-size: 2.25rem; border-bottom: 2px solid var(--color-backdark); padding-bottom: 0.5rem; }
+h2 { font-size: 1.6rem; margin-top: 2.5rem; }
+p { margin: 1rem 0; }
+
+.command-container {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--color-backlight);
+    border: 1px solid var(--color-backdark);
+    border-radius: var(--radius);
+}
+.command-input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    font-family: 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+    font-size: 1rem;
+    border: 1px solid var(--color-backdark);
+    border-radius: var(--radius);
+    background-color: var(--color-back);
+    color: var(--color-front);
+    box-sizing: border-box;
+}
+.command-input:focus { outline: none; border-color: var(--color-vivid); }
+.command-output {
+    margin-top: 1rem;
+    padding: 1.2rem;
+    min-height: 4rem;
+    background-color: var(--color-back);
+    border: 1px solid var(--color-backdark);
+    border-radius: var(--radius);
+    font-size: 1.1rem;
+}
+.command-help {
+    margin-top: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--color-mono);
+    line-height: 1.6;
 }
 
-.loading-list li.loaded { opacity: 1; }
-.loading-list li .material-symbols-outlined { font-size: 1.1rem; }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+}
+th, td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--color-backdark);
+}
+th { background-color: var(--color-backlight); color: var(--color-vivid); }
 
-.loading-check {
-    color: var(--color-mono);
-    opacity: 0;
-    transform: scale(0.6);
+.faq-item {
+    border: 1px solid var(--color-backdark);
+    border-radius: var(--radius);
+    margin: 1rem 0;
+    overflow: hidden;
+}
+.faq-q {
+    padding: 1rem;
+    background-color: var(--color-backlight);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-variation-settings: 'wght' 500;
+}
+.faq-a {
+    padding: 0 1rem;
+    max-height: 0;
+    overflow: hidden;
     transition: all 0.3s ease;
 }
-.loading-list li.loaded .loading-check {
-    opacity: 1;
-    transform: scale(1);
+.faq-item.open .faq-a { padding: 1rem; max-height: 30rem; }
+
+.license-text {
+    padding: 2rem;
+    background-color: var(--color-backlight);
+    border-radius: var(--radius);
+    font-family: 'Noto Serif', 'Noto Serif Display', 'Noto Sans Math', 'Noto Color Emoji';
+    line-height: 1.8;
 }
 
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-    font-family: 'Noto Sans', 'Noto Sans Armenian', 'Noto Sans Hebrew', 'Noto Sans Arabic', sans-serif;
-    background-color: var(--bg);
-    color: var(--text);
-    line-height: 1.7;
-    transition: background 0.3s ease, color 0.3s ease;
-}
-
-.font-serif { font-family: 'Noto Serif', 'Noto Serif Armenian', 'Noto Serif Hebrew', serif; }
-.font-sansserif { font-family: 'Noto Sans', 'Noto Sans Armenian', 'Noto Sans Hebrew', 'Noto Sans Arabic', sans-serif; }
-.font-monospace { font-family: 'Noto Sans Mono', monospace; }
-.font-emoji { font-family: 'Noto Color Emoji'; }
-.font-noemoji { font-family: 'Noto Sans', 'Noto Sans Armenian', 'Noto Sans Hebrew', 'Noto Sans Arabic', sans-serif; }
-.font-armenian-sans { font-family: 'Noto Sans Armenian', sans-serif; }
-.font-armenian-serif { font-family: 'Noto Serif Armenian', serif; }
-.font-hebrew-sans { font-family: 'Noto Sans Hebrew', sans-serif; }
-.font-hebrew-serif { font-family: 'Noto Serif Hebrew', serif; }
-.font-rashi { font-family: 'Noto Rashi Hebrew', serif; }
-.font-arabic-sans { font-family: 'Noto Sans Arabic', sans-serif; }
-.font-arabic-kufi { font-family: 'Noto Kufi Arabic', sans-serif; }
-.font-arabic-naskh { font-family: 'Noto Naskh Arabic', serif; font-size: 1.15em; line-height: 1.8; }
-.font-urdu-nastaliq { font-family: 'Noto Nastaliq Urdu', serif; font-size: 1.25em; line-height: 2; }
-
-h1, h2, h3, h4, .display {
-    font-family: 'Noto Sans Display', 'Noto Sans Armenian', 'Noto Sans Hebrew', 'Noto Sans Arabic', sans-serif;
-    letter-spacing: -0.02em;
-}
-
-h1 { font-size: 2.6rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.2; }
-h2 { font-size: 1.8rem; font-weight: 600; margin: 2.4rem 0 1rem; }
-h3 { font-size: 1.35rem; font-weight: 600; margin: 1.8rem 0 0.8rem; }
-h4 { font-size: 1.1rem; font-weight: 600; margin: 1.4rem 0 0.5rem; }
-
-code, pre, .mono { font-family: 'Noto Sans Mono', monospace; }
-.serif { font-family: 'Noto Serif', 'Noto Serif Armenian', 'Noto Serif Hebrew', serif; }
-.serif-display { font-family: 'Noto Serif Display', serif; }
-.armenian-sans { font-family: 'Noto Sans Armenian', sans-serif; }
-.armenian-serif { font-family: 'Noto Serif Armenian', serif; }
-.hebrew-sans { font-family: 'Noto Sans Hebrew', sans-serif; }
-.hebrew-serif { font-family: 'Noto Serif Hebrew', serif; }
-.rashi { font-family: 'Noto Rashi Hebrew', serif; }
-.arabic-sans { font-family: 'Noto Sans Arabic', sans-serif; }
-.arabic-kufi { font-family: 'Noto Kufi Arabic', sans-serif; }
-.arabic-naskh { font-family: 'Noto Naskh Arabic', serif; font-size: 1.15em; line-height: 1.8; }
-.urdu-nastaliq { font-family: 'Noto Nastaliq Urdu', serif; font-size: 1.25em; line-height: 2; }
-
-p { color: var(--text-alt); margin-bottom: 1.2rem; font-size: 1.03rem; }
-strong { color: var(--text); font-weight: 600; }
-a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
-a:hover { color: var(--accent-hover); text-decoration: underline; }
-
-ul, ol { margin: 1.1rem 0 1.5rem 2rem; color: var(--text-alt); }
-li { margin-bottom: 0.7rem; }
-hr { border: none; border-top: 1px solid var(--border); margin: 3rem 0; }
-
-blockquote {
-    border-left: 4px solid var(--accent);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    background: var(--accent-soft);
-    border-radius: 0 8px 8px 0;
-    color: var(--text);
-    font-style: italic;
+footer {
+    margin-top: 4rem;
+    padding: 2rem;
+    border-top: 1px solid var(--color-backdark);
+    text-align: center;
+    color: var(--color-mono);
+    font-size: 0.9rem;
 }
 
 .material-symbols-outlined {
     font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     vertical-align: middle;
-    line-height: 1;
-}
-.icon-left { margin-right: 0.4rem; }
-.icon-right { margin-left: 0.4rem; }
-
-header {
-    background: var(--bg-alt);
-    border-bottom: 1px solid var(--border);
-    padding: 1.1rem 2rem;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    backdrop-filter: blur(8px);
 }
 
-.header-inner {
-    max-width: 1000px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.logo {
-    font-family: 'Noto Sans Display', 'Noto Sans Armenian', 'Noto Sans Hebrew', 'Noto Sans Arabic', sans-serif;
-    font-size: 1.7rem;
-    font-weight: 800;
-    color: var(--accent);
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-nav { display: flex; gap: 0.3rem; align-items: center; flex-wrap: wrap; }
-
-.nav-btn {
-    padding: 0.55rem 0.95rem;
-    background: transparent;
-    border: none;
-    color: var(--text);
-    font-size: 0.95rem;
-    border-radius: 7px;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-family: inherit;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.nav-btn:hover { background: var(--accent-soft); color: var(--accent); }
-.nav-btn.active { background: var(--accent); color: #ffffff; }
-
-.theme-btn-group {
-    display: flex;
-    border-radius: 7px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-    margin-left: 0.3rem;
-    flex-wrap: wrap;
-}
-
-.theme-btn {
-    padding: 0.4rem 0.55rem;
-    background: transparent;
-    border: none;
-    color: var(--text);
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.theme-btn:hover { background: var(--accent-soft); }
-.theme-btn.active { background: var(--accent); color: #ffffff; }
-
-main {
-    max-width: 1000px;
-    margin: 0 auto;
-    padding: 3rem 2rem 5rem;
-}
-
-.page { display: none; animation: fadeIn 0.35s ease; }
-.page.active { display: block; }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 2rem;
-    margin: 1.8rem 0;
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.3s, transform 0.2s;
-}
-.card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
-.card h2:first-child, .card h3:first-child { margin-top: 0; }
-
-.faq-item { border-bottom: 1px solid var(--border); padding: 1.6rem 0; }
-.faq-item:last-child { border-bottom: none; }
-.faq-question {
-    font-weight: 600; color: var(--text); font-size: 1.08rem;
-    margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem;
-}
-.faq-answer { padding-left: 1.8rem; color: var(--text-alt); }
-
-.license-text {
-    font-size: 0.9rem; line-height: 1.7; color: var(--text-alt);
-    background: var(--accent-soft); padding: 2rem;
-    border-radius: 8px; border-left: 4px solid var(--accent);
-}
-
-.command-demo {
-    background: var(--accent-soft); padding: 1.4rem;
-    border-radius: 8px; border-left: 3px solid var(--accent); margin: 1.2rem 0;
-}
-.command-source {
-    font-family: 'Noto Sans Mono', monospace; font-size: 0.9rem;
-    color: var(--accent); margin-bottom: 0.6rem;
-}
-.script-label {
-    font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.12em;
-    color: var(--text-muted); margin-bottom: 0.6rem;
-    border-bottom: 1px solid var(--border); padding-bottom: 0.3rem;
-}
-
-footer {
-    text-align: center; padding: 2.2rem; color: var(--text-muted);
-    border-top: 1px solid var(--border); margin-top: 3rem; font-size: 0.92rem;
-}
-
-@media (max-width: 720px) {
-    .header-inner { flex-direction: column; align-items: flex-start; }
-    h1 { font-size: 2rem; }
-    .card { padding: 1.4rem; }
-    main { padding: 2rem 1.2rem 3.5rem; }
-}
-</style>
+    </style>
 </head>
 <body>
 
-    <!-- ========== FONT LOADING SCREEN ========== -->
-    <div id="loading-screen">
-        <h1 class="loading-title">Clarity</h1>
-        <ul class="loading-list">
-            <li id="load-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans</li>
-            <li id="load-sans-display"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Display</li>
-            <li id="load-serif"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif</li>
-            <li id="load-serif-display"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif Display</li>
-            <li id="load-mono"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Mono</li>
-            <li id="load-armenian-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Armenian</li>
-            <li id="load-armenian-serif"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif Armenian</li>
-            <li id="load-hebrew-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Hebrew</li>
-            <li id="load-hebrew-serif"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Serif Hebrew</li>
-            <li id="load-rashi"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Rashi Hebrew</li>
-            <li id="load-arabic-sans"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Sans Arabic</li>
-            <li id="load-arabic-kufi"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Kufi Arabic</li>
-            <li id="load-arabic-naskh"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Naskh Arabic</li>
-            <li id="load-urdu-nastaliq"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Nastaliq Urdu</li>
-            <li id="load-emoji"><span class="material-symbols-outlined loading-check">check_circle</span> Noto Color Emoji</li>
-            <li id="load-icons"><span class="material-symbols-outlined loading-check">check_circle</span> Material Symbols Icons</li>
-        </ul>
+<!-- Loading Screen → scrolls font list up/down until all fonts ready -->
+<div id="loading-screen">
+    <h2>Clarity</h2>
+    <p>Loading font resources…</p>
+    <div class="font-list-container">
+        <div class="font-list" id="font-list-scroll">
+            <div>Noto Sans</div>
+            <div>Noto Serif</div>
+            <div>Noto Sans Display</div>
+            <div>Noto Serif Display</div>
+            <div>Noto Sans Mono</div>
+            <div>Noto Sans Math</div>
+            <div>Noto Sans Armenian</div>
+            <div>Noto Serif Armenian</div>
+            <div>Noto Sans Hebrew</div>
+            <div>Noto Serif Hebrew</div>
+            <div>Noto Rashi Hebrew</div>
+            <div>Noto Sans Devanagari</div>
+            <div>Noto Serif Devanagari</div>
+            <div>Noto Sans Arabic</div>
+            <div>Noto Kufi Arabic</div>
+            <div>Noto Naskh Arabic</div>
+            <div>Noto Nastaliq Urdu</div>
+            <div>Noto Color Emoji</div>
+        </div>
+    </div>
+</div>
+
+<header>
+    <h1 style="margin:0; border:none;">Clarity</h1>
+    <nav>
+        <button class="nav-btn active" data-page="home">
+            <span class="material-symbols-outlined">home</span> Home
+        </button>
+        <button class="nav-btn" data-page="typography">
+            <span class="material-symbols-outlined">text_fields</span> Typography
+        </button>
+        <button class="nav-btn" data-page="commands">
+            <span class="material-symbols-outlined">terminal</span> Commands
+        </button>
+        <button class="nav-btn" data-page="license">
+            <span class="material-symbols-outlined">description</span> License
+        </button>
+        <button class="nav-btn" data-page="faq">
+            <span class="material-symbols-outlined">help_center</span> FAQ
+        </button>
+        <div class="theme-switcher">
+            <select class="nav-btn" id="theme-select" style="border:none; background:transparent; color:inherit; cursor:pointer;">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+                <option value="electric">Electric</option>
+                <option value="sunset">Sunset</option>
+                <option value="forest">Forest</option>
+                <option value="pastel">Pastel</option>
+                <option value="paper">Paper</option>
+                <option value="contrast">Contrast</option>
+                <option value="tsartnoc">Tsartnoc</option>
+                <option value="plum">Plum</option>
+                <option value="seascape">Seascape</option>
+            </select>
+        </div>
+    </nav>
+</header>
+
+<main>
+
+<!-- ⚠️ TOFU NOTICE — appears until fonts are fully loaded -->
+<div id="tofu-notice">
+    <span class="material-symbols-outlined">warning</span>
+    <strong>Fonts are loading.</strong> You may see missing characters or empty boxes (often called "tofu") while font resources download. All text will display correctly once loading completes.
+</div>
+
+<!-- HOME PAGE -->
+<div id="home" class="page active">
+    <h1>Welcome to Clarity</h1>
+    <p>Clarity is a multilingual typography framework built exclusively on the Noto font family — with <strong>no system fonts used anywhere</strong> in the entire website. Every character, space, and glyph renders from Noto fonts only.</p>
+
+    <h2>About This Framework</h2>
+    <p>Designed for clarity across writing systems. Every font is served with its actual supported axes — no italics are applied to fonts that do not support them, and weight ranges are constrained where the font itself is limited. The space character (U+0020) always renders from core fonts, never from emoji.</p>
+    <p>Noto Sans Math is included for mathematical notation and formula display — it supports only weight 400 (Regular), and does not provide width or italic axes. All math content uses this font exclusively.</p>
+
+    <h2>Supported Scripts & Axes</h2>
+    <table>
+        <tr><th>Font</th><th>Weight Range</th><th>Width Axis</th><th>Italics</th></tr>
+        <tr><td>Noto Sans / Serif</td><td>100–900</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Noto Sans Display / Serif Display</td><td>100–900</td><td>✅</td><td>✅</td></tr>
+        <tr><td>Noto Sans Mono</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td><strong>Noto Sans Math</strong></td><td><strong>400 only</strong></td><td>❌</td><td>❌</td></tr>
+        <tr><td>Noto Sans Devanagari</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Noto Serif Devanagari</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Armenian / Hebrew (Sans & Serif)</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Arabic Sans</td><td>100–900</td><td>✅</td><td>❌</td></tr>
+        <tr><td>Rashi / Kufi</td><td>100–900</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Naskh / Nastaliq</td><td>400–700</td><td>❌</td><td>❌</td></tr>
+        <tr><td>Noto Color Emoji</td><td>400 only</td><td>❌</td><td>❌</td></tr>
+    </table>
+
+    <h2>Theme System — 11 Themes Available</h2>
+    <p>Light, Dark, Electric, Sunset, Forest, Pastel, Paper, Contrast, Tsartnoc, Plum, Seascape. Switch instantly from the navigation bar; your preference saves automatically to your browser.</p>
+
+    <h2>Font Loading Behavior</h2>
+    <p>Because this framework uses <strong>only Noto fonts and no system fonts</strong>, all glyphs must be downloaded before they can display. This means you may see empty boxes or "tofu" temporarily — especially for less common scripts or mathematical symbols. The loading screen and notice above will disappear once all font resources are fully ready.</p>
+
+    <p style="height: 80vh;"></p>
+    <p>End of home page section. Additional content continues below to demonstrate page length and font behavior across extended text blocks.</p>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p style="height: 40vh;"></p>
+</div>
+
+<!-- TYPOGRAPHY PAGE -->
+<div id="typography" class="page">
+    <h1>Typography &amp; Font Descriptions</h1>
+
+    <h2>Core Text Fonts</h2>
+    <p><strong>Noto Sans</strong> — A sans‑serif design optimized for body text across all sizes. Supports full weight range (100–900), width axis (62.5–100), and italics. Primary source for consistent space character metrics. This font is listed first in every font‑family declaration to ensure consistent spacing and punctuation rendering.</p>
+    <p><strong>Noto Serif</strong> — A serif design for body text. Matches the same axes and metrics as Noto Sans, serving as the primary serif fallback for spacing and punctuation.</p>
+
+    <h2>Display Fonts — For Larger Sizes</h2>
+    <p><strong>Noto Sans Display</strong> — An unmodulated (sans‑serif) design for texts in larger font sizes in the European Latin script and in Cyrillic, Greek. Italic styles, multiple weights and widths, 3,316 glyphs. Intended for headings and display text.</p>
+    <p><strong>Noto Serif Display</strong> — A modulated (serif) design for texts in larger font sizes. Italic styles, multiple weights and widths, 3,256 glyphs. Optimized for headings and titles.</p>
+
+    <h2>Noto Sans Math — Mathematical Notation</h2>
+    <p><strong>Noto Sans Math</strong> — A font specifically designed for mathematical formulas, equations, and technical notation. <strong>Only supports weight 400 (Regular)</strong> — it does not provide variable weight, width, or italic axes. This font is placed after Devanagari variants but before Mono in the fallback chain, ensuring mathematical symbols resolve correctly while preserving standard text metrics. When using mathematical notation, explicitly apply the <code>.font-math</code> class to guarantee proper glyph selection.</p>
+    <p>Because Noto Sans Math has no variable axes, weight, width, and italic commands will have no effect on math‑tagged text — the font will always display at its fixed 400 weight.</p>
+
+    <h2>Devanagari — Indic Script</h2>
+    <p><strong>Noto Sans Devanagari</strong> — An unmodulated design for texts in the Indic Devanagari script. 954 glyphs. Supports weight (100–900) and width (62.5–100) axes — no italics. Coverage: Devanagari, Vedic Extensions, Devanagari Extended, Basic Latin, General Punctuation, Common Indic Number Forms.</p>
+    <p><strong>Noto Serif Devanagari</strong> — A modulated design for texts in the Indic Devanagari script. 871 glyphs. Supports weight (100–900) and width (62.5–100) axes — no italics. Unicode coverage matches Sans Devanagari across 6 blocks.</p>
+
+    <h2>Weight Axis Reference</h2>
+    <table>
+        <tr><th>Name</th><th>Value</th><th>Available in Math?</th></tr>
+        <tr><td>Thin</td><td>100</td><td>❌</td></tr>
+        <tr><td>ExtraLight</td><td>200</td><td>❌</td></tr>
+        <tr><td>Light</td><td>300</td><td>❌</td></tr>
+        <tr><td>Regular</td><td>400</td><td>✅ Only</td></tr>
+        <tr><td>Medium</td><td>500</td><td>❌</td></tr>
+        <tr><td>SemiBold</td><td>600</td><td>❌</td></tr>
+        <tr><td>Bold</td><td>700</td><td>❌</td></tr>
+        <tr><td>ExtraBold</td><td>800</td><td>❌</td></tr>
+        <tr><td>Black</td><td>900</td><td>❌</td></tr>
+    </table>
+
+    <h2>Width Axis Reference</h2>
+    <table>
+        <tr><th>Name</th><th>Value</th><th>Available in Math?</th></tr>
+        <tr><td>ExtraCondensed</td><td>62.5</td><td>❌</td></tr>
+        <tr><td>Condensed</td><td>75</td><td>❌</td></tr>
+        <tr><td>SemiCondensed</td><td>87.5</td><td>❌</td></tr>
+        <tr><td>Normal</td><td>100</td><td>✅ Only</td></tr>
+    </table>
+
+    <h2>Axis Support Summary</h2>
+    <p><strong>Core fonts (Sans / Serif / Display):</strong> wght ✅ wdth ✅ ital ✅</p>
+    <p><strong>Devanagari / Mono / Armenian / Hebrew / Arabic Sans:</strong> wght ✅ wdth ✅ ital ❌</p>
+    <p><strong>Noto Sans Math:</strong> wght = 400 only, wdth ❌ ital ❌</p>
+    <p><strong>Rashi / Kufi:</strong> wght ✅ wdth ❌ ital ❌</p>
+    <p><strong>Naskh / Nastaliq:</strong> wght 400–700 wdth ❌ ital ❌</p>
+    <p><strong>Noto Color Emoji:</strong> static 400 — no variable axes, listed LAST in fallback</p>
+
+    <h2>⚠️ No System Font Policy</h2>
+    <p>This website does not use <em>any</em> operating system fonts — no sans-serif, serif, monospace, or other generic fallbacks appear anywhere in the CSS. Every font-family declaration consists exclusively of Noto fonts, ending with Noto Color Emoji. This guarantees consistent rendering across all devices and operating systems, but it also means all glyphs must be downloaded before they can display. Temporary tofu boxes are normal during the loading period.</p>
+
+    <p style="height: 80vh;"></p>
+    <p>Additional typography reference content continues here to extend page length. All font metrics, axis values, and script descriptions are derived directly from Google Fonts' published variable font specifications. No values are guessed or assumed beyond what each font officially supports.</p>
+    <p style="height: 40vh;"></p>
+</div>
+
+<!-- COMMANDS PAGE -->
+<div id="commands" class="page">
+    <h1>Command Reference</h1>
+    <p>Control font properties with inline commands. Both numbers and official Google Font names are accepted. Width and weight commands work on all Devanagari variants; italics are silently ignored where fonts do not support them. Commands applied to mathematical notation will have no effect — Noto Sans Math is fixed at 400 weight.</p>
+
+    <div class="command-container">
+        <input type="text" id="command-input" class="command-input" placeholder="/wght Bold /wdth Condensed Sample Text">
+        <div id="command-output" class="command-output command-render">Type commands above to preview…</div>
+        <div class="command-help">
+            <strong>Commands:</strong><br>
+            <code>/wght [value or name]</code> — Thin(100) ExtraLight(200) Light(300) Regular(400) Medium(500) SemiBold(600) Bold(700) ExtraBold(800) Black(900)<br>
+            <code>/wdth [value or name]</code> — ExtraCondensed(62.5) Condensed(75) SemiCondensed(87.5) Normal(100)<br>
+            <code>/ital enable|disable</code> — Core &amp; Display fonts only (ignored by Devanagari, Mono, Math, Script fonts)<br>
+            <code>/normal</code> — Reset all to defaults (400, 100, italic off)
+        </div>
     </div>
 
-    <header>
-        <div class="header-inner">
-            <div class="logo">
-                <span class="material-symbols-outlined icon-left">visibility</span> Clarity
-            </div>
-            <nav>
-                <button class="nav-btn active" data-page="home">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">home</span> Home
-                </button>
-                <button class="nav-btn" data-page="fonts">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">text_fields</span> Fonts
-                </button>
-                <button class="nav-btn" data-page="themes">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">palette</span> Themes
-                </button>
-                <button class="nav-btn" data-page="about">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">info</span> About
-                </button>
-                <button class="nav-btn" data-page="faq">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">help_center</span> FAQ
-                </button>
-                <button class="nav-btn" data-page="license">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">description</span> License
-                </button>
-                <button class="nav-btn" data-page="contact">
-                    <span class="material-symbols-outlined" style="font-size:1.05rem;">mail</span> Contact
-                </button>
-                <div class="theme-btn-group">
-                    <button class="theme-btn" data-theme="light" title="Light">☀</button>
-                    <button class="theme-btn" data-theme="electric" title="Electric">⚡</button>
-                    <button class="theme-btn" data-theme="sunset" title="Sunset">🌅</button>
-                    <button class="theme-btn" data-theme="forest" title="Forest">🌲</button>
-                    <button class="theme-btn" data-theme="dark" title="Dark">●</button>
-                    <button class="theme-btn" data-theme="pastel" title="Pastel">🎀</button>
-                    <button class="theme-btn" data-theme="paper" title="Paper">📜</button>
-                    <button class="theme-btn" data-theme="contrast" title="Contrast">◐</button>
-                    <button class="theme-btn" data-theme="tsartnoc" title="Tsartnoc">◑</button>
-                    <button class="theme-btn" data-theme="plum" title="Plum">🫐</button>
-                    <button class="theme-btn" data-theme="seascape" title="Seascape">🌊</button>
-                </div>
-            </nav>
+    <h2>Usage Examples</h2>
+    <ul>
+        <li><code>/wght 300 /wdth 87.5 Devanagari text</code> — Light weight, SemiCondensed width</li>
+        <li><code>/wght Bold Heading Text</code> — Bold weight, normal width</li>
+        <li><code>/ital enable Italic heading</code> — Italic on core or Display fonts</li>
+        <li><code>/normal Plain text at Regular weight</code> — Reset all axes to default values</li>
+        <li><code>Mathematical notation — commands ignored</code> — Math always renders at weight 400, normal width, no italics</li>
+    </ul>
+
+    <h2>Important Limitations</h2>
+    <p>Devanagari Sans and Serif support width and weight but NOT italics — any <code>/ital</code> command has no effect on those fonts. Naskh and Nastaliq weights are clamped to 400–700. <strong>Noto Sans Math ignores all commands entirely</strong> — it is permanently fixed at weight 400 with no width or italic variations available. Noto Color Emoji also ignores all font axis commands entirely.</p>
+
+    <h2>Font Fallback Order — No System Fonts</h2>
+    <p>Every font-family declaration follows this exact chain with <strong>no generic or system fallbacks included</strong>:</p>
+    <ol>
+        <li>Core text fonts (Noto Sans → Noto Serif)</li>
+        <li>Display fonts (Noto Sans Display → Noto Serif Display)</li>
+        <li>Devanagari fonts</li>
+        <li>Noto Sans Math</li>
+        <li>Noto Sans Mono</li>
+        <li>Script fonts (Armenian, Hebrew, Arabic variants)</li>
+        <li>Noto Color Emoji — <strong>always last</strong></li>
+    </ol>
+    <p>This ordering guarantees U+0020 space characters always render from core fonts, never from emoji or script fonts. It also means glyphs not present in any downloaded Noto font will display as empty boxes (tofu) until the necessary font resource finishes loading.</p>
+
+    <p style="height: 80vh;"></p>
+    <p>Command parsing logic automatically clamps values to supported ranges per font family. Values outside a font's documented support range are silently adjusted to the nearest valid value. This prevents unsupported axes from requesting invalid font instances or triggering system fallback fonts.</p>
+    <p style="height: 40vh;"></p>
+</div>
+
+<!-- LICENSE PAGE -->
+<div id="license" class="page">
+    <h1>License</h1>
+    <div class="license-text">
+        Copyright © 2026 Clarity Framework<br><br>
+        Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:<br><br>
+        The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.<br><br>
+        THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    </div>
+    <p style="height: 80vh;"></p>
+    <p>Portions of this framework — specifically the Noto font resources — are provided under separate licenses. Noto fonts are published by Google under the SIL Open Font License, Version 1.1. Consult the individual font resource documentation for their specific license terms and conditions. This framework's license applies to the HTML, CSS, JavaScript, and theme system code — it does not supersede or replace license terms governing the embedded font files.</p>
+    <p style="height: 40vh;"></p>
+</div>
+
+<!-- FAQ PAGE -->
+<div id="faq" class="page">
+    <h1>Frequently Asked Questions</h1>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Why do I see empty boxes or "tofu"?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
-    </header>
+        <div class="faq-a">This framework uses <strong>no system fonts at all</strong>. Every glyph must be downloaded from Google Fonts before it can display. Until each font file finishes loading, characters not yet available may appear as empty boxes (often called "tofu"). This is normal — the loading screen and warning notice will disappear once all resources are ready. Script fonts and mathematical notation take longest to load because they contain many unique glyphs.</div>
+    </div>
 
-    <main>
-        <!-- HOME PAGE — EXPANDED -->
-        <div id="home" class="page active">
-            <h1>Welcome to Clarity</h1>
-            <p>Clarity is a thoughtfully designed, fully self-contained single-file website framework built with pure HTML, modern CSS, and lightweight JavaScript. Everything you need — structure, styling, fonts, icons, behavior — lives in one file that you can open in any browser, host anywhere, or share without dependencies.</p>
-            <p>Built around Google’s comprehensive Noto font collection, Clarity offers native support for <strong>Latin, Armenian, Hebrew, Arabic, and Urdu</strong> writing systems. This means text renders beautifully across languages, with correct shaping, spacing, and directionality for every script included.</p>
-            <p>Beyond multilingual support, Clarity includes twelve carefully balanced color themes that you can switch instantly. Every theme maintains readable contrast, consistent spacing, and the same layout behavior — so your content stays accessible regardless of palette preference.</p>
-
-            <div class="card">
-                <h2><span class="material-symbols-outlined icon-left">star</span> Font Command System</h2>
-                <p>One of Clarity’s most powerful features is its inline font command system. Simply type a command anywhere in your text, and every character that follows will render in the corresponding font — until you reset or switch to another. Commands themselves are invisible in the final output, so your content stays clean while retaining full typographic control.</p>
-                <ul>
-                    <li><code>/serif</code> — Noto Serif (Latin/Armenian/Hebrew)</li>
-                    <li><code>/sansserif</code> — Noto Sans (default, all scripts)</li>
-                    <li><code>/monospace</code> — Noto Sans Mono (code, technical content)</li>
-                    <li><code>/rashi</code> — Noto Rashi Hebrew (traditional calligraphic style for emphasis)</li>
-                    <li><code>/arabic</code> — Noto Naskh Arabic (traditional reading style)</li>
-                    <li><code>/kufi</code> — Noto Kufi Arabic (geometric/decorative style)</li>
-                    <li><code>/urdu</code> — Noto Nastaliq Urdu (slanted calligraphic style)</li>
-                    <li><code>/emoji</code> — Noto Color Emoji</li>
-                    <li><code>/noemoji</code> or <code>/normal</code> — Reset to default font</li>
-                </ul>
-                <div class="command-demo">
-                    <div class="command-source">/sansserif Latin: AaLl /armenian-sans ԲբՈո /hebrew-sans כלבנ /rashi כלבנ /arabic يولد /kufi يولد /urdu تمان /emoji 🎶🎷🐛 /normal</div>
-                </div>
-            </div>
-
-            <div class="card">
-                <h2><span class="material-symbols-outlined icon-left">palette</span> Theme System</h2>
-                <p>Every color in Clarity is defined through CSS custom properties, making the entire design theme-aware. Switching themes updates backgrounds, text, borders, shadows, and accents consistently across every page and component. Your theme preference is saved automatically in your browser and restored on return.</p>
-                <p>There are currently twelve themes available — from light and airy to high-contrast and expressive — each designed to preserve legibility and hierarchy. You can override any theme variable or create your own simply by adding a new data-theme block in the stylesheet.</p>
-            </div>
-
-            <div class="card">
-                <h2><span class="material-symbols-outlined icon-left">code</span> Why Single-File?</h2>
-                <p>Keeping everything in one document offers practical advantages: zero build process, no external dependency issues, consistent rendering everywhere, and extreme portability. You can email it, put it on a USB drive, open it locally, or host it on any web server — and it will work exactly the same.</p>
-                <p>All styling is contained in one style block, all scripts in one script block, all content in one structure. This makes Clarity exceptionally easy to understand, modify, extend, or rebuild into something entirely your own.</p>
-            </div>
-
-            <div class="card">
-                <h2><span class="material-symbols-outlined icon-left">translate</span> Supported Scripts</h2>
-                <p>Clarity includes fonts for five major writing systems, selected from the Noto collection for completeness and quality.</p>
-                <ul>
-                    <li><strong>Latin</strong> — Sans, Serif, Display, and Mono variants covering nearly all Latin-based languages</li>
-                    <li><strong>Armenian</strong> — Both Sans and Serif forms, supporting both Eastern and Western orthography</li>
-                    <li><strong>Hebrew</strong> — Standard Sans, Serif, and the distinct traditional Rashi style</li>
-                    <li><strong>Arabic</strong> — Modern Sans, geometric Kufi for display, and traditional Naskh for extended reading</li>
-                    <li><strong>Urdu</strong> — Nastaliq, the calligraphic style widely used for Urdu and related languages</li>
-                    <li><strong>Emoji</strong> — Color emoji rendered consistently across all platforms</li>
-                </ul>
-                <p>Right-to-left layout and baseline adjustments are handled automatically by the font files and styling, so Arabic, Hebrew, and Urdu text appears correctly without manual intervention.</p>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What is Noto Sans Math and why is it different?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a">Noto Sans Math is a specialized font designed exclusively for mathematical symbols, equations, and formula notation. Unlike other Noto fonts, it <strong>only supports weight 400 (Regular)</strong> with no width axis or italics. It is placed in the fallback chain specifically to catch mathematical glyphs that other fonts do not provide, but it will always display at a single weight regardless of commands applied.</div>
+    </div>
 
-        <!-- FONTS PAGE — EXPANDED -->
-        <div id="fonts" class="page">
-            <h1>The Noto Font Collection</h1>
-            <p>The Noto project aims to provide high-quality fonts for all languages of the world, with harmonious design and comprehensive character coverage. Clarity pulls selected families from Google Fonts, carefully configured with full weight ranges, width variation, and italic styles where available.</p>
-            <p>Every font family loads asynchronously with a visual loading indicator, so you always know when each writing system is ready. Once loaded, fonts remain in memory while you navigate between pages.</p>
-
-            <div class="card">
-                <h2>Noto Sans Arabic</h2>
-                <p class="script-label">Arabic Script · Sans-Serif · Modern & Versatile</p>
-                <p>Noto Sans Arabic is a modern, upright sans-serif design suitable for general text, user interfaces, and continuous reading. It follows contemporary Arabic proportions and maintains excellent legibility across screen sizes and weights, making it ideal for web and digital interfaces.</p>
-                <p class="arabic-sans" dir="rtl">يُولَدُ جَمِيعُ النَّاسِ أَحْرَارًا مُتَسَاوِينَ فِي الْكَرَامَةِ وَالْحُقُوقِ. وَقَدْ وُهِبُوا عَقْلًا وَضَمِيرًا وَعَلَيْهِمْ أَنْ يُعَامِلَ بَعْضُهُمْ بَعْضًا بِرُوحِ الْإِخَاءِ.</p>
-            </div>
-
-            <div class="card">
-                <h2>Noto Kufi Arabic</h2>
-                <p class="script-label">Arabic Script · Geometric Kufi · Bold & Decorative</p>
-                <p>Noto Kufi Arabic draws inspiration from the historic Kufi style, characterized by straight lines, geometric forms, and angular strokes. It works beautifully for headings, titles, logos, and decorative text — but is generally less suited for long paragraphs due to its stylized appearance.</p>
-                <p class="arabic-kufi" dir="rtl">يُولَدُ جَمِيعُ النَّاسِ أَحْرَارًا مُتَسَاوِينَ فِي الْكَرَامَةِ وَالْحُقُوقِ.</p>
-            </div>
-
-            <div class="card">
-                <h2>Noto Naskh Arabic</h2>
-                <p class="script-label">Arabic Script · Naskh · Traditional Reading Style</p>
-                <p>Naskh is one of the most historically important and widely used Arabic calligraphic styles. With balanced proportions, flowing curves, and excellent clarity, it remains the standard choice for books, religious texts, and extended reading.</p>
-                <p class="arabic-naskh" dir="rtl">يُولَدُ جَمِيعُ النَّاسِ أَحْرَارًا مُتَسَاوِينَ فِي الْكَرَامَةِ وَالْحُقُوقِ.</p>
-            </div>
-
-            <div class="card">
-                <h2>Noto Nastaliq Urdu</h2>
-                <p class="script-label">Urdu Script · Nastaliq · Slanted Calligraphy</p>
-                <p>Noto Nastaliq Urdu implements the Nastaliq style — a celebrated calligraphic tradition where each line slopes diagonally downward to the right. This creates the characteristic elegant, flowing appearance widely associated with Urdu poetry and literature.</p>
-                <p class="urdu-nastaliq" dir="rtl">تمان انسان آزاد پیدا ہوئے اور ان کی عزت اور حقوق میں برابر ہیں۔</p>
-            </div>
-
-            <div class="card">
-                <h2>Noto Sans Hebrew</h2>
-                <p class="script-label">Hebrew Script · Sans-Serif · Modern & Clear</p>
-                <p>Noto Sans Hebrew provides a clean, modern sans-serif form of the Hebrew alphabet, suitable for general content, interfaces, and daily reading.</p>
-                <p class="hebrew-sans" dir="rtl">כָּל בְּנֵי הָאָדָם נוֹלְדוּ בְּנֵי חֹרִין, וְשָׁוִים בְּעֶרֶךְ וּבִזְכוּת.</p>
-            </div>
-
-            <div class="card">
-                <h2>Noto Rashi Hebrew</h2>
-                <p class="script-label">Hebrew Script · Rashi · Traditional Commentarial Style</p>
-                <p>The Rashi style traces its origins to the scribal tradition used in biblical and Talmudic commentaries. Its distinct semi-cursive forms are instantly recognizable.</p>
-                <p class="rashi" dir="rtl">כָּל בְּנֵי הָאָדָם נוֹלְדוּ בְּנֵי חֹרִין, וְשָׁוִים בְּעֶרֶךְ וּבִזְכוּת.</p>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What themes are available?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a">Eleven themes are included: Light (default), Dark, Electric, Sunset, Forest, Pastel, Paper, Contrast, Tsartnoc, Plum, and Seascape. Your selection is saved automatically in browser storage and persists across visits.</div>
+    </div>
 
-        <!-- THEMES PAGE -->
-        <div id="themes" class="page">
-            <h1>Color Themes</h1>
-            <p>Choose from 12 themes using the buttons in the header. Your selection is saved automatically and restored whenever you open the page.</p>
-            <div class="card">
-                <h2>Theme List</h2>
-                <ul>
-                    <li><strong>Light</strong> — Clean white background, dark text (default)</li>
-                    <li><strong>Electric</strong> — Vibrant blue–cyan palette with neon accents</li>
-                    <li><strong>Sunset</strong> — Warm purple and orange tones</li>
-                    <li><strong>Forest</strong> — Deep greens and earthy shades</li>
-                    <li><strong>Dark</strong> — Deep blue–purple with soft accents</li>
-                    <li><strong>Pastel</strong> — Lavender and purple with soft contrast</li>
-                    <li><strong>Paper</strong> — Warm sepia resembling aged paper</li>
-                    <li><strong>Contrast</strong> — Maximum contrast cyan-on-black</li>
-                    <li><strong>Tsartnoc</strong> — Inverted contrast blue-on-white</li>
-                    <li><strong>Plum</strong> — Rich magenta and deep purple</li>
-                    <li><strong>Seascape</strong> — Turquoise and teal with deep cyan tones</li>
-                </ul>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Contrast vs Tsartnoc — what's the difference?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a"><strong>Contrast:</strong> Pure white text on pure black background — cyan, yellow, and magenta accents for maximum visibility.<br><strong>Tsartnoc:</strong> Pure black text on pure white — blue, green, and red accents. "Tsartnoc" is simply "Contrast" spelled backward.</div>
+    </div>
 
-        <!-- ABOUT PAGE -->
-        <div id="about" class="page">
-            <h1>About Clarity</h1>
-            <p>Clarity is a multilingual typography framework built around Google's Noto font collection, designed for clarity, consistency, and ease of use across languages and devices.</p>
-            <div class="card">
-                <h2>Goals</h2>
-                <ul>
-                    <li>Provide beautiful, readable typography for major world writing systems</li>
-                    <li>Ensure consistent rendering across browsers and platforms</li>
-                    <li>Offer instant theme switching with persistent preferences</li>
-                    <li>Remain entirely self-contained — no build tools, no dependencies</li>
-                    <li>Stay lightweight, fast, and easy to modify</li>
-                </ul>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Why are some fonts missing italic support?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a">Only core fonts (Sans / Serif) and Display fonts (Sans Display / Serif Display) include italics. Devanagari, Mono, Math, Armenian, Hebrew, and Arabic fonts do not provide an italic axis — this framework does not simulate or force italics where the font itself does not support it.</div>
+    </div>
 
-        <!-- FAQ PAGE -->
-        <div id="faq" class="page">
-            <h1>Frequently Asked Questions</h1>
-            <div class="faq-item">
-                <div class="faq-question">What writing systems are supported?</div>
-                <div class="faq-answer">Latin, Armenian, Hebrew (including Rashi style), Arabic (Sans, Kufi, Naskh), Urdu (Nastaliq), and Color Emoji.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Do I need to install anything?</div>
-                <div class="faq-answer">No. Everything runs directly in your browser. Fonts load from Google Fonts automatically on first use.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">Can I use this offline?</div>
-                <div class="faq-answer">Yes, once fonts have loaded at least once. However, Google Fonts must be reachable on first load.</div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">How do I add my own content?</div>
-                <div class="faq-answer">Edit the HTML inside the <code>&lt;main&gt;</code> section. Each page is a <code>&lt;div class="page"&gt;</code> block.</div>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>How is the space character (U+0020) protected?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a">Font family ordering guarantees the space character always renders from a core font (Noto Sans / Serif / Mono / Display). Devanagari, Math, and other script fonts appear afterward. Noto Color Emoji is listed LAST and only renders emoji‑specific Unicode ranges — it never supplies the space character.</div>
+    </div>
 
-        <!-- LICENSE PAGE -->
-        <div id="license" class="page">
-            <h1>License</h1>
-            <div class="license-text">
-                Copyright © 2026 Clarity Framework<br><br>
-                Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditionssubject to the following conditions: The above copyright notice and this permission notice shall be included in all
-                copies or substantial portions of the Software.
-
-                THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-                INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-                PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-                HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF
-                CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
-                OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-                <hr>
-                <p><strong>Noto Fonts License:</strong> The Noto font families are licensed under the SIL Open Font License, Version 1.1. This license is available with a FAQ at: <a href="https://scripts.sil.org/OFL" target="_blank">scripts.sil.org/OFL</a></p>
-                <p><strong>Material Symbols:</strong> Licensed under the Apache License, Version 2.0 — <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank">www.apache.org/licenses/LICENSE-2.0</a></p>
-            </div>
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>Will system fonts ever be used as fallbacks?</span>
+            <span class="material-symbols-outlined">expand_more</span>
         </div>
+        <div class="faq-a"><strong>No.</strong> There are no generic font families (sans-serif, serif, monospace) or system font names anywhere in this website's CSS. Every font-family declaration lists only Noto fonts. If a glyph is missing from all downloaded Noto resources, you will see tofu rather than a system font substitution — this is intentional to ensure consistent typography across all devices.</div>
+    </div>
 
-        <!-- CONTACT PAGE -->
-        <div id="contact" class="page">
-            <h1>Contact & Resources</h1>
-            <p>Clarity is an open framework project. You are free to use, modify, and share it according to the license terms described above. There are no subscriptions, locked features, or hidden requirements — everything is designed to work on any system with a modern web browser.</p>
-            <div class="card">
-                <h2>Project Resources</h2>
-                <p>All components come from openly licensed sources. You are never locked into a specific platform or service provider.</p>
-                <ul>
-                    <li><strong>Source File:</strong> Single-file HTML — contains all structure, styling, and behavior in one document</li>
-                    <li><strong>Font Source:</strong> Google Fonts — Noto collection, licensed SIL OFL 1.1</li>
-                    <li><strong>Icons:</strong> Material Symbols by Google — Apache License 2.0</li>
-                    <li><strong>Standards:</strong> Pure HTML5, CSS3, and vanilla JavaScript — no frameworks, no compilers, no build chain</li>
-                </ul>
-            </div>
-            <div class="card">
-                <h2>Technical Notes</h2>
-                <p>All theme colors are defined as CSS custom properties at the top of the stylesheet. Adding a new theme requires only adding a new <code>[data-theme="theme-name"] { ... }</code> block with the ten color variables defined. The rest of the interface adapts automatically.</p>
-                <p>Font loading detection checks each font family as it loads from Google Fonts. The loading screen updates progressively so you always know which writing systems are ready. Once fonts are cached, subsequent loads are nearly instant.</p>
-                <p>Page navigation swaps content entirely in the browser without reloading, giving smooth fade transitions between pages. Your selected theme preference is saved automatically to your browser's local storage and restored on every visit.</p>
-            </div>
-        </div>
+    <p style="height: 80vh;"></p>
+    <p>All FAQ content is designed to provide comprehensive reference information. Additional explanatory text extends the page length to demonstrate scrolling behavior and font rendering across extended text blocks while resources load.</p>
+    <p style="height: 40vh;"></p>
+</div>
 
-    </main>
+</main>
 
-    <footer>
-        Clarity — Multilingual Typography Framework<br>
-        Fonts ©2026 Google LLC · SIL OFL 1.1 · Icons: Apache 2.0 · Framework Code: MIT License
-    </footer>
+<footer>
+    Clarity Framework — Multilingual Typography · Licensed MIT · Powered by Noto Fonts
+</footer>
 
-<!-- ========== JAVASCRIPT — COMPLETE ========== -->
 <script>
-/* ========== LICENSE NOTICE ==========
-   Clarity — Multilingual Typography Framework
-   Copyright 2026 — Licensed under the MIT License
-====================================== */
-
 document.addEventListener('DOMContentLoaded', function () {
-    // --- FONT LOADING PROGRESS INDICATOR ---
-    const fontChecks = [
-        { id: 'load-sans', family: 'Noto Sans' },
-        { id: 'load-sans-display', family: 'Noto Sans Display' },
-        { id: 'load-serif', family: 'Noto Serif' },
-        { id: 'load-serif-display', family: 'Noto Serif Display' },
-        { id: 'load-mono', family: 'Noto Sans Mono' },
-        { id: 'load-armenian-sans', family: 'Noto Sans Armenian' },
-        { id: 'load-armenian-serif', family: 'Noto Serif Armenian' },
-        { id: 'load-hebrew-sans', family: 'Noto Sans Hebrew' },
-        { id: 'load-hebrew-serif', family: 'Noto Serif Hebrew' },
-        { id: 'load-rashi', family: 'Noto Rashi Hebrew' },
-        { id: 'load-arabic-sans', family: 'Noto Sans Arabic' },
-        { id: 'load-arabic-kufi', family: 'Noto Kufi Arabic' },
-        { id: 'load-arabic-naskh', family: 'Noto Naskh Arabic' },
-        { id: 'load-urdu-nastaliq', family: 'Noto Nastaliq Urdu' },
-        { id: 'load-emoji', family: 'Noto Color Emoji' },
-        { id: 'load-icons', family: 'Material Symbols Outlined' }
-    ];
+    // ============================================================
+    // FONT LOADING SCREEN — auto‑reverse scrolling list
+    // ============================================================
+    const fontList = document.getElementById('font-list-scroll');
+    const loadingScreen = document.getElementById('loading-screen');
+    const tofuNotice = document.getElementById('tofu-notice');
+    const fontCount = 18; // UPDATED: includes Noto Sans Math
+    const scrollSpeed = 0.8;
+    let pos = 0;
+    let direction = 1; // 1 = down, -1 = up
+    const itemHeight = 44;
+    const viewHeight = 140;
+    const totalHeight = fontCount * itemHeight;
+    const scrollRange = Math.max(0, totalHeight - viewHeight);
 
-    async function checkFont(font) {
-        try {
-            await document.fonts.load('1em "' + font.family + '"');
-            if (document.fonts.check('1em "' + font.family + '"')) {
-                const el = document.getElementById(font.id);
-                if (el) el.classList.add('loaded');
-            }
-        } catch (e) { /* skip gracefully on network error */ }
+    function animateList() {
+        if (scrollRange > 0) {
+            pos += scrollSpeed * direction;
+            if (pos >= scrollRange) { pos = scrollRange; direction = -1; }
+            else if (pos <= 0) { pos = 0; direction = 1; }
+            fontList.style.transform = `translateY(-${pos}px)`;
+        }
+        requestAnimationFrame(animateList);
     }
+    animateList();
 
-    Promise.all(fontChecks.map(checkFont)).then(() => {
+    // Reveal site & hide tofu notice once ALL fonts fully loaded
+    document.fonts.ready.then(() => {
         setTimeout(() => {
-            const screen = document.getElementById('loading-screen');
-            if (screen) screen.classList.add('hidden');
+            loadingScreen.classList.add('hidden');
+            tofuNotice.style.display = 'none'; // Hide tofu warning once ready
         }, 600);
     });
 
-    // --- PAGE NAVIGATION SYSTEM ---
-    const navButtons = document.querySelectorAll('.nav-btn');
+    // ============================================================
+    // PAGE NAVIGATION
+    // ============================================================
+    const navButtons = document.querySelectorAll('.nav-btn[data-page]');
     const pages = document.querySelectorAll('.page');
 
     navButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            const targetPage = this.getAttribute('data-page');
+        btn.addEventListener('click', () => {
+            const targetPage = btn.dataset.page;
+            if (!targetPage) return;
             navButtons.forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            pages.forEach(pg => {
-                pg.classList.toggle('active', pg.id === targetPage);
-            });
+            pages.forEach(p => p.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById(targetPage)?.classList.add('active');
         });
     });
 
-    // --- THEME SWITCHER WITH PERSISTENT SAVE ---
-    const themeButtons = document.querySelectorAll('.theme-btn');
+    // ============================================================
+    // THEME SWITCHER — with localStorage persistence
+    // ============================================================
+    const themeSelect = document.getElementById('theme-select');
     const DEFAULT_THEME = 'light';
 
-    function applyTheme(themeName) {
-        document.documentElement.setAttribute('data-theme', themeName);
-        localStorage.setItem('clarity-theme', themeName);
-        themeButtons.forEach(b => {
-            b.classList.toggle('active', b.getAttribute('data-theme') === themeName);
-        });
+    function applyTheme(name) {
+        document.documentElement.removeAttribute('data-theme');
+        if (name !== 'light') {
+            document.documentElement.setAttribute('data-theme', name);
+        }
+        localStorage.setItem('clarity-theme', name);
+        themeSelect.value = name;
     }
 
     const savedTheme = localStorage.getItem('clarity-theme') || DEFAULT_THEME;
     applyTheme(savedTheme);
 
-    themeButtons.forEach(btn => {
-        btn.addEventListener('click', function () {
-            applyTheme(this.getAttribute('data-theme'));
-        });
+    themeSelect.addEventListener('change', () => {
+        applyTheme(themeSelect.value);
     });
 
-    // --- FONT COMMAND PARSER ---
-    const commandMap = {
-        '/serif': 'font-serif',
-        '/sansserif': 'font-sansserif',
-        '/monospace': 'font-monospace',
-        '/armenian-sans': 'font-armenian-sans',
-        '/armenian-serif': 'font-armenian-serif',
-        '/hebrew-sans': 'font-hebrew-sans',
-        '/hebrew-serif': 'font-hebrew-serif',
-        '/rashi': 'font-rashi',
-        '/arabic': 'font-arabic-naskh',
-        '/kufi': 'font-arabic-kufi',
-        '/urdu': 'font-urdu-nastaliq',
-        '/emoji': 'font-emoji',
-        '/noemoji': 'font-sansserif',
-        '/normal': 'font-sansserif'
+    // ============================================================
+    // COMMAND PARSER — axis-aware with name mapping & clamping
+    // Math font is fixed at wght=400; commands have no effect on it
+    // ============================================================
+    const commandInput = document.getElementById('command-input');
+    const commandOutput = document.getElementById('command-output');
+
+    const WEIGHT_MAP = {
+        thin: 100, extralight: 200, light: 300, regular: 400,
+        medium: 500, semibold: 600, bold: 700, extrabold: 800, black: 900
     };
+    const WIDTH_MAP = {
+        extracondensed: 62.5, condensed: 75, semicondensed: 87.5, normal: 100
+    };
+    const VALID_WGHT = [100,200,300,400,500,600,700,800,900];
+    const VALID_WDTH = [62.5,75,87.5,100];
+    const DEFAULTS = { wght: 400, wdth: 100, ital: 0 };
 
-    document.querySelectorAll('.font-render').forEach(el => {
-        let html = el.textContent;
-        Object.keys(commandMap).forEach(cmd => {
-            const cls = commandMap[cmd];
-            const regex = new RegExp(escapeRegExp(cmd) + '\\s*([\\s\\S]*?)(?=(?:' + Object.keys(commandMap).map(escapeRegExp).join('|') + ')|$)', 'g');
-            html = html.replace(regex, '<span class="' + cls + '">$1</span>');
-        });
-        el.innerHTML = html;
-    });
+    function parseCommands(input) {
+        let wght = DEFAULTS.wght;
+        let wdth = DEFAULTS.wdth;
+        let ital = DEFAULTS.ital;
+        let text = input;
 
-    function escapeRegExp(s) {
-        return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        if (/\/normal\b/i.test(input)) {
+            return { ...DEFAULTS, text: input.replace(/\/normal\b/gi, '').trim() };
+        }
+
+        const wghtMatch = input.match(/\/wght\s+([A-Za-z]+|\d+)/i);
+        if (wghtMatch) {
+            const raw = wghtMatch[1].toLowerCase();
+            let val = parseInt(raw,10) || WEIGHT_MAP[raw];
+            if (VALID_WGHT.includes(val)) wght = val;
+        }
+
+        const wdthMatch = input.match(/\/wdth\s+([A-Za-z]+|[\d.]+)/i);
+        if (wdthMatch) {
+            const raw = wdthMatch[1].toLowerCase();
+            let val = parseFloat(raw) || WIDTH_MAP[raw];
+            if (VALID_WDTH.includes(val)) wdth = val;
+        }
+
+        const italMatch = input.match(/\/ital\s+(enable|disable)/i);
+        if (italMatch) ital = italMatch[1].toLowerCase() === 'enable' ? 1 : 0;
+
+        text = text.replace(/\/normal\b/gi, '')
+            .replace(/\/wght\s+([A-Za-z]+|\d+)/gi, '')
+            .replace(/\/wdth\s+([A-Za-z]+|[\d.]+)/gi, '')
+            .replace(/\/ital\s+(enable|disable)/gi, '')
+            .trim();
+
+        return { wght, wdth, ital, text: text || ' ' };
     }
+
+    function updateOutput() {
+        const styles = parseCommands(commandInput.value);
+        commandOutput.style.setProperty('--dyn-wght', styles.wght);
+        commandOutput.style.setProperty('--dyn-wdth', styles.wdth);
+        commandOutput.style.setProperty('--dyn-ital', styles.ital);
+        commandOutput.style.fontVariationSettings =
+            `"wght" ${styles.wght}, "wdth" ${styles.wdth}, "ital" ${styles.ital}`;
+        commandOutput.textContent = styles.text;
+    }
+
+    commandInput.addEventListener('input', updateOutput);
+    updateOutput();
 });
 </script>
 
