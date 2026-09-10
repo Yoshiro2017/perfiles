@@ -17,9 +17,8 @@
 
     <style>
 /* ============================================================
-   CLARITY · v1.5 · MIT License
-   Full Markdown: Headings · Lists · Links · Bold=wght700
-   Command-only fonts · No system fonts · Math last
+   CLARITY · v1.6 · MIT License
+   Features: Display fonts · Extended Serif chains · Markdown
    ============================================================ */
 
 :root {
@@ -142,9 +141,8 @@
 
 /* ============================================================
    FALLBACK RULES:
-   • Arabic → Sans = Noto Sans Arabic | Serif = Noto Naskh Arabic
-   • Rashi/Kufi/Nastaliq → ONLY via explicit command — NEVER in fallback
-   • Math always LAST before Emoji
+   • Core fonts FIRST → Scripts → Mono → Math → Emoji LAST
+   • Display fonts first when using /sansdisplay or /serifdisplay
    ============================================================ */
 
 body {
@@ -152,9 +150,9 @@ body {
         'Noto Sans', 'Noto Sans Display',
         'Noto Serif', 'Noto Serif Display',
         'Noto Sans Devanagari', 'Noto Serif Devanagari',
-        'Noto Sans Arabic', 'Noto Naskh Arabic',
-        'Noto Sans Hebrew', 'Noto Serif Hebrew',
         'Noto Sans Armenian', 'Noto Serif Armenian',
+        'Noto Sans Hebrew', 'Noto Serif Hebrew',
+        'Noto Sans Arabic', 'Noto Naskh Arabic',
         'Noto Sans Deseret', 'Noto Sans Duployan', 'Noto Sans Sundanese',
         'Noto Serif Dives Akuru', 'Noto Serif Tangut',
         'Noto Sans Mono',
@@ -168,43 +166,68 @@ body {
     transition: background-color var(--transition), color var(--transition);
 }
 
-/* ── Editor Font Classes ──────────────────────────────────── */
+/* ── Font Command Classes ───────────────────────────────────── */
 
-/* /normal → full fallback chain — NO Rashi/Kufi/Nastaliq */
+/* /normal → full chain */
 .font-normal {
     font-family:
         'Noto Sans', 'Noto Sans Display',
         'Noto Serif', 'Noto Serif Display',
         'Noto Sans Devanagari', 'Noto Serif Devanagari',
-        'Noto Sans Arabic', 'Noto Naskh Arabic',
-        'Noto Sans Hebrew', 'Noto Serif Hebrew',
         'Noto Sans Armenian', 'Noto Serif Armenian',
+        'Noto Sans Hebrew', 'Noto Serif Hebrew',
+        'Noto Sans Arabic', 'Noto Naskh Arabic',
         'Noto Sans Deseret', 'Noto Sans Duployan', 'Noto Sans Sundanese',
         'Noto Serif Dives Akuru', 'Noto Serif Tangut',
         'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
 }
 
-/* /serif → Serif chain — Naskh Arabic = Arabic Serif style */
+/* /serif → extended with Serif scripts */
 .font-serif {
     font-family:
         'Noto Serif', 'Noto Serif Display',
-        'Noto Naskh Arabic',
         'Noto Serif Devanagari',
-        'Noto Serif Hebrew',
         'Noto Serif Armenian',
-        'Noto Serif Dives Akuru', 'Noto Serif Tangut',
+        'Noto Serif Hebrew',
+        'Noto Naskh Arabic',
+        'Noto Sans Devanagari',
+        'Noto Sans Armenian',
+        'Noto Sans Hebrew',
         'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
 }
 
-/* /sansserif → Sans chain — Noto Sans Arabic = Arabic Sans style */
+/* /sansdisplay → Noto Sans Display FIRST */
+.font-sansdisplay {
+    font-family:
+        'Noto Sans Display',
+        'Noto Sans',
+        'Noto Sans Devanagari',
+        'Noto Sans Armenian',
+        'Noto Sans Hebrew',
+        'Noto Sans Arabic',
+        'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+}
+
+/* /serifdisplay → Noto Serif Display FIRST */
+.font-serifdisplay {
+    font-family:
+        'Noto Serif Display',
+        'Noto Serif',
+        'Noto Serif Devanagari',
+        'Noto Serif Armenian',
+        'Noto Serif Hebrew',
+        'Noto Naskh Arabic',
+        'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
+}
+
+/* /sansserif & /sans-serif → Noto Sans first */
 .font-sans {
     font-family:
         'Noto Sans', 'Noto Sans Display',
-        'Noto Sans Arabic',
         'Noto Sans Devanagari',
-        'Noto Sans Hebrew',
         'Noto Sans Armenian',
-        'Noto Sans Deseret', 'Noto Sans Duployan', 'Noto Sans Sundanese',
+        'Noto Sans Hebrew',
+        'Noto Sans Arabic',
         'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
 }
 
@@ -213,26 +236,18 @@ body {
     font-family: 'Noto Sans Mono', 'Noto Sans Math', 'Noto Color Emoji';
 }
 
-/* ── EXCLUSIVE COMMAND-ONLY FONTS ────────────────────────────
-   These fonts are NOT in any fallback chain.
-   They ONLY activate when explicitly called by their command.
-*/
-
-/* /rashi — Rashi Hebrew */
+/* ── EXCLUSIVE COMMAND-ONLY FONTS ──────────────────────────── */
+/* These ONLY activate via explicit command — never in fallback */
 .font-rashi {
     font-family: 'Noto Rashi Hebrew', 'Noto Serif', 'Noto Serif Display',
                  'Noto Sans Math', 'Noto Color Emoji';
 }
-
-/* /kufi — Kufi Arabic */
 .font-kufi {
     font-family: 'Noto Kufi Arabic', 'Noto Sans', 'Noto Sans Display',
                  'Noto Sans Math', 'Noto Color Emoji';
 }
-
-/* /nastaliq — Nastaliq Urdu */
 .font-nastaliq {
-    font-family: 'Noto Nastaliq Urdu', 'Noto Serif', 'Noto Serif Display',
+    font-family: 'Noto Nastaliq Urdu', 'Noto Naskh Arabic', 'Noto Serif',
                  'Noto Sans Math', 'Noto Color Emoji';
 }
 
@@ -392,11 +407,12 @@ li { margin: 0.5rem 0; }
             <div>Noto Sans</div><div>Noto Serif</div>
             <div>Noto Sans Display</div><div>Noto Serif Display</div>
             <div>Noto Sans Devanagari</div><div>Noto Serif Devanagari</div>
+            <div>Noto Sans Armenian</div><div>Noto Serif Armenian</div>
+            <div>Noto Sans Hebrew</div><div>Noto Serif Hebrew</div>
             <div>Noto Sans Arabic</div><div>Noto Naskh Arabic</div>
             <div>Noto Kufi Arabic</div><div>Noto Nastaliq Urdu</div>
-            <div>Noto Sans Hebrew</div><div>Noto Serif Hebrew</div><div>Noto Rashi Hebrew</div>
-            <div>Noto Sans Armenian</div><div>Noto Serif Armenian</div>
-            <div>Noto Sans Deseret</div><div>Noto Sans Duployan</div><div>Noto Sans Sundanese</div>
+            <div>Noto Rashi Hebrew</div><div>Noto Sans Deseret</div>
+            <div>Noto Sans Duployan</div><div>Noto Sans Sundanese</div>
             <div>Noto Serif Dives Akuru</div><div>Noto Serif Tangut</div>
             <div>Noto Sans Mono</div><div>Noto Sans Math</div><div>Noto Color Emoji</div>
         </div>
@@ -453,11 +469,11 @@ li { margin: 0.5rem 0; }
 
     <h2>Font Style Rules</h2>
     <ul>
-        <li><strong>Arabic Sans:</strong> Noto Sans Arabic — used automatically in <code>/sansserif</code> mode</li>
-        <li><strong>Arabic Serif:</strong> Noto Naskh Arabic — used automatically in <code>/serif</code> mode</li>
-        <li><strong>Rashi Hebrew:</strong> ONLY via <code>/rashi</code> command — never in fallback</li>
-        <li><strong>Kufi Arabic:</strong> ONLY via <code>/kufi</code> command — never in fallback</li>
-        <li><strong>Nastaliq Urdu:</strong> ONLY via <code>/nastaliq</code> command — never in fallback</li>
+        <li><strong>/serif:</strong> Noto Serif + <em>Serif Devanagari · Serif Armenian · Serif Hebrew</em> · Naskh Arabic (Serif Arabic)</li>
+        <li><strong>/sansdisplay:</strong> Noto Sans Display FIRST — ideal for titles and headings</li>
+        <li><strong>/serifdisplay:</strong> Noto Serif Display FIRST — elegant display headings</li>
+        <li><strong>/sansserif / /sans-serif:</strong> Noto Sans + Noto Sans Arabic</li>
+        <li><strong>Rashi/Kufi/Nastaliq:</strong> ONLY via command — never in fallback chains</li>
     </ul>
 
     <h2>Markdown Reference</h2>
@@ -465,14 +481,14 @@ li { margin: 0.5rem 0; }
         <li><code># Heading</code> · <code>## Heading</code> · <code>### Heading</code> · <code>#### Heading</code> — styled headings</li>
         <li><code>- item</code> or <code>* item</code> → bullet list</li>
         <li><code>1. item</code> → numbered list</li>
-        <li><code>[Link Text](url)</code> → clickable link</li>
+        <li><code>[Link Text](url)</code> → clickable link (opens new tab)</li>
         <li><code>**bold**</code> → weight 700 · <code>*italic*</code> → italic · <code>***bold-italic***</code> → both</li>
         <li><code>`code`</code> → monospace · <code>~~strike~~</code> → strikethrough</li>
         <li>All Markdown is <strong>fully reversible</strong> — text returns to normal after block ends</li>
     </ul>
 
     <h2>Complete Fallback Order</h2>
-    <p>Sans → Serif → Devanagari → <u>Arabic Sans / Naskh Serif</u> → Hebrew → Armenian → Deseret → Duployan → Sundanese → Dives Akuru → Tangut → Mono → <u>Math</u> → Emoji</p>
+    <p>Sans → Serif → Devanagari → Armenian → Hebrew → Arabic → other scripts → Mono → <u>Math</u> → Emoji</p>
     <p style="height: 80vh;"></p>
     <p>All content extends page length to demonstrate rendering across long text blocks.</p>
     <p style="height: 40vh;"></p>
@@ -481,12 +497,23 @@ li { margin: 0.5rem 0; }
 <!-- TYPOGRAPHY PAGE -->
 <div id="typography" class="page">
     <h1>Typography &amp; Font Descriptions</h1>
-    <h2>Exclusive Command‑Only Fonts</h2>
-    <p><strong>Rashi Hebrew, Kufi Arabic, Nastaliq Urdu</strong> are special calligraphic styles that do NOT belong to the regular Sans or Serif fallback chains. They will <em>only</em> appear when explicitly activated by their command. This prevents them from being selected accidentally and ensures Arabic text uses the correct font (Sans or Naskh) by default.</p>
+    <h2>Serif Scripts Now Included</h2>
+    <p>The <code>/serif</code> command now explicitly includes:</p>
+    <ul>
+        <li><strong>Noto Serif Devanagari</strong> — traditional serif Devanagari</li>
+        <li><strong>Noto Serif Armenian</strong> — traditional serif Armenian</li>
+        <li><strong>Noto Serif Hebrew</strong> — traditional serif Hebrew</li>
+        <li><strong>Noto Naskh Arabic</strong> — traditional calligraphic Arabic serif</li>
+    </ul>
 
-    <h2>Arabic Has Two Styles</h2>
-    <p><strong>Sans‑Serif Arabic:</strong> Noto Sans Arabic — modern, clean, used in <code>/sansserif</code> mode</p>
-    <p><strong>Serif Arabic:</strong> Noto Naskh Arabic — traditional, calligraphic, used in <code>/serif</code> mode</p>
+    <h2>Display Font Commands</h2>
+    <ul>
+        <li><strong>/sansdisplay</strong> → Noto Sans Display loads FIRST — best for titles, page headers, large text</li>
+        <li><strong>/serifdisplay</strong> → Noto Serif Display loads FIRST — elegant, high-contrast serif for headings</li>
+    </ul>
+
+    <h2>Command-Only Fonts</h2>
+    <p><strong>Rashi Hebrew, Kufi Arabic, Nastaliq Urdu</strong> are special calligraphic styles that do NOT belong to the regular Sans or Serif fallback chains. They will <em>only</em> appear when explicitly activated by their command.</p>
     <p style="height: 80vh;"></p>
     <p>Noto Sans Math remains at the very end of the chain — it will never break Arabic or any script.</p>
     <p style="height: 40vh;"></p>
@@ -497,8 +524,8 @@ li { margin: 0.5rem 0; }
     <h1>Supported Writing Systems</h1>
     <h2>Arabic Family</h2>
     <ul>
-        <li><strong>Noto Sans Arabic</strong> — Sans style, automatic in /sansserif</li>
-        <li><strong>Noto Naskh Arabic</strong> — Serif style, automatic in /serif</li>
+        <li><strong>Noto Sans Arabic</strong> — Sans style, automatic in /sansserif / /sans-serif / /sansdisplay</li>
+        <li><strong>Noto Naskh Arabic</strong> — Serif style, automatic in /serif / /serifdisplay</li>
         <li><strong>Noto Kufi Arabic</strong> — Geometric, ONLY via /kufi</li>
         <li><strong>Noto Nastaliq Urdu</strong> — Urdu calligraphic, ONLY via /nastaliq</li>
     </ul>
@@ -507,8 +534,13 @@ li { margin: 0.5rem 0; }
         <li><strong>Noto Sans/Serif Hebrew</strong> — automatic in respective modes</li>
         <li><strong>Noto Rashi Hebrew</strong> — Rashi script, ONLY via /rashi</li>
     </ul>
+    <h2>Indic &amp; Other Scripts</h2>
+    <ul>
+        <li><strong>Devanagari</strong> — Sans + Serif variants in matching font commands</li>
+        <li><strong>Armenian</strong> — Sans + Serif variants in matching font commands</li>
+    </ul>
     <p style="height: 80vh;"></p>
-    <p>Command‑only fonts are excluded from general fallback to preserve correct typographic defaults.</p>
+    <p>Command-only fonts are excluded from general fallback to preserve correct typographic defaults.</p>
     <p style="height: 40vh;"></p>
 </div>
 
@@ -518,37 +550,39 @@ li { margin: 0.5rem 0; }
     <p>Type text below. Commands change font style and are <strong>invisible</strong> in preview. Markdown is fully reversible.</p>
 
     <div class="command-container">
-        <textarea id="editor-input" class="command-input" rows="12" placeholder="/normal # Heading Level 1
-## Heading Level 2
-- Bullet item one
-- Bullet item two
-1. Numbered item one
-2. Numbered item two
-[Visit Clarity](https://example.com)
-**Bold text (wght 700)** normal text">/normal # Main Heading
-## Sub Heading
-- Bullet list item one
-- Bullet list item two
-- Bullet list item three
-1. Numbered list item one
-2. Numbered list item two
-3. Numbered list item three
+        <textarea id="editor-input" class="command-input" rows="14" placeholder="/sansdisplay # Sans Display Heading
+## Subheading in Display Style
+- Clean modern look
+- Perfect for titles
+/normal
 
-[Example Link](https://example.com) — links open in new tab
+/serifdisplay # Serif Display Heading
+- Elegant traditional style
+/normal
 
-**Bold text** returns normal
-*Italic text* returns normal
-***Bold-Italic text*** returns normal
-`code style` returns normal
-~~strikethrough~~ returns normal
+/serif ## Serif Text with Scripts
+- Devanagari · Armenian · Hebrew all in Serif
+**Bold text** works too
+[Example Link](https://example.com)
+/normal Back to normal">/sansdisplay # Sans Display Heading
+## Modern Clean Headings
+- Best for page titles
+- Variable weight & italic
+/normal
 
-/serif ## Serif Heading
-- **Serif Bold Item**
-- *Serif Italic Item*
-- [Serif Link](https://example.com)
-/normal Back to normal</textarea>
+/serifdisplay # Serif Display Heading
+## Elegant Traditional Headings
+- High contrast serif style
+/normal
+
+/serif ## Serif Text
+- Devanagari · Armenian · Hebrew in Serif
+- **Bold** · *Italic* · [Link](https://example.com)
+- `code sample` · ~~strikethrough~~
+/normal Back to normal text</textarea>
         <div id="editor-output" class="command-output"></div>
         <div class="command-help">
+            <strong>Font Commands:</strong> /normal · /serif · /sansserif · /sans-serif · /sansdisplay · /serifdisplay · /monospace · /rashi · /kufi · /nastaliq · /emoji · /noemoji<br>
             <strong>Headings:</strong> # H1 · ## H2 · ### H3 · #### H4<br>
             <strong>Lists:</strong> - item / * item → bullet · 1. item → numbered<br>
             <strong>Links:</strong> [Link Text](url) → opens in new tab<br>
@@ -566,13 +600,6 @@ li { margin: 0.5rem 0; }
         <li>All Markdown works together with font commands: <code>/serif ## Serif Heading</code></li>
     </ul>
 
-    <h2>Command Reference</h2>
-    <ul>
-        <li><strong>/serif</strong> → Serif fonts + Noto Naskh Arabic (Arabic Serif)</li>
-        <li><strong>/sansserif</strong> → Sans fonts + Noto Sans Arabic (Arabic Sans)</li>
-        <li><strong>/rashi /kufi /nastaliq</strong> → ONLY activate via command — never used automatically</li>
-        <li><strong>/emoji</strong> → enable emoji · <strong>/noemoji</strong> → remove emoji from font chain</li>
-    </ul>
     <p style="height: 80vh;"></p>
     <p>Commands apply to all text that follows until another command. Commands are hidden in preview output.</p>
     <p style="height: 40vh;"></p>
@@ -583,10 +610,10 @@ li { margin: 0.5rem 0; }
     <h1>Axis Commands</h1>
     <p>Adjust weight, width, and italics for variable fonts. Markdown bold overrides axis weight when both are used.</p>
     <div class="command-container">
-        <input type="text" id="command-input" class="command-input" placeholder="/wght 700 **Bold via both methods**">
+        <input type="text" id="command-input" class="command-input" placeholder="/wght 700 /wdth 75 /ital enable Bold condensed italic text">
         <div id="command-output" class="command-output">Type commands above…</div>
         <div class="command-help">
-            <code>/wght 100–900</code> · <code>/wdth 62.5–100</code> · <code>/ital enable|disable</code> · <code>/normal</code> reset
+            <code>/wght 100–900</code> or name (bold=700) · <code>/wdth 62.5–100</code> or name · <code>/ital enable|disable</code> · <code>/normal</code> reset
         </div>
     </div>
     <p style="height: 80vh;"></p>
@@ -614,30 +641,44 @@ li { margin: 0.5rem 0; }
 
     <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What new commands are available?</span>
+            <span class="material-symbols-outlined">expand_more</span>
+        </div>
+        <div class="faq-a">
+            <strong>/sansdisplay</strong> — Noto Sans Display loads first, best for titles<br>
+            <strong>/serifdisplay</strong> — Noto Serif Display loads first, elegant headings<br>
+            <strong>/sans-serif</strong> — alias for /sansserif, both work identically
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
+            <span>What was added to /serif command?</span>
+            <span class="material-symbols-outlined">expand_more</span>
+        </div>
+        <div class="faq-a">
+            <strong>Noto Serif Devanagari, Noto Serif Armenian, Noto Serif Hebrew</strong> are now explicitly placed early in the /serif font chain. This ensures Devanagari, Armenian, and Hebrew text renders in serif style alongside Latin and Arabic serif text.
+        </div>
+    </div>
+
+    <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
             <span>Why are Rashi/Kufi/Nastaliq only available via command?</span>
             <span class="material-symbols-outlined">expand_more</span>
         </div>
-        <div class="faq-a">These are calligraphic, decorative styles — not general‑purpose Sans or Serif. If placed in fallback chains, they would interfere with standard Arabic/Hebrew text. They are intentionally excluded from /serif and /sansserif so normal text uses the correct font automatically.</div>
+        <div class="faq-a">These are calligraphic, decorative styles — not general‑purpose Sans or Serif. If placed in fallback chains, they would interfere with normal Arabic/Hebrew text. They are intentionally excluded so normal text uses the correct font automatically.</div>
     </div>
 
     <div class="faq-item">
         <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>Does Arabic have both Sans and Serif?</span>
-            <span class="material-symbols-outlined">expand_more</span>
-        </div>
-        <div class="faq-a">Yes. <strong>Noto Sans Arabic</strong> is used in /sansserif mode. <strong>Noto Naskh Arabic</strong> is used in /serif mode — Naskh is the traditional serif‑style Arabic calligraphy.</div>
-    </div>
-
-    <div class="faq-item">
-        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">
-            <span>What Markdown is supported and is it reversible?</span>
+            <span>What Markdown is supported?</span>
             <span class="material-symbols-outlined">expand_more</span>
         </div>
         <div class="faq-a"><strong>Headings:</strong> # H1, ## H2, ### H3, #### H4<br>
         <strong>Lists:</strong> bullet (-/*) and numbered (1.)<br>
-        <strong>Links:</strong> [text](url)<br>
+        <strong>Links:</strong> [text](url) — opens in new tab<br>
         <strong>Inline:</strong> **bold(wght700)**, *italic*, ***bold-italic***, `code`, ~~strike~~<br>
-        <em>All Markdown is fully reversible — text returns to base style automatically after newline or end.</em></div>
+        <em>All Markdown is fully reversible — text returns to base style automatically.</em></div>
     </div>
 
     <p style="height: 80vh;"></p>
@@ -716,6 +757,9 @@ document.addEventListener('DOMContentLoaded', function () {
         '/normal': 'font-normal',
         '/serif': 'font-serif',
         '/sansserif': 'font-sans',
+        '/sans-serif': 'font-sans',
+        '/sansdisplay': 'font-sansdisplay',
+        '/serifdisplay': 'font-serifdisplay',
         '/monospace': 'font-monospace',
         '/rashi': 'font-rashi',
         '/kufi': 'font-kufi',
@@ -799,80 +843,103 @@ document.addEventListener('DOMContentLoaded', function () {
         let currentClass = 'font-normal';
         let emojiEnabled = true;
         const parts = [];
-        const commandRegex = /(\/(?:normal|serif|sansserif|monospace|rashi|kufi|nastaliq|emoji|noemoji))/gi;
+        const commandRegex = /(\/(?:normal|serif|sansserif|sans-serif|sansdisplay|serifdisplay|monospace|rashi|kufi|nastaliq|emoji|noemoji))/gi;
         const segments = input.split(commandRegex).filter(seg => seg !== undefined);
 
         for (const seg of segments) {
-            const cmd = seg.trim().toLowerCase();
-            if (FONT_COMMANDS[cmd]) {
-                if (cmd === '/emoji') emojiEnabled = true;
-                else if (cmd === '/noemoji') emojiEnabled = false;
-                else currentClass = FONT_COMMANDS[cmd];
-            } else if (seg.length > 0) {
-                const styled = applyMarkdownBlock(seg);
-                const emojiClass = emojiEnabled ? '' : ' no-emoji';
-                parts.push(`<div class="${currentClass}${emojiClass}">${styled}</div>`);
-            }
-        }
-        return parts.join('');
+    const cmd = seg.trim().toLowerCase();
+    if (FONT_COMMANDS[cmd]) {
+        if (cmd === '/emoji') emojiEnabled = true;
+        else if (cmd === '/noemoji') emojiEnabled = false;
+        else currentClass = FONT_COMMANDS[cmd];
+    } else if (seg.length > 0) {
+        const styled = applyMarkdownBlock(seg);
+        const emojiClass = emojiEnabled ? '' : ' no-emoji';
+        parts.push(`<div class="${currentClass}${emojiClass}">${styled}</div>`);
+    }
+}
+return parts.join('\n');
+}
+
+function updateEditorOutput() {
+    editorOutput.innerHTML = parseInlineCommands(editorInput.value);
+}
+
+if (editorInput && editorOutput) {
+    editorInput.addEventListener('input', updateEditorOutput);
+    updateEditorOutput();
+}
+
+// ── AXIS COMMANDS ─────────────────────────────────────────────
+const commandInput = document.getElementById('command-input');
+const commandOutputAxis = document.getElementById('command-output');
+
+const WEIGHT_MAP = {
+    thin: 100,
+    extralight: 200,
+    light: 300,
+    regular: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    extrabold: 800,
+    black: 900
+};
+const WIDTH_MAP = {
+    extracondensed: 62.5,
+    condensed: 75,
+    semicondensed: 87.5,
+    normal: 100
+};
+const VALID_WGHT = [100, 200, 300, 400, 500, 600, 700, 800, 900];
+const VALID_WDTH = [62.5, 75, 87.5, 100];
+const DEFAULTS = { wght: 400, wdth: 100, ital: 0 };
+
+function parseAxisCommands(input) {
+    let wght = DEFAULTS.wght,
+        wdth = DEFAULTS.wdth,
+        ital = DEFAULTS.ital,
+        text = input;
+
+    if (/\/normal\b/i.test(input)) {
+        return { ...DEFAULTS, text: input.replace(/\/normal\b/gi, '').trim() };
     }
 
-    function updateEditorOutput() {
-        editorOutput.innerHTML = parseInlineCommands(editorInput.value);
+    const wm = input.match(/\/wght\s+([A-Za-z]+|\d+)/i);
+    if (wm) {
+        const v = parseInt(wm[1], 10) || WEIGHT_MAP[wm[1].toLowerCase()];
+        if (VALID_WGHT.includes(v)) wght = v;
     }
 
-    if (editorInput && editorOutput) {
-        editorInput.addEventListener('input', updateEditorOutput);
-        updateEditorOutput();
+    const dm = input.match(/\/wdth\s+([A-Za-z]+|[\d.]+)/i);
+    if (dm) {
+        const v = parseFloat(dm[1]) || WIDTH_MAP[dm[1].toLowerCase()];
+        if (VALID_WDTH.includes(v)) wdth = v;
     }
 
-    // ── Axis Command Parser ──────────────────────────────────────
-    const commandInput = document.getElementById('command-input');
-    const commandOutputAxis = document.getElementById('command-output');
+    const im = input.match(/\/ital\s+(enable|disable)/i);
+    if (im) ital = im[1].toLowerCase() === 'enable' ? 1 : 0;
 
-    const WEIGHT_MAP = { thin:100, extralight:200, light:300, regular:400, medium:500, semibold:600, bold:700, extrabold:800, black:900 };
-    const WIDTH_MAP = { extracondensed:62.5, condensed:75, semicondensed:87.5, normal:100 };
-    const VALID_WGHT = [100,200,300,400,500,600,700,800,900];
-    const VALID_WDTH = [62.5,75,87.5,100];
-    const DEFAULTS = { wght:400, wdth:100, ital:0 };
+    text = text.replace(/\/normal\b/gi, '')
+               .replace(/\/wght\s+([A-Za-z]+|\d+)/gi, '')
+               .replace(/\/wdth\s+([A-Za-z]+|[\d.]+)/gi, '')
+               .replace(/\/ital\s+(enable|disable)/gi, '')
+               .trim();
 
-    function parseAxisCommands(input) {
-        let wght = DEFAULTS.wght, wdth = DEFAULTS.wdth, ital = DEFAULTS.ital, text = input;
-        if (/\/normal\b/i.test(input)) return { ...DEFAULTS, text: input.replace(/\/normal\b/gi,'').trim() };
+    return { wght, wdth, ital, text: text || ' ' };
+}
 
-        const wm = input.match(/\/wght\s+([A-Za-z]+|\d+)/i);
-        if (wm) {
-            const v = parseInt(wm[1],10) || WEIGHT_MAP[wm[1].toLowerCase()];
-            if (VALID_WGHT.includes(v)) wght = v;
-        }
+function updateAxisOutput() {
+    const s = parseAxisCommands(commandInput.value);
+    commandOutputAxis.style.fontVariationSettings =
+        `"wght" ${s.wght}, "wdth" ${s.wdth}, "ital" ${s.ital}`;
+    commandOutputAxis.textContent = s.text;
+}
 
-        const dm = input.match(/\/wdth\s+([A-Za-z]+|[\d.]+)/i);
-        if (dm) {
-            const v = parseFloat(dm[1]) || WIDTH_MAP[dm[1].toLowerCase()];
-            if (VALID_WDTH.includes(v)) wdth = v;
-        }
-
-        const im = input.match(/\/ital\s+(enable|disable)/i);
-        if (im) ital = im[1].toLowerCase() === 'enable' ? 1 : 0;
-
-        text = text.replace(/\/normal\b/gi,'')
-                   .replace(/\/wght\s+([A-Za-z]+|\d+)/gi,'')
-                   .replace(/\/wdth\s+([A-Za-z]+|[\d.]+)/gi,'')
-                   .replace(/\/ital\s+(enable|disable)/gi,'')
-                   .trim();
-        return { wght, wdth, ital, text: text || ' ' };
-    }
-
-    function updateAxisOutput() {
-        const s = parseAxisCommands(commandInput.value);
-        commandOutputAxis.style.fontVariationSettings = `"wght" ${s.wght}, "wdth" ${s.wdth}, "ital" ${s.ital}`;
-        commandOutputAxis.textContent = s.text;
-    }
-
-    if (commandInput && commandOutputAxis) {
-        commandInput.addEventListener('input', updateAxisOutput);
-        updateAxisOutput();
-    }
+if (commandInput && commandOutputAxis) {
+    commandInput.addEventListener('input', updateAxisOutput);
+    updateAxisOutput();
+}
 });
 </script>
 
