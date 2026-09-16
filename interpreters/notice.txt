@@ -1,1 +1,1 @@
-The interpreters here are in Python.
+The interpreters here are in Python. These are to run the files in the helloworld folder in Termux and computers.
