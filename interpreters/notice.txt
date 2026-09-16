@@ -1,1 +1,1 @@
-The interpreters here are compatible with Termux. These are to run the files in the helloworld folder in Termux and computers.
+The interpreters here are in non-esolangs. These are to run the files in the helloworld folder and a few more in Termux and computers.
