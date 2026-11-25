@@ -1,0 +1,242 @@
+/* ===== FONT CLASSES ===== */
+.ubuntu-light { font-family: "Ubuntu", sans-serif; font-weight: 300; font-style: normal; }
+.ubuntu-regular { font-family: "Ubuntu", sans-serif; font-weight: 400; font-style: normal; }
+.ubuntu-medium { font-family: "Ubuntu", sans-serif; font-weight: 500; font-style: normal; }
+.ubuntu-bold { font-family: "Ubuntu", sans-serif; font-weight: 700; font-style: normal; }
+.ubuntu-mono-regular { font-family: "Ubuntu Mono", monospace; font-weight: 400; font-style: normal; }
+.ubuntu-mono-bold { font-family: "Ubuntu Mono", monospace; font-weight: 700; font-style: normal; }
+.ubuntu-condensed-regular { font-family: "Ubuntu Condensed", sans-serif; font-weight: 400; font-style: normal; }
+
+/* ===== BASE ===== */
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { font-size: 14px; }
+body {
+  background: #300a24;
+  color: #fff;
+  min-height: 100vh;
+  padding: 1rem;
+  line-height: 1.7;
+  font-family: "Ubuntu", sans-serif;
+}
+.container { max-width: 720px; margin: 0 auto; }
+
+/* ===== NO JS WARNING ===== */
+.no-js-warning {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 80vh;
+  text-align: center;
+  padding: 2rem;
+}
+.no-js-box {
+  background: #241f31;
+  padding: 2rem;
+  border-radius: 12px;
+  border: 2px solid #e94560;
+  max-width: 400px;
+}
+.no-js-box h2 { color: #e94560; margin-bottom: 1rem; }
+.no-js-box p { opacity: 0.8; }
+.with-js-content { display: none; }
+
+/* ===== HEADINGS & EXPLANATION ===== */
+h1 {
+  font-family: "Ubuntu Condensed", sans-serif;
+  font-size: 1.8rem;
+  color: #ff79c6;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+h2 {
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 1.15rem;
+  color: #8be9fd;
+  margin: 1.5rem 0 0.75rem;
+}
+.explanation {
+  background: #241f31;
+  padding: 1.25rem;
+  border-radius: 12px;
+  margin-bottom: 1.5rem;
+  border-left: 3px solid #8be9fd;
+}
+.highlight { color: #f1fa8c; }
+.reason-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+.reason-card {
+  background: rgba(61, 56, 70, 0.5);
+  padding: 0.85rem;
+  border-radius: 8px;
+}
+.comparison-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+}
+.comparison-table th, .comparison-table td {
+  padding: 0.6rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.comparison-table th { color: #8be9fd; }
+
+/* ===== KEYBOARD SHARED ===== */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 0.75rem;
+  background: #2c2c2c;
+  border-radius: 12px;
+  margin: 0.75rem 0;
+  touch-action: manipulation;
+}
+.row { display: flex; gap: 3px; justify-content: center; width: 100%; }
+.key {
+  flex: 0 0 9.5%;
+  height: 40px;
+  background: linear-gradient(180deg, #444, #333);
+  color: #fff;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Ubuntu", sans-serif;
+  font-weight: 500;
+  font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 2px 0 #222;
+  user-select: none;
+}
+.key:active, .key.active {
+  transform: translateY(2px);
+  box-shadow: 0 0 0 #222;
+  background: #555;
+}
+.key.small { flex: 0 0 11%; max-width: 42px; font-size: 0.7rem; }
+.key.bs { flex: 0 0 14%; max-width: 55px; font-size: 0.75rem; }
+.key.enter { flex: 0 0 16%; max-width: 62px; font-size: 0.7rem; }
+.key.shift { flex: 0 0 22%; max-width: 85px; font-size: 0.7rem; }
+.key.space { flex: 0 0 60%; max-width: 200px; font-size: 0.75rem; }
+
+/* ===== TYPEWRITER ===== */
+.typewriter-section {
+  background: #3a2f23;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 3px solid #5c4a38;
+}
+.typewriter-title {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 0.9rem;
+  color: #d4b98c;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
+.paper-window {
+  background: #f5f0e1;
+  border-radius: 4px;
+  padding: 1rem;
+  min-height: 80px;
+  margin-bottom: 0.75rem;
+  position: relative;
+  overflow: hidden;
+}
+.paper-text {
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 1rem;
+  color: #2b2b2b;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.cursor-blink {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: #2b2b2b;
+  animation: blink 0.7s step-end infinite;
+  vertical-align: text-bottom;
+}
+@keyframes blink { 50% { opacity: 0; } }
+.speed-warning {
+  background: rgba(233, 69, 96, 0.15);
+  border: 1px solid #e94560;
+  color: #ffb3c1;
+  padding: 0.5rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  display: none;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 0.85rem;
+  text-align: center;
+}
+.jam-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.75);
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffb3c1;
+  font-family: "Ubuntu Mono", monospace;
+  text-align: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+.jam-overlay.show { display: flex; }
+.reset-btn {
+  background: #57e389;
+  color: #1a202c;
+  border: none;
+  padding: 0.5rem 1.25rem;
+  border-radius: 6px;
+  font-family: "Ubuntu", sans-serif;
+  cursor: pointer;
+}
+.wpm-display {
+  text-align: center;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 0.9rem;
+  color: #d4b98c;
+  margin-bottom: 0.5rem;
+}
+
+/* ===== MODERN KEYBOARD ===== */
+.monitor-section {
+  background: #1e1e2e;
+  padding: 1rem;
+  border-radius: 12px;
+  margin: 1.5rem 0;
+  border: 3px solid #45475a;
+}
+.screen-display {
+  background: #181825;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 0.75rem;
+  min-height: 60px;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1rem;
+  color: #cdd6f4;
+  border: 2px solid #313244;
+  word-break: break-all;
+}
+.stats-bar {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+  font-family: "Ubuntu Mono", monospace;
+  font-size: 0.85rem;
+}
+.stat-value { color: #a6e3a1; font-weight: 700; }
+    
