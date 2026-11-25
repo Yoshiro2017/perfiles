@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why QWERTY Exists</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu+Condensed&family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <noscript>
+    <div class="no-js-warning">
+      <div class="no-js-box">
+        <h2>⚠️ JavaScript Required</h2>
+        <p class="ubuntu-regular">This interactive keyboard demo needs JavaScript to work properly. Please enable JavaScript and reload.</p>
+      </div>
+    </div>
+  </noscript>
+
+  <div class="with-js-content" id="mainContent">
+    <div class="container">
+      <h1>⌨️ Why Does QWERTY Exist?</h1>
+
+      <div class="explanation">
+        <p class="ubuntu-regular">
+          QWERTY wasn't made for speed — it was made to 
+          <span class="ubuntu-bold highlight">PREVENT JAMS</span>. ⚙️
+        </p>
+        <div class="reason-grid">
+          <div class="reason-card">
+            <p class="ubuntu-medium">The Problem</p>
+            <p class="ubuntu-light">Early typewriters jammed when typing fast. Common letters were too close together!</p>
+          </div>
+          <div class="reason-card">
+            <p class="ubuntu-medium">The Fix</p>
+            <p class="ubuntu-light">Christopher Sholes spread common letters apart. Slower = fewer jams.</p>
+          </div>
+          <div class="reason-card">
+            <p class="ubuntu-medium">The Legacy</p>
+            <p class="ubuntu-light">Everyone learned it. Now we're stuck with it — since 1873!</p>
+          </div>
+        </div>
+
+        <h2>ABC vs QWERTY</h2>
+        <table class="comparison-table">
+          <tr><th>ABCDEF</th><th>QWERTY</th></tr>
+          <tr><td>Alphabetical</td><td>Deliberately mixed</td></tr>
+          <tr><td>Jams easily</td><td>Designed to slow you down</td></tr>
+          <tr><td>Logical but impractical</td><td>Inefficient but universal</td></tr>
+        </table>
+      </div>
+
+      <!-- 🖨️ TYPEWRITER -->
+      <div class="typewriter-section">
+        <h2 style="text-align:center;color:#d4b98c;margin-top:0;">🖨️ Vintage Typewriter — ABC Layout</h2>
+        <p class="typewriter-title">Go faster than 40 WPM → KEYS JAM!</p>
+        
+        <div class="paper-window" id="paperWindow">
+          <span class="paper-text" id="paperText"></span>
+          <span class="cursor-blink"></span>
+          <div class="jam-overlay" id="jamOverlay">
+            <div>⚠️ JAMMED!</div>
+            <p>You typed too fast — the metal arms got stuck!</p>
+            <button class="reset-btn" onclick="resetTypewriter()">🔧 Reset</button>
+          </div>
+        </div>
+        
+        <div class="speed-warning" id="speedWarning">⚡ Slow down! Keys sticking...</div>
+        <div class="wpm-display">WPM: <span id="twWpm">0</span> / 40 max</div>
+        
+        <div class="keyboard abc-board" id="abcBoard">
+          <div class="row">
+            <div class="key" data-char="A">A</div>
+            <div class="key" data-char="B">B</div>
+            <div class="key" data-char="C">C</div>
+            <div class="key" data-char="D">D</div>
+            <div class="key" data-char="E">E</div>
+            <div class="key" data-char="F">F</div>
+            <div class="key" data-char="G">G</div>
+            <div class="key" data-char="H">H</div>
+            <div class="key" data-char="I">I</div>
+            <div class="key" data-char="J">J</div>
+          </div>
+          <div class="row">
+            <div class="key small">⇥</div>
+            <div class="key" data-char="K">K</div>
+            <div class="key" data-char="L">L</div>
+            <div class="key" data-char="M">M</div>
+            <div class="key" data-char="N">N</div>
+            <div class="key" data-char="O">O</div>
+            <div class="key" data-char="P">P</div>
+            <div class="key" data-char="Q">Q</div>
+            <div class="key" data-char="R">R</div>
+            <div class="key bs" data-action="backspace">⌫</div>
+          </div>
+          <div class="row">
+            <div class="key small">⇪</div>
+            <div class="key" data-char="S">S</div>
+            <div class="key" data-char="T">T</div>
+            <div class="key" data-char="U">U</div>
+            <div class="key" data-char="V">V</div>
+            <div class="key" data-char="W">W</div>
+            <div class="key" data-char="X">X</div>
+            <div class="key" data-char="Y">Y</div>
+            <div class="key enter" data-action="enter">↵</div>
+          </div>
+          <div class="row">
+            <div class="key" data-char="Z">Z</div>
+            <div class="key space" data-char=" ">SPACE</div>
+            <div class="key small">⇧</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 🖥️ MODERN KEYBOARD -->
+      <div class="monitor-section">
+        <h2 style="text-align:center;color:#cba6f7;margin-top:0;">🖥️ Modern Keyboard — QWERTY</h2>
+        
+        <div class="screen-display" id="screenDisplay">
+          <span id="screenText">Start typing...</span>
+          <span class="cursor-blink"></span>
+        </div>
+        
+        <div class="stats-bar">
+          <div>WPM: <span class="stat-value" id="wpm">0</span></div>
+          <div>Chars: <span class="stat-value" id="chars">0</span></div>
+          <div>Time: <span class="stat-value" id="time">0:00</span></div>
+        </div>
+        
+        <div class="keyboard qwerty-board" id="qwertyBoard">
+          <div class="row">
+            <div class="key" data-char="Q">Q</div>
+            <div class="key" data-char="W">W</div>
+            <div class="key" data-char="E">E</div>
+            <div class="key" data-char="R">R</div>
+            <div class="key" data-char="T">T</div>
+            <div class="key" data-char="Y">Y</div>
+            <div class="key" data-char="U">U</div>
+            <div class="key" data-char="I">I</div>
+            <div class="key" data-char="O">O</div>
+            <div class="key" data-char="P">P</div>
+            <div class="key bs" data-action="backspace">⌫</div>
+          </div>
+          <div class="row">
+            <div class="key small">⇥</div>
+            <div class="key" data-char="A">A</div>
+            <div class="key" data-char="S">S</div>
+            <div class="key" data-char="D">D</div>
+            <div class="key" data-char="F">F</div>
+            <div class="key" data-char="G">G</div>
+            <div class="key" data-char="H">H</div>
+            <div class="key" data-char="J">J</div>
+            <div class="key" data-char="K">K</div>
+            <div class="key" data-char="L">L</div>
+            <div class="key enter" data-action="enter">↵</div>
+          </div>
+          <div class="row">
+            <div class="key small">⇪</div>
+            <div class="key" data-char="Z">Z</div>
+            <div class="key" data-char="X">X</div>
+            <div class="key" data-char="C">C</div>
+            <div class="key" data-char="V">V</div>
+            <div class="key" data-char="B">B</div>
+            <div class="key" data-char="N">N</div>
+            <div class="key" data-char="M">M</div>
+            <div class="key shift">⇧</div>
+          </div>
+          <div class="row">
+            <div class="key space" data-char=" ">SPACE</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
